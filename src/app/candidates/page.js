@@ -1,7 +1,6 @@
 import Image from "next/image"
-import Link from "next/link"
 
-const Home = () => {
+const Candidates = () => {
   return (
     <main className="font-oswald  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
       <div className="text-[64px] w-full text-center pb-6 text-bold">
@@ -24,13 +23,9 @@ const Home = () => {
           <div className="pb-10">{"Manage upto 100 candidates using our basic plan"}</div>
           <div className="pb-10">{"Easily search through all your candidate data"}</div>
           <div>{"Try it for free"}</div>
-          <Link href="/dashboard">
-            <button
-              className="bg-bold hover:bg-dark text-white text-[56px] font-bold rounded pt-0 pb-2 px-10 mt-[79px]"
-              >
-              {"Login with Google"}
-            </button>
-          </Link>
+          <button className="bg-bold hover:bg-dark text-white text-[56px] font-bold rounded pt-0 pb-2 px-10 mt-[79px]">
+            {"Login with Dashboard"}
+          </button>
         </div>
       </div>
       <div className="w-hero flex mx-auto">
@@ -45,4 +40,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Candidates
