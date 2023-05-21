@@ -14,16 +14,16 @@ pnpm dev
 ## Project setup checklist
 
 ### FE
-* App runs with yarn dev
+* ~App runs with yarn dev~
 * Sentry (for bugs and logging) setup
 * NextAuth Setup
 * DB dump setup in FE for BE testing
 * Local storage setup
-* Connectivity to BE
+* Connectivity to BE with SSL
 * Analytics setup
 
 ### BE
 * GRPC server setup
-* HTTPS support
+* SSL support
 * DB testing support
 * Sentry (for bugs and logging) setup
