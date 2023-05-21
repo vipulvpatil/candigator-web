@@ -2,6 +2,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+Setup ENV vars as recommended below
+Sample `.env` file
+
+```
+NEXT_PUBLIC_SENTRY_DSN=https://1234...
+```
+
 First, run the development server:
 
 ```bash
@@ -15,7 +22,7 @@ pnpm dev
 
 ### FE
 * ~App runs with yarn dev~
-* Sentry (for bugs and logging) setup
+* ~Sentry (for bugs and logging) setup~
 * NextAuth Setup
 * DB dump setup in FE for BE testing
 * Local storage setup
