@@ -26,7 +26,7 @@ pnpm dev
 * ~NextAuth Setup~
 * ~DB setup with NextAuth~
 * DB dump setup in FE for BE testing
-* Local storage setup
+* ~Local storage setup.~ *Not used in this project yet.*
 * Connectivity to BE with SSL
 * Analytics setup
 
