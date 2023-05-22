@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+import LoginButton from "./loginButton"
 
 const Home = () => {
   return (
@@ -24,13 +24,7 @@ const Home = () => {
           <div className="pb-10">{"Manage upto 100 candidates using our basic plan"}</div>
           <div className="pb-10">{"Easily search through all your candidate data"}</div>
           <div>{"Try it for free"}</div>
-          <Link href="/dashboard">
-            <button
-              className="bg-bold hover:bg-dark text-white text-[56px] font-bold rounded pt-0 pb-2 px-10 mt-[79px]"
-              >
-              {"Login with Google"}
-            </button>
-          </Link>
+          <LoginButton/>
         </div>
       </div>
       <div className="w-hero flex mx-auto">

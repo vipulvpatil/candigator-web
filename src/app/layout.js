@@ -1,4 +1,5 @@
 import "./globals.css"
+import {NextAuthProvider} from "./AuthProvider"
 import {Oswald} from "next/font/google"
 
 const oswald = Oswald({
@@ -17,7 +18,11 @@ export const metadata = {
 export default function RootLayout({children}) {
   return (
     <html lang="en">
-      <body className={oswald.variable}>{children}</body>
+      <body className={oswald.variable}>
+        <NextAuthProvider>
+          {children}
+        </NextAuthProvider>
+      </body>
     </html>
   )
 }

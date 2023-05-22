@@ -1,8 +1,10 @@
 import Image from "next/image"
+import LoggedInUser from "./loggedInUser"
 
 const Candidates = () => {
   return (
     <main className="font-oswald  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
+      <LoggedInUser/>
       <div className="text-[64px] w-full text-center pb-6 text-bold">
         {"Candidate Tracker"}
       </div>
