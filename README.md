@@ -23,8 +23,8 @@ pnpm dev
 ### FE
 * ~App runs with yarn dev~
 * ~Sentry (for bugs and logging) setup~
-* NextAuth Setup
-* DB setup with NextAuth
+* ~NextAuth Setup~
+* ~DB setup with NextAuth~
 * DB dump setup in FE for BE testing
 * Local storage setup
 * Connectivity to BE with SSL
