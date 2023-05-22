@@ -18,6 +18,7 @@ yarn dev
 # or
 pnpm dev
 ```
+
 ## Project setup checklist
 
 ### FE
@@ -31,7 +32,8 @@ pnpm dev
 * Analytics setup
 
 ### BE
-* GRPC server setup
-* SSL support
-* DB testing support
-* Sentry (for bugs and logging) setup
+* ~GRPC server setup~
+* ~Local SSL support~
+* ~DB testing support~
+* ~Sentry (for bugs and logging) setup~
+* Remote SSL support
