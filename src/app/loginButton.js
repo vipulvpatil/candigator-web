@@ -4,7 +4,6 @@ import Link from "next/link"
 
 const LoginButton = () => {
   const session = useSession()
-  console.log(session)
 
   let nextButton = null
 
