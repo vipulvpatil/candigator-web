@@ -25,7 +25,7 @@ pnpm dev
 * ~Sentry (for bugs and logging) setup~
 * ~NextAuth Setup~
 * ~DB setup with NextAuth~
-* DB dump setup in FE for BE testing
+* ~DB dump setup in FE for BE testing~
 * ~Local storage setup.~ *Not used in this project yet.*
 * Connectivity to BE with SSL
 * Analytics setup
