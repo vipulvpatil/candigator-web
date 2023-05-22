@@ -39,3 +39,8 @@ next-env.d.ts
 
 # Sentry
 next.config.original.js
+
+# V.P. ignored
+certs/
+*database_schema_test.sql
+.swc*
