@@ -1,3 +1,4 @@
+import "server-only"
 import ErrorChecker from "@/lib/common/error_checker"
 import {Metadata} from "@grpc/grpc-js"
 import {grpcServiceClient} from "./client"
