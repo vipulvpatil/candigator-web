@@ -24,7 +24,9 @@ const checkConnection = async (userEmail) => {
     return
   }
   const md = metadataWithRequestingUserEmail(userEmail)
-  const checkConnectionRequest = {}
+  const checkConnectionRequest = {
+    UserEmail: userEmail
+  }
   return await grpcServiceClient().checkConnection(
     checkConnectionRequest, md
   ).then((checkConnectionResponse) => {
