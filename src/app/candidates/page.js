@@ -1,22 +1,12 @@
-import GrpcService from "@/lib/grpc/service"
 import Image from "next/image"
 import LoggedInUser from "./loggedInUser"
-import {authOptions} from "@/app/api/auth/[...nextauth]/route"
-import {getServerSession} from "next-auth"
-
-const checkConnectionWithGrpc = async () => {
-  const session = await getServerSession(authOptions)
-  if(session && session.user && session.user.email) {
-    const text = await GrpcService.checkConnection(session.user.email)
-    console.log(text)
-  }
-}
+import StatusBox from "@/app/status_box"
 
 async function Candidates() {
-  await checkConnectionWithGrpc()
   return (
     <main className="font-oswald  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
       <LoggedInUser />
+      <StatusBox/>
       <div className="text-[64px] w-full text-center pb-6 text-bold">
         {"Candidate Tracker"}
       </div>

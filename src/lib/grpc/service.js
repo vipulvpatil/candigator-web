@@ -28,9 +28,10 @@ const checkConnection = async (userEmail) => {
   return await grpcServiceClient().checkConnection(
     checkConnectionRequest, md
   ).then((checkConnectionResponse) => {
-    return checkConnectionResponse
+    return checkConnectionResponse.ConnectionStatus
   }).catch((err) => {
     handleGrpcError(err)
+    return err.details
   })
 }
 

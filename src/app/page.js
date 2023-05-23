@@ -1,5 +1,5 @@
 import Image from "next/image"
-import LoginButton from "./loginButton"
+import LoginButton from "./login_button"
 
 const Home = () => {
   return (
