@@ -15,7 +15,7 @@ export const metadata = {
   description: "Track all your candidate resumes easily",
 }
 
-export default function RootLayout({children}) {
+const RootLayout = ({children}) => {
   return (
     <html lang="en">
       <body className={oswald.variable}>
@@ -26,3 +26,5 @@ export default function RootLayout({children}) {
     </html>
   )
 }
+
+export default RootLayout

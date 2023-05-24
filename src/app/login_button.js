@@ -10,14 +10,14 @@ const LoginButton = () => {
   const loginButton = (
     <button
       className="bg-bold hover:bg-dark text-white text-[56px] font-bold rounded pt-0 pb-2 px-10 mt-[79px]"
-      onClick={()=>{signIn("google", {callbackUrl: "/candidates"})}}
+      onClick={()=>{signIn("google", {callbackUrl: "/dashboard"})}}
     >
       {"Login with Google"}
     </button>
   )
 
   const continueButton = (
-     <Link href="/candidates">
+     <Link href="/dashboard">
       <button
         className="bg-bold hover:bg-dark text-white text-[56px] font-bold rounded pt-0 pb-2 px-10 mt-[79px]"
       >

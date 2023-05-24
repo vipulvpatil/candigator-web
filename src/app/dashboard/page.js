@@ -3,10 +3,10 @@ import SignInButton from "./sign_in_button"
 import SignOutButton from "./sign_out_button"
 import StatusBox from "@/app/status_box"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
-import {getSession} from "next-auth/react"
+import {getServerSession} from "next-auth"
 
-const Candidates = async () => {
-  const session = await getSession(authOptions)
+const Dashboard = async () => {
+  const session = await getServerSession(authOptions)
   if (!session){
     return <div>
       <SignInButton/>
@@ -54,4 +54,4 @@ const Candidates = async () => {
   )
 }
 
-export default Candidates
+export default Dashboard
