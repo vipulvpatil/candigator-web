@@ -1,11 +1,7 @@
 "use client"
-import {signOut, useSession} from "next-auth/react"
+import {signOut} from "next-auth/react"
 
-const LoggedInUser = () => {
-  useSession({
-    required: true,
-  })
-
+const SignOutButton = () => {
   return (
     <div>
       <button
@@ -17,4 +13,4 @@ const LoggedInUser = () => {
   )
 }
 
-export default LoggedInUser
+export default SignOutButton

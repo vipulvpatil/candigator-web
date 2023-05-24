@@ -1,11 +1,21 @@
 import Image from "next/image"
-import LoggedInUser from "./loggedInUser"
+import SignInButton from "./sign_in_button"
+import SignOutButton from "./sign_out_button"
 import StatusBox from "@/app/status_box"
+import {authOptions} from "@/app/api/auth/[...nextauth]/route"
+import {getSession} from "next-auth/react"
 
-async function Candidates() {
+const Candidates = async () => {
+  const session = await getSession(authOptions)
+  if (!session){
+    return <div>
+      <SignInButton/>
+    </div>
+  }
+
   return (
     <main className="font-oswald  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
-      <LoggedInUser />
+      <SignOutButton />
       <StatusBox/>
       <div className="text-[64px] w-full text-center pb-6 text-bold">
         {"Candidate Tracker"}
