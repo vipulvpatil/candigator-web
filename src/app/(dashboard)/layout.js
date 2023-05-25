@@ -1,3 +1,4 @@
+import Footer from "./footer"
 import Header from "./header"
 import Menu from "./menu"
 import SignInButton from "./sign_in_button"
@@ -17,10 +18,11 @@ const DashboardLayout = async ({children}) => {
   return (
     <main className="font-oswald w-full h-screen">
       <Header/>
-      <div className="h-full flex flex-row pt-[84px] mt-[-84px]">
+      <div className="h-full flex flex-row pt-[84px] mt-[-84px] pb-[28px] mb-[-28px]">
         <Menu />
         {children}
       </div>
+      <Footer/>
     </main>
   )
 }
