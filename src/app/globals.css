@@ -15,3 +15,8 @@ body {
 input[type="radio"]:checked+label {
   @apply bg-bold text-white;
 }
+
+svg {
+  width: 100%;
+  display: inline;
+}
