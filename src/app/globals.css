@@ -12,6 +12,6 @@ body {
   background: rgb(var(--background-end-rgb));
 }
 
-input[type="radio"]:checked + label {
+input[type="radio"]:checked+label {
   @apply bg-bold text-white;
 }

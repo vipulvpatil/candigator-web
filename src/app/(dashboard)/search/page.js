@@ -1,13 +1,13 @@
 import PageTitle from "@/app/(dashboard)/page_title"
 import StatusBox from "@/app/status_box"
 
-const Candidates = () => {
+const Search = () => {
   return (
     <>
-      <PageTitle title="Candidates"/>
+      <PageTitle title="Search"/>
       <StatusBox/>
     </>
   )
 }
 
-export default Candidates
+export default Search

@@ -1,14 +1,18 @@
-const MenuButton = ({title}) => {
+import Link from "next/link"
+
+const MenuButton = ({title,  selected}) => {
+  let displayClass = "text-black hover:text-bold hover:bg-subtle/20 cursor-pointer"
+
+  if (selected) {
+    displayClass = "text-white bg-bold"
+  }
+
   return (
-    <button>
-      <input class="hidden" type="radio" id={title} name="menuItem" />
-      <label
-        className="block text-[24px] font-normal text-left text-black hover:text-bold hover:bg-subtle/20 cursor-pointer"
-        for={title}
-      >
+    <Link href={`/${title}`}>
+      <label className={`block text-[24px] font-normal text-left ${displayClass}`}>
         {title}
       </label>
-    </button>
+    </Link>
   )
 }
 
