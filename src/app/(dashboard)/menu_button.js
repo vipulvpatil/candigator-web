@@ -1,18 +1,18 @@
 import Link from "next/link"
 
 const MenuButton = ({title,  selected, icon}) => {
-  let displayClass = "text-black fill-black hover:text-bold hover:bg-subtle/20 hover:fill-bold cursor-pointer"
+  let displayClass = "text-black fill-black font-normal hover:text-bold hover:bg-subtle/20 hover:fill-bold cursor-pointer"
 
   if (selected) {
     displayClass = "text-white bg-bold fill-white"
   }
 
   return (
-    <Link href={`/${title}`} className={`block text-[24px] font-normal text-left py-1 ${displayClass}`}>
-      <div className="p-2 inline-flex align-middle w-[46px]">
+    <Link href={`/${title}`} className={`block text-[24px] font-normal text-left px-2 ${displayClass}`}>
+      <div className="inline-flex align-middle w-[34px]">
         {icon}
       </div>
-      <div className="inline-flex align-middle fixed">
+      <div className="pl-1 inline-flex align-middle relative top-[-3px]">
         {title}
       </div>
     </Link>
