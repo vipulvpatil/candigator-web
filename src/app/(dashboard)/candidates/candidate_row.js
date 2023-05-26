@@ -1,4 +1,4 @@
-const CandidateRow = ({candidate, selected, setSelectedCandidate}) => {
+const CandidateRow = ({candidate, selected, setSelectedCandidateId}) => {
   let textColor = null
   let bgColor = null
   let hoverWrapper = "wrapperForHover"
@@ -12,7 +12,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidate}) => {
     <div
       className={`contents cursor-pointer ${hoverWrapper}`}
       onClick={() => {
-        setSelectedCandidate(candidate.id)
+        setSelectedCandidateId(candidate.id)
       }}
     >
       <div className={`
