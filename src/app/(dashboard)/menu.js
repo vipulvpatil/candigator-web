@@ -11,7 +11,7 @@ import {useSelectedLayoutSegment} from "next/navigation"
 const Menu = () => {
   const segment = useSelectedLayoutSegment()
   return (
-    <div className="border-solid border-subtle border-r-2 w-[165px] flex flex-col">
+    <div className="border-solid border-subtle border-r-2 w-[165px] flex-none flex flex-col">
       <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
       <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
       <div className="flex-grow"/>
