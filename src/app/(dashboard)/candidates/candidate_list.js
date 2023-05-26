@@ -1,11 +1,9 @@
 import CandidateRow from "./candidate_row"
 
-const CandidateList = ({rows}) => {
-  console.log(rows)
-  return rows.map((row, i) => {
-    console.log(row)
+const CandidateList = ({candidates}) => {
+  return candidates.map((candidate, i) => {
     return (
-      <CandidateRow key={i} row_id={i}/>
+      <CandidateRow key={i} candidate={candidate}/>
     )
   })
 }
