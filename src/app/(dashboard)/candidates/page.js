@@ -15,10 +15,10 @@ const Candidates = async () => {
 
   return (
     <>
-      <div className="inline-flex align-middle w-[44px] fill-black/70 relative top-[-19px] left-[-4px]">
+      <div className="inline-flex align-middle w-[44px] fill-black/50 relative top-[-19px] left-[-4px]">
         <CandidatesIcon/>
       </div>
-      <div className="inline-flex text-[32px] font-regular text-black/70 relative top-[-9px] left-[-4px]">
+      <div className="inline-flex text-[32px] font-regular text-black/50 relative top-[-9px] left-[-4px]">
         {candidateList.length} candidates in total
       </div>
       <div className="grid grid-cols-7 border-t-[1px] border-subtle">
@@ -45,7 +45,7 @@ const getCandidateListFor = async (userEmail) => {
 
       return [...Array(count)].map((value, i) => {
         const candidate = dummy_candidate_list[i%dummy_candidate_list.length]
-        return candidate
+        return Object.assign({id: i}, candidate)
       })
     }
   )

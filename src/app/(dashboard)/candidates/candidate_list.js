@@ -1,9 +1,19 @@
+"use client"
+
 import CandidateRow from "./candidate_row"
+import {useState} from "react"
 
 const CandidateList = ({candidates}) => {
-  return candidates.map((candidate, i) => {
+  const [selectedCandidate, setSelectedCandidate] = useState(null)
+
+  return candidates.map((candidate) => {
     return (
-      <CandidateRow key={i} candidate={candidate}/>
+      <CandidateRow
+        key={candidate.id}
+        candidate={candidate}
+        selected={selectedCandidate === candidate.id}
+        setSelectedCandidate={setSelectedCandidate}
+      />
     )
   })
 }

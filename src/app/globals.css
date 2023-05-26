@@ -17,6 +17,6 @@ svg {
   display: inline;
 }
 
-.rowWrapper:hover>div {
+.wrapperForHover:hover>div {
   @apply text-bold bg-subtle/20
 }
