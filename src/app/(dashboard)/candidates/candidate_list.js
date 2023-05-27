@@ -1,21 +1,20 @@
 "use client"
 
-import {useEffect, useRef, useState} from "react"
+import {useEffect, useState} from "react"
 import CandidateDetails from "./candidate_details"
 import CandidateRow from "./candidate_row"
 
 const CandidateList = ({candidates}) => {
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
-  const selectedCandidate = useRef()
+  const [selectedCandidate, setSelectedCandidate] = useState(null)
 
   useEffect(() => {
     // TODO: This is inefficient. Make it better
     candidates.forEach(candidate => {
       if(candidate.id === selectedCandidateId) {
-        selectedCandidate.current = candidate
+        setSelectedCandidate(candidate)
       }
     })
-    console.log(selectedCandidate.current)
   }, [selectedCandidateId, candidates])
 
   const candidateRows = candidates.map((candidate) => {
@@ -29,7 +28,7 @@ const CandidateList = ({candidates}) => {
 
   return <>
     {candidateRows}
-    <CandidateDetails candidate={selectedCandidate.current}/>
+    <CandidateDetails candidate={selectedCandidate}/>
   </>
 }
 
