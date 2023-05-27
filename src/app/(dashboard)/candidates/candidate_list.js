@@ -10,11 +10,13 @@ const CandidateList = ({candidates}) => {
 
   useEffect(() => {
     // TODO: This is inefficient. Make it better
+    let matchedCandidate = null
     candidates.forEach(candidate => {
       if(candidate.id === selectedCandidateId) {
-        setSelectedCandidate(candidate)
+        matchedCandidate = candidate
       }
     })
+    setSelectedCandidate(matchedCandidate)
   }, [selectedCandidateId, candidates])
 
   const candidateRows = candidates.map((candidate) => {
@@ -28,7 +30,7 @@ const CandidateList = ({candidates}) => {
 
   return <>
     {candidateRows}
-    <CandidateDetails candidate={selectedCandidate}/>
+    <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
   </>
 }
 
