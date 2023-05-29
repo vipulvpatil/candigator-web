@@ -1,12 +1,10 @@
 import CloseIcon from "@/icons/close"
 
 const CandidateDetails = ({candidate, onClose}) => {
-  console.log("begin")
   if (!candidate) {
     return <></>
   }
 
-  console.log("what")
   return (
     <div
       className="

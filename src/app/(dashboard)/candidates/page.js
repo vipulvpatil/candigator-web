@@ -2,6 +2,7 @@ import AddCandidateIcon from "@/icons/add_candidate"
 import CandidateList from "./candidate_list"
 import CandidatesIcon from "@/icons/candidates"
 import GrpcService from "@/lib/grpc/service"
+import PageNumbers from "@/components/page_numbers"
 import StatusBox from "@/app/status_box"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
@@ -41,6 +42,7 @@ const Candidates = async () => {
         </div>
         <CandidateList candidates={candidateList}/>
       </div>
+      <PageNumbers/>
       <StatusBox/>
     </>
   )
