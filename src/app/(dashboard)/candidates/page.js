@@ -1,3 +1,4 @@
+import AddCandidateIcon from "@/icons/add_candidate"
 import CandidateList from "./candidate_list"
 import CandidatesIcon from "@/icons/candidates"
 import GrpcService from "@/lib/grpc/service"
@@ -15,13 +16,29 @@ const Candidates = async () => {
 
   return (
     <>
-      <div className="inline-flex align-middle w-[44px] fill-black/50 relative top-[-19px] left-[-4px]">
-        <CandidatesIcon/>
-      </div>
-      <div className="inline-flex text-[32px] font-regular text-black/50 relative top-[-9px] left-[-4px]">
-        {candidateList.length} candidates in total
-      </div>
-      <div className="grid grid-cols-7 border-t-[1px] border-subtle">
+      <div className="grid grid-cols-7">
+        <div className="col-span-2 border-b-[1px] border-subtle">
+          <div className="inline-flex align-middle w-[44px] fill-black/50 relative top-[-19px] left-[-4px]">
+            <CandidatesIcon/>
+          </div>
+          <div className="inline-flex text-[32px] font-regular text-black/50 relative top-[-9px] left-[-4px]">
+            {`${candidateList.length} candidates`}
+          </div>
+        </div>
+        <div className="col-span-4 border-b-[1px] border-subtle"></div>
+        <div className="col-span-1 border-b-[1px] border-subtle pl-1">
+          <button className="
+            bg-bold hover:bg-dark text-white text-[18px]
+            fill-white rounded p-[6px]
+          ">
+            <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+              <AddCandidateIcon/>
+            </div>
+            <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+              {"Add Candidate"}
+            </div>
+          </button>
+        </div>
         <CandidateList candidates={candidateList}/>
       </div>
       <StatusBox/>
