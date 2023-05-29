@@ -1,16 +1,31 @@
-const PageNumbers = () => {
-  const count = 5
-  const selected = 2
-  const numberDivs = [...Array(count)].map((v, i) => {return i+1}).map(pageNumber => {
-    return <PageNumber key={pageNumber} number={pageNumber} selected={pageNumber === selected}/>
+"use client"
+
+const PageNumbers = ({pageCount, selectedPage, pageSelected}) => {
+  const onPageSelected = (pageNumber) => () => {
+    pageSelected(pageNumber)
+  }
+
+  if (pageCount < 1) {
+    return <></>
+  }
+
+  const numberDivs = [...Array(pageCount)].map((v, i) => {return i+1}).map(pageNumber => {
+    return (
+      <PageNumber
+        key={pageNumber}
+        number={pageNumber}
+        selected={pageNumber === selectedPage}
+        handleClick={onPageSelected(pageNumber)}
+      />
+    )
   })
 
-  return <div className="py-6 last:mr-0 ">
+  return <div className="pt-6" >
     {numberDivs}
   </div>
 }
 
-const PageNumber = ({number, selected}) => {
+const PageNumber = ({number, selected, handleClick}) => {
   let assignedClass = ""
   if (selected) {
     assignedClass = "text-bold bg-subtle/20 border-[2px] border-bold"
@@ -18,12 +33,16 @@ const PageNumber = ({number, selected}) => {
     assignedClass = "text-black/50 bg-black/5"
   }
   return <>
-    <div className={`
-      inline-flex rounded-2xl w-12 h-12 mr-3
-      justify-center items-center
-      font-semibold text-[24px]
-      ${assignedClass}
-    `}>
+    <div
+      className={`
+        inline-flex rounded-2xl w-12 h-12 mr-3
+        justify-center items-center
+        font-semibold text-[24px]
+        cursor-pointer
+        ${assignedClass}
+      `}
+      onClick={handleClick}
+    >
       {number}
     </div>
   </>
