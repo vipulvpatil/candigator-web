@@ -59,7 +59,7 @@ const CandidateList = ({candidates}) => {
       <PageNumbers
         pageCount={pageCount}
         selectedPage={selectedPage}
-        pageSelected={(pageNumber) => {setSelectedPage(pageNumber)}}
+        handlePageSelected={(pageNumber) => {setSelectedPage(pageNumber)}}
       />
     </div>
     <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>

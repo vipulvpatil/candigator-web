@@ -1,15 +1,15 @@
 "use client"
 
-const PageNumbers = ({pageCount, selectedPage, pageSelected}) => {
+const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
   const onPageSelected = (pageNumber) => () => {
-    pageSelected(pageNumber)
+    handlePageSelected(pageNumber)
   }
 
   if (pageCount <= 1) {
     return <div className="inline-flex rounded-2xl w-12 h-12"></div>
   }
 
-  const numberDivs = [...Array(pageCount)].map((v, i) => {return i+1}).map(pageNumber => {
+  const numberDivs = [...Array(pageCount)].map((_v, i) => {return i+1}).map(pageNumber => {
     return (
       <PageNumber
         key={pageNumber}
