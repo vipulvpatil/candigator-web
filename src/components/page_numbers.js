@@ -16,6 +16,15 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
 
   let visiblePageCount = pageCount > MAX_VISIBLE_PAGE_COUNT ? MAX_VISIBLE_PAGE_COUNT : pageCount
 
+  const setVisiblePagesWindow = (firstPage) => {
+    if (selectedPage < firstPage) {
+      handlePageSelected(firstPage)
+    } else if (selectedPage > firstPage + MAX_VISIBLE_PAGE_COUNT - 1) {
+      handlePageSelected(firstPage + MAX_VISIBLE_PAGE_COUNT - 1)
+    }
+    setFirstVisiblePage(firstPage)
+  }
+
   const numberDivs = [...Array(visiblePageCount)].map((_v, i) => {return firstVisiblePage+i}).map(pageNumber => {
     return (
       <PageNumber
@@ -45,7 +54,7 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
           handleClick={
             ()=>{
               if(firstVisiblePage > 1) {
-                setFirstVisiblePage(1)
+                setVisiblePagesWindow(1)
               }
             }
           }
@@ -57,7 +66,7 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
           handleClick={
             ()=>{
               if(firstVisiblePage > 1) {
-                setFirstVisiblePage(
+                setVisiblePagesWindow(
                   Math.max(firstVisiblePage - MAX_VISIBLE_PAGE_COUNT, 1)
                 )
               }
@@ -77,7 +86,7 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
           handleClick={
             ()=>{
               if(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT < pageCount) {
-                setFirstVisiblePage(
+                setVisiblePagesWindow(
                   Math.min(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT, pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
                 )
               }
@@ -91,7 +100,7 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
           handleClick={
             ()=>{
               if(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT < pageCount) {
-                setFirstVisiblePage(pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
+                setVisiblePagesWindow(pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
               }
             }
           }
