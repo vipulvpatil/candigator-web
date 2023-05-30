@@ -72,7 +72,7 @@ const getCandidateListFor = async (userEmail) => {
   // This code will return default data until the GRPC Service function is defined.
   const func = GrpcService.getCandidateList || (
     () => {
-      const count = Math.floor(Math.random() * (35 - 12 + 1) + 12)
+      const count = 100 //Math.floor(Math.random() * (35 - 12 + 1) + 12)
 
       return [...Array(count)].map((value, i) => {
         const candidate = dummy_candidate_list[i%dummy_candidate_list.length]

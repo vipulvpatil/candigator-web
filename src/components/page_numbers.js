@@ -1,5 +1,7 @@
 "use client"
 
+const MAX_VISIBLE_PAGE_COUNT = 5
+
 const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
   const onPageSelected = (pageNumber) => () => {
     handlePageSelected(pageNumber)
@@ -9,7 +11,9 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
     return <div className="inline-flex rounded-2xl w-12 h-12"></div>
   }
 
-  const numberDivs = [...Array(pageCount)].map((_v, i) => {return i+1}).map(pageNumber => {
+  let visiblePageCount = pageCount > MAX_VISIBLE_PAGE_COUNT ? MAX_VISIBLE_PAGE_COUNT : pageCount
+
+  const numberDivs = [...Array(visiblePageCount)].map((_v, i) => {return i+1}).map(pageNumber => {
     return (
       <PageNumber
         key={pageNumber}
@@ -21,7 +25,23 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
   })
 
   return <div className="pt-6" >
+    {pageCount > MAX_VISIBLE_PAGE_COUNT &&
+      <PageNumber
+      key={"left"}
+      number={"<"}
+      selected={false}
+      handleClick={()=>{console.log("left clicked")}}
+    />
+    }
     {numberDivs}
+    {pageCount > MAX_VISIBLE_PAGE_COUNT &&
+      <PageNumber
+      key={"right"}
+      number={">"}
+      selected={false}
+      handleClick={()=>{console.log("right clicked")}}
+    />
+    }
   </div>
 }
 
