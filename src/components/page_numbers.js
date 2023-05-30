@@ -28,38 +28,82 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
   })
 
   return <div className="pt-6" >
-    {pageCount > MAX_VISIBLE_PAGE_COUNT &&
+    {selectedPage < firstVisiblePage &&
       <PageNumber
-      key={"left"}
-      number={"<"}
-      selected={false}
-      handleClick={
-        ()=>{
-          if(firstVisiblePage > 1) {
-            setFirstVisiblePage(
-              Math.max(firstVisiblePage - MAX_VISIBLE_PAGE_COUNT, 1)
-            )
+        number={selectedPage}
+        selected={true}
+        handleClick={()=>{}}
+      />
+    }
+    {pageCount > MAX_VISIBLE_PAGE_COUNT &&
+      firstVisiblePage > 1 &&
+      <>
+        <PageNumber
+          key={"left most"}
+          number={"<<"}
+          selected={false}
+          handleClick={
+            ()=>{
+              if(firstVisiblePage > 1) {
+                setFirstVisiblePage(1)
+              }
+            }
           }
-        }
-      }
-    />
+        />
+        <PageNumber
+          key={"left"}
+          number={"<"}
+          selected={false}
+          handleClick={
+            ()=>{
+              if(firstVisiblePage > 1) {
+                setFirstVisiblePage(
+                  Math.max(firstVisiblePage - MAX_VISIBLE_PAGE_COUNT, 1)
+                )
+              }
+            }
+          }
+        />
+      </>
     }
     {numberDivs}
     {pageCount > MAX_VISIBLE_PAGE_COUNT &&
-      <PageNumber
-      key={"right"}
-      number={">"}
-      selected={false}
-      handleClick={
-        ()=>{
-          if(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT - 1 < pageCount) {
-            setFirstVisiblePage(
-              Math.min(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT, pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
-            )
+      firstVisiblePage + MAX_VISIBLE_PAGE_COUNT < pageCount &&
+      <>
+        <PageNumber
+          key={"right"}
+          number={">"}
+          selected={false}
+          handleClick={
+            ()=>{
+              if(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT < pageCount) {
+                setFirstVisiblePage(
+                  Math.min(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT, pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
+                )
+              }
+            }
           }
-        }
-      }
-    />
+        />
+        <PageNumber
+          key={"right most"}
+          number={">>"}
+          selected={false}
+          handleClick={
+            ()=>{
+              if(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT < pageCount) {
+                setFirstVisiblePage(pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
+              }
+            }
+          }
+        />
+      </>
+    }
+    {selectedPage >= firstVisiblePage + MAX_VISIBLE_PAGE_COUNT &&
+      <PageNumber
+        number={selectedPage}
+        selected={true}
+        handleClick={()=>{}}
+      />
     }
   </div>
 }
