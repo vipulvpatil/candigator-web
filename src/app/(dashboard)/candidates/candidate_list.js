@@ -27,7 +27,14 @@ const CandidateList = ({candidates}) => {
 
   useEffect(() => {
     const initialIndex = (selectedPage-1) * CANDIDATES_PER_PAGE
-    setVisibleCandidates(candidates.slice(initialIndex, initialIndex+CANDIDATES_PER_PAGE))
+    let availableCadidates = candidates.slice(initialIndex, initialIndex+CANDIDATES_PER_PAGE)
+
+    let emptyCandidateCount = 0
+    while (availableCadidates.length < CANDIDATES_PER_PAGE) {
+      availableCadidates.push(emptyCandidateCount)
+      emptyCandidateCount = emptyCandidateCount + 1
+    }
+    setVisibleCandidates(availableCadidates)
   }, [selectedPage, candidates])
 
   if(!visibleCandidates || visibleCandidates.length === 0) {
@@ -36,12 +43,16 @@ const CandidateList = ({candidates}) => {
 
   return <>
     {visibleCandidates.map((candidate) => {
-      return <CandidateRow
+      if (candidate && candidate.id) {
+        return <CandidateRow
         key={candidate.id}
         candidate={candidate}
         selected={selectedCandidateId === candidate.id}
         setSelectedCandidateId={setSelectedCandidateId}
-      />
+        />
+      } else {
+        return <div key={`blank_${candidate}`} className="h-[51px] col-span-7"></div>
+      }
     })}
     <div className="col-span-4">
       <PageNumbers

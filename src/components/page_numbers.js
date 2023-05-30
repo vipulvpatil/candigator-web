@@ -5,8 +5,8 @@ const PageNumbers = ({pageCount, selectedPage, pageSelected}) => {
     pageSelected(pageNumber)
   }
 
-  if (pageCount < 1) {
-    return <></>
+  if (pageCount <= 1) {
+    return <div className="inline-flex rounded-2xl w-12 h-12"></div>
   }
 
   const numberDivs = [...Array(pageCount)].map((v, i) => {return i+1}).map(pageNumber => {

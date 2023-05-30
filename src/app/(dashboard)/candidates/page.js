@@ -16,7 +16,7 @@ const Candidates = async () => {
 
   return (
     <>
-      <div className="grid grid-cols-7 h-[650px] w-full">
+      <div className="grid grid-cols-7 min-h-[620px] w-full">
         <div className="col-span-2 border-b-[1px] border-subtle">
           <CandidatesCountTitle count={candidateList.length}/>
         </div>
@@ -72,11 +72,11 @@ const getCandidateListFor = async (userEmail) => {
   // This code will return default data until the GRPC Service function is defined.
   const func = GrpcService.getCandidateList || (
     () => {
-      const count = 25//Math.floor(Math.random() * (15 - 5 + 1) + 5)
+      const count = Math.floor(Math.random() * (35 - 12 + 1) + 12)
 
       return [...Array(count)].map((value, i) => {
         const candidate = dummy_candidate_list[i%dummy_candidate_list.length]
-        return Object.assign({id: i}, candidate)
+        return Object.assign({id: i+1}, candidate)
       })
     }
   )
