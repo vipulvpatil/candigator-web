@@ -42,13 +42,14 @@ const CandidateList = ({candidates}) => {
   }
 
   return <>
-    {visibleCandidates.map((candidate) => {
+    {visibleCandidates.map((candidate, index) => {
       if (candidate && candidate.id) {
         return <CandidateRow
         key={candidate.id}
         candidate={candidate}
         selected={selectedCandidateId === candidate.id}
         setSelectedCandidateId={setSelectedCandidateId}
+        showTopBorder={index == 0}
         />
       } else {
         return <div key={`blank_${candidate}`} className="h-[51px] col-span-7"></div>

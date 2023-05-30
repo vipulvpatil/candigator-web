@@ -17,11 +17,11 @@ const Candidates = async () => {
   return (
     <>
       <div className="grid grid-cols-7 min-h-[620px] w-full">
-        <div className="col-span-2 border-b-[1px] border-subtle">
+        <div className="col-span-2">
           <CandidatesCountTitle count={candidateList.length}/>
         </div>
-        <div className="col-span-3 border-b-[1px] border-subtle"></div>
-        <div className="col-span-2 border-b-[1px] border-subtle text-right">
+        <div className="col-span-3"></div>
+        <div className="col-span-2 text-right">
           <AddCandidateButton/>
         </div>
         <CandidateList candidates={candidateList}/>
