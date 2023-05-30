@@ -1,8 +1,11 @@
 "use client"
 
+import {useState} from "react"
+
 const MAX_VISIBLE_PAGE_COUNT = 5
 
 const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
+  const [firstVisiblePage, setFirstVisiblePage] = useState(1)
   const onPageSelected = (pageNumber) => () => {
     handlePageSelected(pageNumber)
   }
@@ -13,7 +16,7 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
 
   let visiblePageCount = pageCount > MAX_VISIBLE_PAGE_COUNT ? MAX_VISIBLE_PAGE_COUNT : pageCount
 
-  const numberDivs = [...Array(visiblePageCount)].map((_v, i) => {return i+1}).map(pageNumber => {
+  const numberDivs = [...Array(visiblePageCount)].map((_v, i) => {return firstVisiblePage+i}).map(pageNumber => {
     return (
       <PageNumber
         key={pageNumber}
@@ -30,7 +33,15 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
       key={"left"}
       number={"<"}
       selected={false}
-      handleClick={()=>{console.log("left clicked")}}
+      handleClick={
+        ()=>{
+          if(firstVisiblePage > 1) {
+            setFirstVisiblePage(
+              Math.max(firstVisiblePage - MAX_VISIBLE_PAGE_COUNT, 1)
+            )
+          }
+        }
+      }
     />
     }
     {numberDivs}
@@ -39,7 +50,15 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
       key={"right"}
       number={">"}
       selected={false}
-      handleClick={()=>{console.log("right clicked")}}
+      handleClick={
+        ()=>{
+          if(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT - 1 < pageCount) {
+            setFirstVisiblePage(
+              Math.min(firstVisiblePage + MAX_VISIBLE_PAGE_COUNT, pageCount - MAX_VISIBLE_PAGE_COUNT + 1)
+            )
+          }
+        }
+      }
     />
     }
   </div>
