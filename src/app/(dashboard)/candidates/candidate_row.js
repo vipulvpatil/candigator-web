@@ -22,7 +22,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
     >
       <div className={`
         col-span-2 pr-5 py-1 pl-1
-        border-b-[1px] border-subtle
+        border-b-[1px] border-subtle/30
         text-[28px] text-black/70
         ${bgColor} ${topBorder}
       `}>
@@ -32,7 +32,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       </div>
       <div className={`
         col-span-2 pr-5 py-1
-        border-b-[1px] border-subtle
+        border-b-[1px] border-subtle/30
         text-[24px] text-black/50
         ${bgColor} ${topBorder}
       `}>
@@ -42,7 +42,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       </div>
       <div className={`
         col-span-2 pr-5 py-1
-        border-b-[1px] border-subtle
+        border-b-[1px] border-subtle/30
         text-[24px] text-black/50
         ${bgColor} ${topBorder}
       `}>
@@ -52,7 +52,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       </div>
       <div className={`
         col-span-1 py-1 pr-1
-        border-b-[1px] border-subtle
+        border-b-[1px] border-subtle/30
         text-[24px] text-black/50 text-right
         ${bgColor} ${topBorder}
       `}>
