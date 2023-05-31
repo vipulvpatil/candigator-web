@@ -9,7 +9,7 @@ const CandidateDetails = ({candidate, onClose}) => {
     <div
       className="
         absolute right-0 top-[83px] bottom-[27px]
-        w-[600px]
+        w-[600px] h-[730px]
         p-[22px]
         border-bold bg-white border-y-2 border-l-2 rounded-l-lg"
     >
