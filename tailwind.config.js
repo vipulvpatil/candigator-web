@@ -29,6 +29,9 @@ module.exports = {
       margin: {
         relax: "-67.5px",
         relaxSmall : "-39px",
+      },
+      dropShadow: {
+        button: "0 5px 20px rgba(0,0,0,0.3)"
       }
     },
   },

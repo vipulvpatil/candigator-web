@@ -47,6 +47,7 @@ const AddCandidateButton = () => {
     <button className="
       bg-bold hover:bg-dark text-white text-[18px]
       fill-white rounded p-[6px]
+      drop-shadow-button
     ">
       <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
         <AddCandidateIcon/>
