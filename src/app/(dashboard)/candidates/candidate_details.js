@@ -11,10 +11,12 @@ const CandidateDetails = ({candidate, onClose}) => {
         absolute right-0 top-[83px] bottom-[27px]
         w-[600px] h-[730px]
         p-[22px]
-        border-bold bg-white border-y-2 border-l-2 rounded-l-lg"
+       bg-white border-y-2 border-l-2 rounded-l-lg
+        drop-shadow-modal
+      "
     >
       <button
-        className="float-right align-middle w-[34px] fill-bold"
+        className="float-right align-middle w-[34px] fill-bold hover:fill-dark"
         onClick={() => onClose()}
       >
         <CloseIcon/>

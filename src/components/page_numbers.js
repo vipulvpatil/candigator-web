@@ -120,9 +120,10 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
 const PageNumber = ({number, selected, handleClick}) => {
   let assignedClass = ""
   if (selected) {
-    assignedClass = "text-bold bg-subtle/20 border-[2px] border-bold"
+    assignedClass = "text-white bg-bold"
+    //
   } else {
-    assignedClass = "text-black/50 bg-black/5"
+    assignedClass = "text-black/50 bg-black/5 hover:text-bold hover:bg-subtle/20 hover:border-[2px] hover:border-bold"
   }
   return <>
     <div
