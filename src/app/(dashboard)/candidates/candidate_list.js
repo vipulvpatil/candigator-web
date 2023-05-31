@@ -1,6 +1,8 @@
 "use client"
 
 import {useEffect, useState} from "react"
+import AddCandidateIcon from "@/icons/add_candidate"
+import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "./candidate_details"
 import CandidateRow from "./candidate_row"
 import PageNumbers from "@/components/page_numbers"
@@ -13,6 +15,7 @@ const CandidateList = ({candidates}) => {
   const [selectedPage, setSelectedPage] = useState(1)
   const pageCount = Math.ceil(candidates.length/CANDIDATES_PER_PAGE)
   const [visibleCandidates, setVisibleCandidates] = useState([])
+  const [showAddCandidateModal, setShowAddCandidateModal] = useState(false)
 
   useEffect(() => {
     // TODO: This is inefficient. Make it better
@@ -38,10 +41,17 @@ const CandidateList = ({candidates}) => {
   }, [selectedPage, candidates])
 
   if(!visibleCandidates || visibleCandidates.length === 0) {
-    return <></>
+    return <>
+      <div className="col-span-2 text-right">
+        <AddCandidateButton handleClick={() => {setShowAddCandidateModal(true)}}/>
+      </div>
+    </>
   }
 
   return <>
+    <div className="col-span-2 text-right">
+      <AddCandidateButton handleClick={() => {setShowAddCandidateModal(true)}}/>
+    </div>
     {visibleCandidates.map((candidate, index) => {
       if (candidate && candidate.id) {
         return <CandidateRow
@@ -62,8 +72,28 @@ const CandidateList = ({candidates}) => {
         handlePageSelected={(pageNumber) => {setSelectedPage(pageNumber)}}
       />
     </div>
+    <div className="col-span-3"></div>
     <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
+    <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
   </>
+}
+
+const AddCandidateButton = ({handleClick}) => {
+  return (
+    <button className="
+      bg-bold hover:bg-dark text-white text-[18px]
+      fill-white rounded p-[6px]
+      drop-shadow-button"
+      onClick={handleClick}
+    >
+      <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+        <AddCandidateIcon/>
+      </div>
+      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+        {"Add Candidate"}
+      </div>
+    </button>
+  )
 }
 
 export default CandidateList

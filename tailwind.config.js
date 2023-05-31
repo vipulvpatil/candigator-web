@@ -32,7 +32,8 @@ module.exports = {
       },
       dropShadow: {
         button: "0 5px 20px rgba(0,0,0,0.3)",
-        modal: "-5px 0 5px rgba(0,0,0,0.5)"
+        modal: "0 5px 5px rgba(0,0,0,0.5)",
+        modalLeft: "-5px 0 5px rgba(0,0,0,0.5)"
       },
       boxShadow: {
         main: "2px 5px 20px rgba(0,0,0,0.3) inset"

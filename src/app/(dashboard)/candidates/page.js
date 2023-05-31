@@ -1,4 +1,3 @@
-import AddCandidateIcon from "@/icons/add_candidate"
 import CandidateList from "./candidate_list"
 import CandidatesIcon from "@/icons/candidates"
 import GrpcService from "@/lib/grpc/service"
@@ -21,9 +20,6 @@ const Candidates = async () => {
           <CandidatesCountTitle count={candidateList.length}/>
         </div>
         <div className="col-span-3"></div>
-        <div className="col-span-2 text-right">
-          <AddCandidateButton/>
-        </div>
         <CandidateList candidates={candidateList}/>
       </div>
       {/* <StatusBox/> */}
@@ -40,23 +36,6 @@ const CandidatesCountTitle = ({count}) => {
       {`${count} candidates`}
     </div>
     </>
-}
-
-const AddCandidateButton = () => {
-  return (
-    <button className="
-      bg-bold hover:bg-dark text-white text-[18px]
-      fill-white rounded p-[6px]
-      drop-shadow-button
-    ">
-      <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
-        <AddCandidateIcon/>
-      </div>
-      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
-        {"Add Candidate"}
-      </div>
-    </button>
-  )
 }
 
 const dummy_candidate_list = [

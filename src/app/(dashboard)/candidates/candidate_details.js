@@ -8,11 +8,11 @@ const CandidateDetails = ({candidate, onClose}) => {
   return (
     <div
       className="
-        absolute right-0 top-[83px] bottom-[27px]
-        w-[600px] h-[730px]
+        absolute right-0 top-[87px]
+        w-[600px] h-[722px]
         p-[22px]
-       bg-white border-y-2 border-l-2 rounded-l-lg
-        drop-shadow-modal
+       bg-white rounded-l-lg
+        drop-shadow-modalLeft
       "
     >
       <button
