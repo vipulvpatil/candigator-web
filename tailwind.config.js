@@ -11,9 +11,9 @@ module.exports = {
     },
     extend: {
       colors: {
-        dark: "#7A34AC",
-        bold: "#9368B2",
-        subtle: "#E7C6FF",
+        dark: "#002F3D",
+        bold: "#006989",
+        subtle: "#C8E6D1",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
