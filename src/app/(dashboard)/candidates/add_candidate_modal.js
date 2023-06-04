@@ -1,8 +1,10 @@
+import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
-import {useRef} from "react"
 
 const AddCandidateModal = ({show, handleClose}) => {
   const inputRef = useRef()
+
+  const [selectedFiles, setSelectedFiles] = useState(null)
 
   if (!show) {
     return <></>
@@ -48,29 +50,57 @@ const AddCandidateModal = ({show, handleClose}) => {
             accept="application/pdf"
             hidden multiple
             ref={inputRef}
-            onChange={(e)=>{console.log(e.target.files)}}
+            onChange={(e)=>{
+              setSelectedFiles(Array.from(e.target.files))
+            }}
           />
         </button>
-        <div className="
-          text-[18px] text-black/70
-          overflow-scroll max-h-[200px] scroll-m-1 shadow-main
-          px-3 py-1
-        ">
-          {[...Array(20)].map((_v, i) => {
-            return <div className="border-b-[1px] border-subtle/30 w-full flex justify-between" key={i}>
-              <div className="text-left">
-                {`File ${i}`}
-              </div>
-              <div className="text-right">
-                {"...processing"}
-              </div>
-            </div>
-          })}
-        </div>
+        <MultifileUpload files={selectedFiles}/>
       </div>
       <div className="col-span-1"></div>
     </>
   )
+}
+
+const MultifileUpload = ({files}) => {
+  if(!files || files.length == 0) {
+    return <></>
+  }
+  return <>
+    <div className="
+      text-[18px] text-black/70
+      overflow-scroll max-h-[200px] scroll-m-1 shadow-main
+      px-3 py-1
+    ">
+      {files.map((file) => {
+        return <FileStatus key={file.name} filename={file.name}/>
+      })}
+    </div>
+    <button className="
+      bg-bold hover:bg-dark text-white text-[18px]
+      fill-white rounded p-[10px] m-6
+      drop-shadow-button"
+      onClick={()=>{}}
+    >
+      <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+        <AddCandidateIcon/>
+      </div>
+      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+        {"Upload File/s"}
+      </div>
+    </button>
+  </>
+}
+
+const FileStatus = ({filename}) => {
+  return <div className="border-b-[1px] border-subtle/30 w-full flex justify-between">
+    <div className="text-left">
+      {filename}
+    </div>
+    <div className="text-right">
+      {"Ready for Upload"}
+    </div>
+  </div>
 }
 
 export default AddCandidateModal
