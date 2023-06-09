@@ -25,12 +25,12 @@ const checkConnection = async (userEmail) => {
   }
   const md = metadataWithRequestingUserEmail(userEmail)
   const checkConnectionRequest = {
-    UserEmail: userEmail
+    userEmail: userEmail
   }
   return await grpcServiceClient().checkConnection(
     checkConnectionRequest, md
   ).then((checkConnectionResponse) => {
-    return checkConnectionResponse.ConnectionStatus
+    return checkConnectionResponse.connectionStatus
   }).catch((err) => {
     handleGrpcError(err)
     return err.details
@@ -44,7 +44,7 @@ const uploadFiles = async (userEmail, files) => {
   const md = metadataWithRequestingUserEmail(userEmail)
   console.log(files)
   const uploadFilesRequest = {
-    UserEmail: userEmail,
+    userEmail: userEmail,
     files
   }
   return await grpcServiceClient().uploadFiles(
