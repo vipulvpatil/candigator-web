@@ -80,7 +80,24 @@ const MultifileUpload = ({files}) => {
       bg-bold hover:bg-dark text-white text-[18px]
       fill-white rounded p-[10px] m-6
       drop-shadow-button"
-      onClick={()=>{}}
+      onClick={()=>{
+        const upload = async (files) => {
+          const body = JSON.stringify(
+            files.map((file) => {
+              return {name: file.name}
+            })
+          )
+          const resp = await fetch("/files", {method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: body
+          })
+          console.log(resp)
+          return resp
+        }
+        upload(files)
+      }}
     >
       <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
         <AddCandidateIcon/>
