@@ -15,6 +15,5 @@ import {getServerSession} from "next-auth"
   const files = await req.json()
   const fileUploads = await GrpcService.uploadFiles(session.user.email, files)
 
-  console.log(fileUploads)
-  return NextResponse.json({status: "ok"})
+  return NextResponse.json({fileUploads})
 }

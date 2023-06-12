@@ -1,10 +1,30 @@
+import {addUploadDataToFiles, convertUploadDataToMap, getUploadData, uploadFiles} from "./upload"
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
+
 
 const AddCandidateModal = ({show, handleClose}) => {
   const inputRef = useRef()
 
-  const [selectedFiles, setSelectedFiles] = useState(null)
+  const [filesWithUploadData, setFilesWithUploadData] = useState(null)
+  const [uploadProcessStarted, setUploadProcessStarted] = useState(false)
+
+  const uploadMultipleFiles = async (files) => {
+    setUploadProcessStarted(true)
+    try{
+      const uploadData = await getUploadData(files)
+      const uploadDataMap = convertUploadDataToMap(uploadData)
+      const filesWithUData = addUploadDataToFiles(uploadDataMap, files)
+      setFilesWithUploadData(filesWithUData)
+      const completedFileUploads = await uploadFiles(filesWithUData)
+      setFilesWithUploadData(completedFileUploads)
+      // updateFileInDB
+      setUploadProcessStarted(false)
+    } catch (err){
+      console.log(err)
+      setUploadProcessStarted(false)
+    }
+  }
 
   if (!show) {
     return <></>
@@ -34,10 +54,13 @@ const AddCandidateModal = ({show, handleClose}) => {
         <div className="text-[32px]">Add candidates</div>
         <div className="">Select one or more PDF files to upload</div>
         <button className="
-          bg-bold hover:bg-dark text-white text-[18px]
+          bg-bold enabled:hover:bg-dark text-white text-[18px]
+          disabled:bg-disabled
+          cursor-pointer disabled:cursor-not-allowed
           fill-white rounded p-[10px] m-6
           drop-shadow-button"
           onClick={()=>{inputRef.current.click()}}
+          disabled={uploadProcessStarted}
         >
           <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
             <AddCandidateIcon/>
@@ -51,19 +74,34 @@ const AddCandidateModal = ({show, handleClose}) => {
             hidden multiple
             ref={inputRef}
             onChange={(e)=>{
-              setSelectedFiles(Array.from(e.target.files))
+              setFilesWithUploadData(
+                Array.from(e.target.files).map(file => {
+                  return({
+                    file: file,
+                    name: file.name,
+                    status: "Ready for Upload",
+                    uploadData: null,
+                  })
+                })
+              )
             }}
           />
         </button>
-        <MultifileUpload files={selectedFiles}/>
+        <MultifilesWithUploadData
+          filesWithUploadData={filesWithUploadData}
+          uploadProcessStarted={uploadProcessStarted}
+          uploadMultipleFiles={uploadMultipleFiles}
+        />
       </div>
       <div className="col-span-1"></div>
     </>
   )
 }
 
-const MultifileUpload = ({files}) => {
-  if(!files || files.length == 0) {
+const MultifilesWithUploadData = ({
+  filesWithUploadData, uploadProcessStarted, uploadMultipleFiles
+}) => {
+  if(!filesWithUploadData || filesWithUploadData.length == 0) {
     return <></>
   }
   return <>
@@ -72,31 +110,22 @@ const MultifileUpload = ({files}) => {
       overflow-scroll max-h-[200px] scroll-m-1 shadow-main
       px-3 py-1
     ">
-      {files.map((file) => {
-        return <FileStatus key={file.name} filename={file.name}/>
+      {filesWithUploadData.map((fileWithUploadData) => {
+        return <FileStatus
+          key={fileWithUploadData.name}
+          fileWithUploadData={fileWithUploadData}
+        />
       })}
     </div>
     <button className="
-      bg-bold hover:bg-dark text-white text-[18px]
+      bg-bold enabled:hover:bg-dark text-white text-[18px]
       fill-white rounded p-[10px] m-6
+      disabled:bg-disabled
+      cursor-pointer disabled:cursor-not-allowed
       drop-shadow-button"
+      disabled={uploadProcessStarted}
       onClick={()=>{
-        const upload = async (files) => {
-          const body = JSON.stringify(
-            files.map((file) => {
-              return {name: file.name}
-            })
-          )
-          const resp = await fetch("/files", {method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: body
-          })
-          console.log(resp)
-          return resp
-        }
-        upload(files)
+        uploadMultipleFiles(filesWithUploadData)
       }}
     >
       <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
@@ -109,13 +138,13 @@ const MultifileUpload = ({files}) => {
   </>
 }
 
-const FileStatus = ({filename}) => {
+const FileStatus = ({fileWithUploadData}) => {
   return <div className="border-b-[1px] border-subtle/30 w-full flex justify-between">
     <div className="text-left">
-      {filename}
+      {fileWithUploadData.name}
     </div>
     <div className="text-right">
-      {"Ready for Upload"}
+      {fileWithUploadData.status}
     </div>
   </div>
 }

@@ -14,6 +14,7 @@ module.exports = {
         dark: "#002F3D",
         bold: "#006989",
         subtle: "#C8E6D1",
+        disabled: "#575E60",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -31,7 +32,7 @@ module.exports = {
         relaxSmall : "-39px",
       },
       dropShadow: {
-        button: "0 5px 20px rgba(0,0,0,0.3)",
+        button: "0 5px 10px rgba(0,0,0,0.5)",
         modal: "0 5px 5px rgba(0,0,0,0.5)",
         modalLeft: "-5px 0 5px rgba(0,0,0,0.5)"
       },
