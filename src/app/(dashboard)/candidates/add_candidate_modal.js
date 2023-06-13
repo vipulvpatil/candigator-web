@@ -1,4 +1,4 @@
-import {addUploadDataToFiles, convertUploadDataToMap, getUploadData, uploadFiles} from "./upload"
+import {getUploadData, updateUploadData, uploadFiles} from "./upload"
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
 
@@ -12,13 +12,12 @@ const AddCandidateModal = ({show, handleClose}) => {
   const uploadMultipleFiles = async (files) => {
     setUploadProcessStarted(true)
     try{
-      const uploadData = await getUploadData(files)
-      const uploadDataMap = convertUploadDataToMap(uploadData)
-      const filesWithUData = addUploadDataToFiles(uploadDataMap, files)
+      const filesWithUData = await getUploadData(files)
       setFilesWithUploadData(filesWithUData)
       const completedFileUploads = await uploadFiles(filesWithUData)
       setFilesWithUploadData(completedFileUploads)
-      // updateFileInDB
+      const fileUploadsData = await updateUploadData(completedFileUploads)
+      setFilesWithUploadData(fileUploadsData)
       setUploadProcessStarted(false)
     } catch (err){
       console.log(err)

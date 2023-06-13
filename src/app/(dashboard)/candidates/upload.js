@@ -4,7 +4,8 @@ export const getUploadData = async (files) => {
       return {name: file.name}
     })
   )
-  const resp = await fetch("/files", {method: "POST",
+  const resp = await fetch("/presigned_urls", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
@@ -12,10 +13,11 @@ export const getUploadData = async (files) => {
   })
 
   const respJson = await resp.json()
-  return respJson.fileUploads
+  const uploadDataMap = convertUploadDataToMap(respJson.fileUploads)
+  return addUploadDataToFiles(uploadDataMap, files)
 }
 
-export const convertUploadDataToMap = (uploadData) => {
+const convertUploadDataToMap = (uploadData) => {
   const dataMap = {}
   uploadData.forEach(data => {
     dataMap[data.name] = data
@@ -23,7 +25,7 @@ export const convertUploadDataToMap = (uploadData) => {
   return dataMap
 }
 
-export const addUploadDataToFiles = (uploadDataMap, files) => {
+const addUploadDataToFiles = (uploadDataMap, files) => {
   return files.map((file => {
     return Object.assign(
       file,
@@ -42,16 +44,7 @@ export const uploadFiles = async (filesWithUData) => {
     })
   )
   return uploadResult.map(result => {
-    if (result.status === "fulfilled") {
-      return result.value
-    } else {
-      return Object.assign(
-        result.value,
-        {
-          status: "Upload failed",
-        },
-      )
-    }
+    return result.value
   })
 }
 
@@ -67,7 +60,7 @@ const uploadFile = async (fileWithUData) => {
       return Object.assign(
         fileWithUData,
         {
-          status: "Upload completed successfully",
+          status: "Upload almost done",
         },
       )
     } else {
@@ -86,4 +79,48 @@ const uploadFile = async (fileWithUData) => {
       },
     )
   }
+}
+
+
+export const updateUploadData = async (completedFileUploads) => {
+  const body = JSON.stringify(
+    completedFileUploads.map((completedFileUpload) => {
+      if (completedFileUpload.status === "Upload almost done") {
+        return {id: completedFileUpload.uploadData.id, status: "SUCCESS"}
+      } else {
+        return {id: completedFileUpload.uploadData.id, status: "FAILURE"}
+      }
+    })
+  )
+  const resp = await fetch("/file_uploads", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body
+  })
+
+  const respJson = await resp.json()
+  const uploadDataMap = convertUploadDataToMap2(respJson.fileUploads)
+  return addUploadDataToFiles2(uploadDataMap, completedFileUploads)
+}
+
+const convertUploadDataToMap2 = (uploadData) => {
+  const dataMap = {}
+  uploadData.forEach(data => {
+    dataMap[data.id] = data
+  })
+  return dataMap
+}
+
+const addUploadDataToFiles2 = (uploadDataMap, completedFileUploads) => {
+  return completedFileUploads.map((file => {
+    return Object.assign(
+      file,
+      {
+        status: "Uploaded",
+        uploadData: uploadDataMap[file.uploadData.id],
+      },
+    )
+  }))
 }
