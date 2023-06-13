@@ -56,11 +56,34 @@ export const uploadFiles = async (filesWithUData) => {
 }
 
 const uploadFile = async (fileWithUData) => {
-  // TODO: Actual uploading
-  return Object.assign(
-    fileWithUData,
-    {
-      status: "Upload completed successfully",
-    },
-  )
+  try {
+    var data = new FormData()
+    data.append("file", fileWithUData.file)
+    const resp = await fetch(fileWithUData.uploadData.presignedUrl, {
+      method: "PUT",
+      body: data
+    })
+    if (resp.ok) {
+      return Object.assign(
+        fileWithUData,
+        {
+          status: "Upload completed successfully",
+        },
+      )
+    } else {
+      return Object.assign(
+        fileWithUData,
+        {
+          status: "Upload failed",
+        },
+      )
+    }
+  } catch (err) {
+    return Object.assign(
+      fileWithUData,
+      {
+        status: "Upload failed",
+      },
+    )
+  }
 }
