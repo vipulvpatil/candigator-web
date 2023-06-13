@@ -1,7 +1,6 @@
-import {getUploadData, updateUploadData, uploadFiles} from "./upload"
+import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "./upload"
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
-
 
 const AddCandidateModal = ({show, handleClose}) => {
   const inputRef = useRef()
@@ -12,12 +11,12 @@ const AddCandidateModal = ({show, handleClose}) => {
   const uploadMultipleFiles = async (files) => {
     setUploadProcessStarted(true)
     try{
-      const filesWithUData = await getUploadData(files)
-      setFilesWithUploadData(filesWithUData)
-      const completedFileUploads = await uploadFiles(filesWithUData)
-      setFilesWithUploadData(completedFileUploads)
-      const fileUploadsData = await updateUploadData(completedFileUploads)
-      setFilesWithUploadData(fileUploadsData)
+      const fileUploadData = await createFileUploadData(files)
+      setFilesWithUploadData(fileUploadData)
+      const completedFileUploadData = await uploadFiles(fileUploadData)
+      setFilesWithUploadData(completedFileUploadData)
+      const finalFileUploadData = await createCompletedFileUploadData(completedFileUploadData)
+      setFilesWithUploadData(finalFileUploadData)
       setUploadProcessStarted(false)
     } catch (err){
       console.log(err)
@@ -143,7 +142,7 @@ const FileStatus = ({fileWithUploadData}) => {
       {fileWithUploadData.name}
     </div>
     <div className="text-right">
-      {fileWithUploadData.status}
+      {fileWithUploadData.displayMessage}
     </div>
   </div>
 }

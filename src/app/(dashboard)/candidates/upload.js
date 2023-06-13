@@ -1,4 +1,10 @@
-export const getUploadData = async (files) => {
+export const createFileUploadData = async (files) => {
+  const fileUploadData = await createFileUploads(files)
+  const uploadDataMap = convertUploadDataToMap(fileUploadData)
+  return addUploadDataToFiles(uploadDataMap, files)
+}
+
+const createFileUploads = async (files) => {
   const body = JSON.stringify(
     files.map((file) => {
       return {name: file.name}
@@ -12,9 +18,8 @@ export const getUploadData = async (files) => {
     body: body
   })
 
-  const respJson = await resp.json()
-  const uploadDataMap = convertUploadDataToMap(respJson.fileUploads)
-  return addUploadDataToFiles(uploadDataMap, files)
+  const respJson =  await resp.json()
+  return respJson.fileUploads
 }
 
 const convertUploadDataToMap = (uploadData) => {
@@ -30,7 +35,9 @@ const addUploadDataToFiles = (uploadDataMap, files) => {
     return Object.assign(
       file,
       {
-        status: "Uploading",
+        id: uploadDataMap[file.name].id,
+        status: "uploading",
+        displayMessage: "Uploading",
         uploadData: uploadDataMap[file.name],
       },
     )
@@ -60,14 +67,16 @@ const uploadFile = async (fileWithUData) => {
       return Object.assign(
         fileWithUData,
         {
-          status: "Upload almost done",
+          status: "uploadSuccess",
+          displayMessage: "Upload almost done",
         },
       )
     } else {
       return Object.assign(
         fileWithUData,
         {
-          status: "Upload failed",
+          status: "uploadFailure",
+          displayMessage: "Upload failed",
         },
       )
     }
@@ -75,20 +84,26 @@ const uploadFile = async (fileWithUData) => {
     return Object.assign(
       fileWithUData,
       {
-        status: "Upload failed",
+        status: "uploadFailure",
+        displayMessage: "Upload failed",
       },
     )
   }
 }
 
+export const createCompletedFileUploadData = async (completedFileUploads) => {
+  const updatedFileUploadData = await completeFileUpload(completedFileUploads)
+  const uploadDataMap = convertUpdatedFileUploadDataToMap(updatedFileUploadData)
+  return addUpdatedFileUploadDataToFiles(uploadDataMap, completedFileUploads)
+}
 
-export const updateUploadData = async (completedFileUploads) => {
+const completeFileUpload = async (completedFileUploads) => {
   const body = JSON.stringify(
     completedFileUploads.map((completedFileUpload) => {
-      if (completedFileUpload.status === "Upload almost done") {
-        return {id: completedFileUpload.uploadData.id, status: "SUCCESS"}
+      if (completedFileUpload.status === "uploadSuccess") {
+        return {id: completedFileUpload.id, status: "SUCCESS"}
       } else {
-        return {id: completedFileUpload.uploadData.id, status: "FAILURE"}
+        return {id: completedFileUpload.id, status: "FAILURE"}
       }
     })
   )
@@ -101,11 +116,10 @@ export const updateUploadData = async (completedFileUploads) => {
   })
 
   const respJson = await resp.json()
-  const uploadDataMap = convertUploadDataToMap2(respJson.fileUploads)
-  return addUploadDataToFiles2(uploadDataMap, completedFileUploads)
+  return respJson.fileUploads
 }
 
-const convertUploadDataToMap2 = (uploadData) => {
+const convertUpdatedFileUploadDataToMap = (uploadData) => {
   const dataMap = {}
   uploadData.forEach(data => {
     dataMap[data.id] = data
@@ -113,14 +127,26 @@ const convertUploadDataToMap2 = (uploadData) => {
   return dataMap
 }
 
-const addUploadDataToFiles2 = (uploadDataMap, completedFileUploads) => {
-  return completedFileUploads.map((file => {
-    return Object.assign(
-      file,
-      {
-        status: "Uploaded",
-        uploadData: uploadDataMap[file.uploadData.id],
-      },
-    )
+const addUpdatedFileUploadDataToFiles = (uploadDataMap, completedFileUploads) => {
+  return completedFileUploads.map((fileUpload => {
+    if (fileUpload.status === "uploadSuccess") {
+      return Object.assign(
+        fileUpload,
+        {
+          status: "completed",
+          displayMessage: "Upload successful",
+          uploadData: uploadDataMap[fileUpload.id],
+        },
+      )
+    } else {
+      return Object.assign(
+        fileUpload,
+        {
+          status: "completed",
+          displayMessage: "Upload failed",
+          uploadData: uploadDataMap[fileUpload.id],
+        },
+      )
+    }
   }))
 }

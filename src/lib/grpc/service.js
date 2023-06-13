@@ -61,12 +61,11 @@ const completeFileUploads = async (userEmail, fileUploadUpdates) => {
     return
   }
   const md = metadataWithRequestingUserEmail(userEmail)
-  console.log(fileUploadUpdates)
   const completeFileUploadsRequest = {
     userEmail: userEmail,
     fileUploadUpdates
   }
-  return await grpcServiceClient().uploadFiles(
+  return await grpcServiceClient().completeFileUploads(
     completeFileUploadsRequest, md
   ).then((completeFileUploadsResponse) => {
     return completeFileUploadsResponse.fileUploads
