@@ -10,6 +10,7 @@ const AddCandidateModal = ({show, handleClose}) => {
 
   const uploadMultipleFiles = async (files) => {
     setUploadProcessStarted(true)
+    setFilesWithUploadData(files)
     try{
       const fileUploadData = await createFileUploadData(files)
       setFilesWithUploadData(fileUploadData)
@@ -72,23 +73,20 @@ const AddCandidateModal = ({show, handleClose}) => {
             hidden multiple
             ref={inputRef}
             onChange={(e)=>{
-              setFilesWithUploadData(
-                Array.from(e.target.files).map(file => {
-                  return({
-                    file: file,
-                    name: file.name,
-                    status: "Ready for Upload",
-                    uploadData: null,
-                  })
+              const files = Array.from(e.target.files).map(file => {
+                return({
+                  file: file,
+                  name: file.name,
+                  status: "Ready for Upload",
+                  uploadData: null,
                 })
-              )
+              })
+              uploadMultipleFiles(files)
             }}
           />
         </button>
         <MultifilesWithUploadData
           filesWithUploadData={filesWithUploadData}
-          uploadProcessStarted={uploadProcessStarted}
-          uploadMultipleFiles={uploadMultipleFiles}
         />
       </div>
       <div className="col-span-1"></div>
@@ -97,7 +95,7 @@ const AddCandidateModal = ({show, handleClose}) => {
 }
 
 const MultifilesWithUploadData = ({
-  filesWithUploadData, uploadProcessStarted, uploadMultipleFiles
+  filesWithUploadData
 }) => {
   if(!filesWithUploadData || filesWithUploadData.length == 0) {
     return <></>
@@ -115,24 +113,6 @@ const MultifilesWithUploadData = ({
         />
       })}
     </div>
-    <button className="
-      bg-bold enabled:hover:bg-dark text-white text-[18px]
-      fill-white rounded p-[10px] m-6
-      disabled:bg-disabled
-      cursor-pointer disabled:cursor-not-allowed
-      drop-shadow-button"
-      disabled={uploadProcessStarted}
-      onClick={()=>{
-        uploadMultipleFiles(filesWithUploadData)
-      }}
-    >
-      <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
-        <AddCandidateIcon/>
-      </div>
-      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
-        {"Upload File/s"}
-      </div>
-    </button>
   </>
 }
 
