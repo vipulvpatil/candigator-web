@@ -9,7 +9,7 @@ const MenuButton = ({title,  selected, icon}) => {
 
   return (
     <Link href={`/${title}`} className={`block text-[24px] font-normal text-left px-2 ${displayClass}`}>
-      <div className="inline-flex align-middle w-[34px]">
+      <div className="inline-flex align-middle w-[34px] relative top-[-2px]">
         {icon}
       </div>
       <div className="pl-1 inline-flex align-middle relative top-[-3px]">

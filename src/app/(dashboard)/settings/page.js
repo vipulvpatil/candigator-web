@@ -3,10 +3,10 @@ import StatusBox from "@/app/status_box"
 
 const Settings = () => {
   return (
-    <>
+    <div className="min-h-[620px] w-full">
       <PageTitle title="Settings"/>
       <StatusBox/>
-    </>
+    </div>
   )
 }
 

@@ -1,13 +1,13 @@
 import PageTitle from "@/app/(dashboard)/page_title"
 import StatusBox from "@/app/status_box"
 
-const Billing = () => {
+const Search = () => {
   return (
     <div className="min-h-[620px] w-full">
-      <PageTitle title="Billing"/>
+      <PageTitle title="Files"/>
       <StatusBox/>
     </div>
   )
 }
 
-export default Billing
+export default Search

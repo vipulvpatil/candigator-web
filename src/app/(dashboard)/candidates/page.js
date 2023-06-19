@@ -14,16 +14,13 @@ const Candidates = async () => {
   const candidateList = await getCandidateListFor(session.user.email)
 
   return (
-    <>
-      <div className="grid grid-cols-7 min-h-[620px] w-full">
-        <div className="col-span-2">
-          <CandidatesCountTitle count={candidateList.length}/>
-        </div>
-        <div className="col-span-3"></div>
-        <CandidateList candidates={candidateList}/>
+    <div className="grid grid-cols-7 min-h-[620px] w-full">
+      <div className="col-span-2">
+        <CandidatesCountTitle count={candidateList.length}/>
       </div>
-      {/* <StatusBox/> */}
-    </>
+      <div className="col-span-3"></div>
+      <CandidateList candidates={candidateList}/>
+    </div>
   )
 }
 
