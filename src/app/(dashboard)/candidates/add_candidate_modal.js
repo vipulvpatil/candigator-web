@@ -1,6 +1,7 @@
 import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "./upload"
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
+import Link from "next/link"
 
 const UploadStatus = Object.freeze({
 	NotStarted: Symbol("NotStarted"),
@@ -138,20 +139,23 @@ const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
 }
 
 const GoToFilesButton = () => {
-  return (<button className="
-    bg-bold enabled:hover:bg-dark text-white text-[18px]
-    cursor-pointer
-    fill-white rounded p-[10px] m-6
-    drop-shadow-button"
-    onClick={()=>{console.log("clicked")}}
-  >
-    <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
-      <AddCandidateIcon/>
-    </div>
-    <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
-      {"Go To Files"}
-    </div>
-  </button>)
+  return (
+    <Link href={"/files"} >
+      <button className="
+        bg-bold enabled:hover:bg-dark text-white text-[18px]
+        cursor-pointer
+        fill-white rounded p-[10px] m-6
+        drop-shadow-button"
+      >
+        <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+          <AddCandidateIcon/>
+        </div>
+        <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+          {"Go To Files"}
+        </div>
+      </button>
+    </Link>
+  )
 }
 
 const MultifilesWithUploadData = ({
