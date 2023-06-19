@@ -2,14 +2,36 @@ import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
 
+const UploadStatus = Object.freeze({
+	NotStarted: Symbol("NotStarted"),
+	Started: Symbol("Started"),
+	Success: Symbol("Success"),
+	Failure: Symbol("Failure")
+})
+
+const statusIsAllowUpload = (uploadStatus) => {
+  return uploadStatus === UploadStatus.NotStarted || uploadStatus === UploadStatus.Failure
+}
+
+const statusIsAllowFileSelectionReset = (uploadStatus) => {
+  return uploadStatus === UploadStatus.Success || uploadStatus === UploadStatus.Failure
+}
+
 const AddCandidateModal = ({show, handleClose}) => {
   const inputRef = useRef()
-
   const [filesWithUploadData, setFilesWithUploadData] = useState(null)
-  const [uploadProcessStarted, setUploadProcessStarted] = useState(false)
+  const [currentUploadStatus, setCurrentUploadStatus] = useState(UploadStatus.NotStarted)
+
+  const closeModal = () => {
+    if(statusIsAllowFileSelectionReset(currentUploadStatus)) {
+      setCurrentUploadStatus(UploadStatus.NotStarted)
+      setFilesWithUploadData(null)
+    }
+    handleClose()
+  }
 
   const uploadMultipleFiles = async (files) => {
-    setUploadProcessStarted(true)
+    setCurrentUploadStatus(UploadStatus.Started)
     setFilesWithUploadData(files)
     try{
       const fileUploadData = await createFileUploadData(files)
@@ -18,16 +40,33 @@ const AddCandidateModal = ({show, handleClose}) => {
       setFilesWithUploadData(completedFileUploadData)
       const finalFileUploadData = await createCompletedFileUploadData(completedFileUploadData)
       setFilesWithUploadData(finalFileUploadData)
-      setUploadProcessStarted(false)
+      let finalStatus = UploadStatus.Failure
+      finalFileUploadData.forEach(file => {
+        console.log(file)
+        if (file.status === "completedSuccess") {
+          finalStatus = UploadStatus.Success
+        }
+      })
+      setCurrentUploadStatus(finalStatus)
     } catch (err){
       console.log(err)
-      setUploadProcessStarted(false)
+      setCurrentUploadStatus(UploadStatus.Failure)
     }
   }
 
   if (!show) {
     return <></>
   }
+
+  let actionButton = <FileSelectionButton
+    inputRef={inputRef}
+    uploadStatus={currentUploadStatus}
+    uploadMultipleFiles={uploadMultipleFiles}
+  />
+  if (currentUploadStatus === UploadStatus.Success) {
+    actionButton = <GoToFilesButton/>
+  }
+
   return (
     <>
       <div
@@ -36,7 +75,7 @@ const AddCandidateModal = ({show, handleClose}) => {
           absolute top-[84px] left-[165px] h-[728px]
           background-blur-sm bg-black/30 right-0
         "
-        onClick={handleClose}
+        onClick={closeModal}
       />
       <div className="col-span-1"></div>
       <div
@@ -52,39 +91,7 @@ const AddCandidateModal = ({show, handleClose}) => {
       >
         <div className="text-[32px]">Add candidates</div>
         <div className="">Select one or more PDF files to upload</div>
-        <button className="
-          bg-bold enabled:hover:bg-dark text-white text-[18px]
-          disabled:bg-disabled
-          cursor-pointer disabled:cursor-not-allowed
-          fill-white rounded p-[10px] m-6
-          drop-shadow-button"
-          onClick={()=>{inputRef.current.click()}}
-          disabled={uploadProcessStarted}
-        >
-          <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
-            <AddCandidateIcon/>
-          </div>
-          <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
-            {"Choose File/s"}
-          </div>
-          <input
-            type="file"
-            accept="application/pdf"
-            hidden multiple
-            ref={inputRef}
-            onChange={(e)=>{
-              const files = Array.from(e.target.files).map(file => {
-                return({
-                  file: file,
-                  name: file.name,
-                  status: "Ready for Upload",
-                  uploadData: null,
-                })
-              })
-              uploadMultipleFiles(files)
-            }}
-          />
-        </button>
+        {actionButton}
         <MultifilesWithUploadData
           filesWithUploadData={filesWithUploadData}
         />
@@ -92,6 +99,59 @@ const AddCandidateModal = ({show, handleClose}) => {
       <div className="col-span-1"></div>
     </>
   )
+}
+
+const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
+  return (<button className="
+    bg-bold enabled:hover:bg-dark text-white text-[18px]
+    disabled:bg-disabled
+    cursor-pointer disabled:cursor-not-allowed
+    fill-white rounded p-[10px] m-6
+    drop-shadow-button"
+    onClick={()=>{inputRef.current.click()}}
+    disabled={!statusIsAllowUpload(uploadStatus)}
+  >
+    <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+      <AddCandidateIcon/>
+    </div>
+    <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+      {"Choose File/s"}
+    </div>
+    <input
+      type="file"
+      accept="application/pdf"
+      hidden multiple
+      ref={inputRef}
+      onChange={(e)=>{
+        const files = Array.from(e.target.files).map(file => {
+          return({
+            file: file,
+            name: file.name,
+            status: "Ready for Upload",
+            uploadData: null,
+          })
+        })
+        uploadMultipleFiles(files)
+      }}
+    />
+  </button>)
+}
+
+const GoToFilesButton = () => {
+  return (<button className="
+    bg-bold enabled:hover:bg-dark text-white text-[18px]
+    cursor-pointer
+    fill-white rounded p-[10px] m-6
+    drop-shadow-button"
+    onClick={()=>{console.log("clicked")}}
+  >
+    <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+      <AddCandidateIcon/>
+    </div>
+    <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+      {"Go To Files"}
+    </div>
+  </button>)
 }
 
 const MultifilesWithUploadData = ({

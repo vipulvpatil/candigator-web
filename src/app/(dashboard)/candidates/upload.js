@@ -133,7 +133,7 @@ const addUpdatedFileUploadDataToFiles = (uploadDataMap, completedFileUploads) =>
       return Object.assign(
         fileUpload,
         {
-          status: "completed",
+          status: "completedSuccess",
           displayMessage: "Upload successful",
           uploadData: uploadDataMap[fileUpload.id],
         },
@@ -142,7 +142,7 @@ const addUpdatedFileUploadDataToFiles = (uploadDataMap, completedFileUploads) =>
       return Object.assign(
         fileUpload,
         {
-          status: "completed",
+          status: "completedFailure",
           displayMessage: "Upload failed",
           uploadData: uploadDataMap[fileUpload.id],
         },
