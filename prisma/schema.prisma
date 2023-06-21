@@ -63,13 +63,14 @@ model Team {
 }
 
 model FileUpload {
-  id           String @id @default(cuid())
-  name         String
-  presignedUrl String @map("presigned_url")
-  status       String
-  createdAt    DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
-  teamId       String @map("team_id")
-  team         Team   @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  id               String @id @default(cuid())
+  name             String
+  presignedUrl     String @map("presigned_url")
+  status           String
+  processingStatus String @map("processing_status")
+  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  teamId           String   @map("team_id")
+  team             Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
 
   @@map("file_uploads")
 }
