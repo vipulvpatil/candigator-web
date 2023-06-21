@@ -93,11 +93,30 @@ const getUnprocessedFileUploadsCount = async (userEmail) => {
   })
 }
 
+const getFileUploads = async (userEmail) => {
+  if (!userEmail) {
+    return
+  }
+  const md = metadataWithRequestingUserEmail(userEmail)
+  const GetFileUploadsRequest = {
+    userEmail: userEmail
+  }
+  return await grpcServiceClient().getFileUploads(
+    GetFileUploadsRequest, md
+  ).then((GetFileUploadsResponse) => {
+    return GetFileUploadsResponse.fileUploads
+  }).catch((err) => {
+    handleGrpcError(err)
+    return err.details
+  })
+}
+
 const GrpcService = {
   checkConnection,
   uploadFiles,
   completeFileUploads,
   getUnprocessedFileUploadsCount,
+  getFileUploads,
 }
 
 export default GrpcService
