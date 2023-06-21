@@ -12,6 +12,6 @@ export const GET = async () => {
     )
   }
 
-  const unprocessedFileCount = await GrpcService.getUnprocessedUploadFilesCount(session.user.email)
+  const unprocessedFileCount = await GrpcService.getUnprocessedFileUploadsCount(session.user.email)
   return NextResponse.json({unprocessedFileCount})
 }

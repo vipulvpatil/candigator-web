@@ -1,6 +1,7 @@
 import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "./upload"
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
+import FilesIcon from "@/icons/files"
 import Link from "next/link"
 
 const UploadStatus = Object.freeze({
@@ -148,7 +149,7 @@ const GoToFilesButton = () => {
         drop-shadow-button"
       >
         <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
-          <AddCandidateIcon/>
+          <FilesIcon/>
         </div>
         <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
           {"Go To Files"}
