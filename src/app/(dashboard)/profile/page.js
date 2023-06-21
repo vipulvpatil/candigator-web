@@ -1,5 +1,5 @@
 import PageTitle from "@/app/(dashboard)/page_title"
-import SignOutButton from "./sign_out_button"
+import SignOutButton from "@/components/sign_out_button"
 
 const Profile = () => {
   return (

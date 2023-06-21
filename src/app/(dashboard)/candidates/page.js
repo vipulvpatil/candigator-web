@@ -15,10 +15,9 @@ const Candidates = async () => {
 
   return (
     <div className="grid grid-cols-7 min-h-[620px] w-full">
-      <div className="col-span-2">
+      <div className="col-span-3">
         <PageTitleWithCount icon={<CandidatesIcon/>} count={candidateList.length} label={"candidates"}/>
       </div>
-      <div className="col-span-3"></div>
       <CandidateList candidates={candidateList}/>
     </div>
   )
