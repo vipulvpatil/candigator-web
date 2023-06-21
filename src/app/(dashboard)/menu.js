@@ -1,5 +1,6 @@
 "use client"
 
+import {useEffect, useState} from "react"
 import BillingIcon from "@/icons/billing"
 import CandidatesIcon from "@/icons/candidates"
 import FilesIcon from "@/icons/files"
@@ -9,8 +10,25 @@ import SearchIcon from "@/icons/search"
 import SettingsIcon from "@/icons/settings"
 import {useSelectedLayoutSegment} from "next/navigation"
 
-const Menu = ({unprocessedFileCount}) => {
+const Menu = () => {
   const segment = useSelectedLayoutSegment()
+  const [unprocessedFileCount, setUnprocessedFileCount] = useState(0)
+
+  useEffect(() => {
+    const loadUnprocessedFileCount = async () => {
+      const resp = await fetch("/api/unprocessed_file_uploads", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        }
+      })
+
+      const respJson = await resp.json()
+      setUnprocessedFileCount(respJson.unprocessedFileCount)
+    }
+    loadUnprocessedFileCount()
+  }, [segment])
+
   return (
     <div className="w-[165px] flex-none flex flex-col min-h-[400px]">
       <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>

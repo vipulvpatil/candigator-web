@@ -10,7 +10,7 @@ const createFileUploads = async (files) => {
       return {name: file.name}
     })
   )
-  const resp = await fetch("/presigned_urls", {
+  const resp = await fetch("/api/presigned_urls", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -107,7 +107,7 @@ const completeFileUpload = async (completedFileUploads) => {
       }
     })
   )
-  const resp = await fetch("/file_uploads", {
+  const resp = await fetch("/api/file_uploads", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
