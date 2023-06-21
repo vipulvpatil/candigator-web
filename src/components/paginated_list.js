@@ -47,7 +47,7 @@ const PaginatedList = (
     }
   }, [selectedPage, itemList])
 
-  const rightButton = rightButtonFunc(() => {setShowAddItemModal(true)})
+  const rightButton = rightButtonFunc?rightButtonFunc(() => {setShowAddItemModal(true)}):<></>
 
   if(!visibleItems || visibleItems.length === 0) {
     return <>
