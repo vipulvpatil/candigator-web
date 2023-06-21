@@ -9,13 +9,13 @@ import SearchIcon from "@/icons/search"
 import SettingsIcon from "@/icons/settings"
 import {useSelectedLayoutSegment} from "next/navigation"
 
-const Menu = () => {
+const Menu = ({unprocessedFileCount}) => {
   const segment = useSelectedLayoutSegment()
   return (
     <div className="w-[165px] flex-none flex flex-col min-h-[400px]">
       <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
       <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
-      <MenuButton title={"files"} selected={segment === "files"} icon={<FilesIcon/>}/>
+      <MenuButton title={"files"} selected={segment === "files"} icon={<FilesIcon/>} badge={unprocessedFileCount}/>
       <div className="flex-grow"/>
       <MenuButton title={"billing"} selected={segment === "billing"} icon={<BillingIcon/>}/>
       <MenuButton title={"settings"} selected={segment === "settings"} icon={<SettingsIcon/>}/>
