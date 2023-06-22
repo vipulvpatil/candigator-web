@@ -11,7 +11,7 @@ const PageNumbers = ({pageCount, selectedPage, handlePageSelected}) => {
   }
 
   if (pageCount <= 1) {
-    return <div className="inline-flex rounded-2xl w-12 h-12"></div>
+    return <div className="inline-flex rounded-2xl w-12 h-[67px] pt-6"></div>
   }
 
   let visiblePageCount = pageCount > MAX_VISIBLE_PAGE_COUNT ? MAX_VISIBLE_PAGE_COUNT : pageCount
