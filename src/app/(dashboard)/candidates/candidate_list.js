@@ -10,20 +10,18 @@ import PaginatedList from "@/components/paginated_list"
 import {useState} from "react"
 
 const CandidateList = ({candidates}) => {
-  const [showAddItemModal, setShowAddItemModal] = useState(false)
+  const [showAddCandidateModal, setShowAddCandidateModal] = useState(false)
+  const [selectedCandidateId, setSelectedCandidateId] = useState(null)
+  const [selectedCandidate, setSelectedCandidate] = useState(null)
 
-  const candidateRowFunc = (candidateId, candidate, selected, setSelectedItemId, showTopBorder) => {
+  const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
-      key={candidateId}
+      key={candidate.id}
       candidate={candidate}
-      selected={selected}
-      setSelectedCandidateId={setSelectedItemId}
+      selected={selectedCandidateId === candidate.id}
+      setSelectedCandidateId={setSelectedCandidateId}
       showTopBorder={showTopBorder}
     />
-  }
-
-  const candidateDetailsFunc = (candidate, closeFunc) => {
-    return <CandidateDetails candidate={candidate} onClose={closeFunc}/>
   }
 
   return <>
@@ -31,14 +29,16 @@ const CandidateList = ({candidates}) => {
       <PageTitleWithCount icon={<CandidatesIcon/>} title={`${candidates.length} candidates`}/>
     </div>
     <div className="col-span-4 text-right">
-      <AddCandidateButton handleClick={()=>{setShowAddItemModal(true)}}/>
+      <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
     </div>
     <PaginatedList
       itemList={candidates}
       itemRowFunc={candidateRowFunc}
-      itemDetailsFunc={candidateDetailsFunc}
+      selectedItemId={selectedCandidateId}
+      setSelectedItem={setSelectedCandidate}
     />
-    <AddCandidateModal show={showAddItemModal} handleClose={() => setShowAddItemModal(false)}/>
+    <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
+    <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
   </>
 
 }

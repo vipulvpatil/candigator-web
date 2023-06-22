@@ -6,7 +6,7 @@ import PageNumbers from "./page_numbers"
 const ITEMS_PER_PAGE = 10
 
 const PaginatedList = (
-  {itemList, itemRowFunc, itemDetailsFunc}
+  {itemList, itemRowFunc, selectedItemId, setSelectedItem}
 ) => {
   let pageCount
   if (itemList && itemList.length) {
@@ -14,8 +14,7 @@ const PaginatedList = (
   } else {
     pageCount = 0
   }
-  const [selectedItemId, setSelectedItemId] = useState(null)
-  const [selectedItem, setSelectedItem] = useState(null)
+
   const [selectedPage, setSelectedPage] = useState(1)
   const [visibleItems, setVisibleItems] = useState([])
 
@@ -30,7 +29,7 @@ const PaginatedList = (
       })
     }
     setSelectedItem(matchedItem)
-  }, [selectedItemId, itemList])
+  }, [selectedItemId, itemList, setSelectedItem])
 
   useEffect(() => {
     if(itemList) {
@@ -46,25 +45,15 @@ const PaginatedList = (
     }
   }, [selectedPage, itemList])
 
-  // const rightButton = rightButtonFunc?rightButtonFunc(() => {setShowAddItemModal(true)}):<></>
-
   if(!visibleItems || visibleItems.length === 0) {
-    return <>
-      {/* <div className="col-span-4 text-right">
-        {rightButton}
-      </div> */}
-    </>
+    return <></>
   }
 
   return <>
-    {/* <div className="col-span-4 text-right">
-      {rightButton}
-    </div> */}
     {visibleItems.map((item, index) => {
       if (item && item.id) {
-        const selected=(selectedItemId === item.id)
         const showTopBorder=(index == 0)
-        return itemRowFunc(item.id, item, selected, setSelectedItemId, showTopBorder)
+        return itemRowFunc(item, showTopBorder)
       } else {
         return <div key={`blank_${item}`} className="h-[51px] col-span-7"></div>
       }
@@ -77,7 +66,6 @@ const PaginatedList = (
       />
     </div>
     <div className="col-span-3"></div>
-    {itemDetailsFunc && itemDetailsFunc(selectedItem, () => setSelectedItemId(null))}
   </>
 }
 

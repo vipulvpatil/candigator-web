@@ -10,9 +10,11 @@ import Title from "./title"
 
 const FileList = ({files}) => {
   const [fileUploadsToggleSelected, setFileUploadsToggleSelected] = useState(false)
-  const [visibleFiles, setVisibleFiles] = useState(null)
-  const [processedFiles, setProcessedFiles] = useState([])
-  const [unprocessedFiles, setUnprocessedFiles] = useState([])
+  const [visibleFileUploads, setVisibleFileUploads] = useState(null)
+  const [processedFileUploads, setProcessedFileUploads] = useState([])
+  const [unprocessedFileUploads, setUnprocessedFileUploads] = useState([])
+  const [selectedFileUploadId, setSelectedFileUploadId] = useState(null)
+  const [, setSelectedFileUpload] = useState(null)
 
   useEffect(() => {
     const processed = []
@@ -27,23 +29,23 @@ const FileList = ({files}) => {
         }
       })
     }
-    setUnprocessedFiles(unprocessed)
-    setProcessedFiles(processed)
+    setUnprocessedFileUploads(unprocessed)
+    setProcessedFileUploads(processed)
   }, [files])
 
   useEffect(() => {
     if(!fileUploadsToggleSelected) {
-      setVisibleFiles(processedFiles)
+      setVisibleFileUploads(processedFileUploads)
     } else {
-      setVisibleFiles(unprocessedFiles)
+      setVisibleFileUploads(unprocessedFileUploads)
     }
-  }, [fileUploadsToggleSelected, processedFiles, unprocessedFiles])
+  }, [fileUploadsToggleSelected, processedFileUploads, unprocessedFileUploads])
 
-  const fileRowFunc = (fileUploadId, fileUpload, selected, setSelectedFileUploadId, showTopBorder) => {
+  const fileRowFunc = (fileUpload, showTopBorder) => {
     return <FileRow
-      key={fileUploadId}
+      key={fileUpload.id}
       fileUpload={fileUpload}
-      selected={selected}
+      selected={selectedFileUploadId === fileUpload.id}
       setSelectedFileUploadId={setSelectedFileUploadId}
       showTopBorder={showTopBorder}
     />
@@ -62,13 +64,15 @@ const FileList = ({files}) => {
             setFileUploadsToggleSelected(true)
           }
         }}
-        badge={unprocessedFiles.length}
+        badge={unprocessedFileUploads.length}
         selected={fileUploadsToggleSelected}
       />
     </div>
     <PaginatedList
-      itemList={visibleFiles}
+      itemList={visibleFileUploads}
       itemRowFunc={fileRowFunc}
+      selectedItemId={selectedFileUploadId}
+      setSelectedItem={setSelectedFileUpload}
     />
   </>
 }
