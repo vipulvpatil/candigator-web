@@ -7,8 +7,11 @@ import CandidateRow from "./candidate_row"
 import CandidatesIcon from "@/icons/candidates"
 import PageTitleWithCount from "@/components/page_title_with_count"
 import PaginatedList from "@/components/paginated_list"
+import {useState} from "react"
 
 const CandidateList = ({candidates}) => {
+  const [showAddItemModal, setShowAddItemModal] = useState(false)
+
   const candidateRowFunc = (candidateId, candidate, selected, setSelectedItemId, showTopBorder) => {
     return <CandidateRow
       key={candidateId}
@@ -23,25 +26,19 @@ const CandidateList = ({candidates}) => {
     return <CandidateDetails candidate={candidate} onClose={closeFunc}/>
   }
 
-  const addCandidateButtonFunc = (handleClick) => {
-    return <AddCandidateButton handleClick={handleClick}/>
-  }
-
-  const addCandidateModalFunc = (show, closeFunc) => {
-    return <AddCandidateModal show={show} handleClose={closeFunc}/>
-  }
-
   return <>
     <div className="col-span-3">
       <PageTitleWithCount icon={<CandidatesIcon/>} title={`${candidates.length} candidates`}/>
+    </div>
+    <div className="col-span-4 text-right">
+      <AddCandidateButton handleClick={()=>{setShowAddItemModal(true)}}/>
     </div>
     <PaginatedList
       itemList={candidates}
       itemRowFunc={candidateRowFunc}
       itemDetailsFunc={candidateDetailsFunc}
-      addItemModalFunc={addCandidateModalFunc}
-      rightButtonFunc={addCandidateButtonFunc}
     />
+    <AddCandidateModal show={showAddItemModal} handleClose={() => setShowAddItemModal(false)}/>
   </>
 
 }

@@ -6,7 +6,7 @@ import PageNumbers from "./page_numbers"
 const ITEMS_PER_PAGE = 10
 
 const PaginatedList = (
-  {itemList, itemRowFunc, itemDetailsFunc, addItemModalFunc, rightButtonFunc}
+  {itemList, itemRowFunc, itemDetailsFunc}
 ) => {
   let pageCount
   if (itemList && itemList.length) {
@@ -18,7 +18,6 @@ const PaginatedList = (
   const [selectedItem, setSelectedItem] = useState(null)
   const [selectedPage, setSelectedPage] = useState(1)
   const [visibleItems, setVisibleItems] = useState([])
-  const [showAddItemModal, setShowAddItemModal] = useState(false)
 
   useEffect(() => {
     // TODO: This is inefficient. Make it better
@@ -47,20 +46,20 @@ const PaginatedList = (
     }
   }, [selectedPage, itemList])
 
-  const rightButton = rightButtonFunc?rightButtonFunc(() => {setShowAddItemModal(true)}):<></>
+  // const rightButton = rightButtonFunc?rightButtonFunc(() => {setShowAddItemModal(true)}):<></>
 
   if(!visibleItems || visibleItems.length === 0) {
     return <>
-      <div className="col-span-4 text-right">
+      {/* <div className="col-span-4 text-right">
         {rightButton}
-      </div>
+      </div> */}
     </>
   }
 
   return <>
-    <div className="col-span-4 text-right">
+    {/* <div className="col-span-4 text-right">
       {rightButton}
-    </div>
+    </div> */}
     {visibleItems.map((item, index) => {
       if (item && item.id) {
         const selected=(selectedItemId === item.id)
@@ -79,7 +78,6 @@ const PaginatedList = (
     </div>
     <div className="col-span-3"></div>
     {itemDetailsFunc && itemDetailsFunc(selectedItem, () => setSelectedItemId(null))}
-    {addItemModalFunc && addItemModalFunc(showAddItemModal, () => setShowAddItemModal(false))}
   </>
 }
 

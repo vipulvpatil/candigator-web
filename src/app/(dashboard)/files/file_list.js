@@ -49,29 +49,26 @@ const FileList = ({files}) => {
     />
   }
 
-  const unprocessedFileUploadsToggleFunc = (handleClick) => {
-    return <FileUploadsToggleButton
-      handleClick={() => {
-        if(fileUploadsToggleSelected) {
-          setFileUploadsToggleSelected(false)
-        } else {
-          setFileUploadsToggleSelected(true)
-        }
-        handleClick()
-      }}
-      badge={unprocessedFiles.length}
-      selected={fileUploadsToggleSelected}
-    />
-  }
-
   return <>
     <div className="col-span-3">
       <PageTitleWithCount icon={<FilesIcon/>} title={<Title files={files}/>}/>
     </div>
+    <div className="col-span-4 text-right">
+      <FileUploadsToggleButton
+        handleClick={() => {
+          if(fileUploadsToggleSelected) {
+            setFileUploadsToggleSelected(false)
+          } else {
+            setFileUploadsToggleSelected(true)
+          }
+        }}
+        badge={unprocessedFiles.length}
+        selected={fileUploadsToggleSelected}
+      />
+    </div>
     <PaginatedList
       itemList={visibleFiles}
       itemRowFunc={fileRowFunc}
-      rightButtonFunc={unprocessedFileUploadsToggleFunc}
     />
   </>
 }
