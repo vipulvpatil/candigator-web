@@ -2,27 +2,45 @@
 
 import {useEffect, useState} from "react"
 import FileRow from "./file_row"
+import FileUploadsToggleButton from "./file_uploads_toggle_button"
+import FilesIcon from "@/icons/files"
+import PageTitleWithCount from "@/components/page_title_with_count"
 import PaginatedList from "@/components/paginated_list"
 
 const FileList = ({files}) => {
+  const [fileUploadsToggleSelected, setFileUploadsToggleSelected] = useState(false)
+  const [visibleFiles, setVisibleFiles] = useState(null)
+  const [processedFiles, setProcessedFiles] = useState([])
+  const [unprocessedFiles, setUnprocessedFiles] = useState([])
 
-  // TODO: Remove this next piece of code and innstead use the files data to calculate the count
-  const [unprocessedFileCount, setUnprocessedFileCount] = useState(0)
+  const unprocessedFileUploadsCount = files.filter((fileUpload) => {
+    return fileUpload.processingStatus !== "COMPLETED"
+  }).length
+
+  const title = <>
+    <>{files.length - unprocessedFileUploadsCount}{" files"}</>
+    {unprocessedFileUploadsCount > 0 &&
+    <div className="text-red-700/50 text-[24px] pl-1 relative top-[10px]">
+      {"("}{unprocessedFileUploadsCount}{" unprocessed)"}
+    </div>}
+  </>
 
   useEffect(() => {
-    const loadUnprocessedFileCount = async () => {
-      const resp = await fetch("/api/unprocessed_file_uploads", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
+    const processed = []
+    const unprocessed = []
+
+    if (files && files.length > 0){
+      files.forEach((fileUpload) => {
+        if(fileUpload.processingStatus === "COMPLETED") {
+          processed.push(fileUpload)
+        } else {
+          unprocessed.push(fileUpload)
         }
       })
-
-      const respJson = await resp.json()
-      setUnprocessedFileCount(respJson.unprocessedFileCount)
     }
-    loadUnprocessedFileCount()
-  }, [])
+    setUnprocessedFiles(unprocessed)
+    setProcessedFiles(processed)
+  }, [files])
 
   const fileRowFunc = (fileUploadId, fileUpload, selected, setSelectedFileUploadId, showTopBorder) => {
     return <FileRow
@@ -34,68 +52,32 @@ const FileList = ({files}) => {
     />
   }
 
-  const addCandidateButtonFunc = (handleClick) => {
-    return <Button handleClick={handleClick} badge={unprocessedFileCount}/>
-  }
-
-  return <PaginatedList
-    itemList={files}
-    itemRowFunc={fileRowFunc}
-    rightButtonFunc={addCandidateButtonFunc}
-  />
-}
-
-const Button = ({handleClick, badge}) => {
-  const [selected, setSelected] = useState(false)
-  let assignedClass = ""
-  if (selected) {
-    assignedClass = "text-white bg-bold"
-  } else {
-    assignedClass = "text-black/50 bg-black/5 hover:text-bold hover:bg-subtle/20"
-  }
-
-  let count = "0"
-
-  if (badge) {
-    if (badge > 9) {
-      count = "9+"
-    }
-    else {
-      count = ""+badge+""
-    }
-  }
-
-  return <>
-    <div
-      className={`
-        inline-flex rounded-2xl h-12 mr-3 px-2
-        justify-center items-center
-        font-semibold text-[24px]
-        cursor-pointer
-        ${assignedClass}
-      `}
-      onClick={() => {
-        if(selected) {
-          setSelected(false)
+  const unprocessedFileUploadsToggleFunc = (handleClick) => {
+    return <FileUploadsToggleButton
+      handleClick={() => {
+        if(fileUploadsToggleSelected) {
+          setFileUploadsToggleSelected(false)
+          setVisibleFiles(processedFiles)
         } else {
-          setSelected(true)
+          setFileUploadsToggleSelected(true)
+          setVisibleFiles(unprocessedFiles)
         }
         handleClick()
       }}
-    >
-      {count != "0" && <>
-        <div className="
-          align-middle text-[16px] text-center
-          bg-red-700 w-[24px] h-[24px]
-          rounded-full
-          ">
-          <div className="align-middle text-white">{count}</div>
-        </div>
-        <div className="pl-2">
-          {"Show unprocessed files"}
-        </div>
-      </>}
+      badge={unprocessedFiles.length}
+      selected={fileUploadsToggleSelected}
+    />
+  }
+
+  return <>
+    <div className="col-span-3">
+      <PageTitleWithCount icon={<FilesIcon/>} title={title}/>
     </div>
+    <PaginatedList
+      itemList={visibleFiles}
+      itemRowFunc={fileRowFunc}
+      rightButtonFunc={unprocessedFileUploadsToggleFunc}
+    />
   </>
 }
 

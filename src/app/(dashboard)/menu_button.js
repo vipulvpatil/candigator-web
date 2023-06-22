@@ -26,7 +26,7 @@ const MenuButton = ({title,  selected, icon, badge}) => {
       <div className="pl-1 align-middle flex-grow">
         {title}
       </div>
-      {count != "0" && <div className="
+      {count !== "0" && <div className="
         align-middle text-[18px] text-center
         bg-red-700 w-[30px] h-[30px]
         rounded-full

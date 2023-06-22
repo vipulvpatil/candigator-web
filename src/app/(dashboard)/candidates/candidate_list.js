@@ -4,6 +4,8 @@ import AddCandidateButton from "./add_candidate_button"
 import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "./candidate_details"
 import CandidateRow from "./candidate_row"
+import CandidatesIcon from "@/icons/candidates"
+import PageTitleWithCount from "@/components/page_title_with_count"
 import PaginatedList from "@/components/paginated_list"
 
 const CandidateList = ({candidates}) => {
@@ -29,12 +31,18 @@ const CandidateList = ({candidates}) => {
     return <AddCandidateModal show={show} handleClose={closeFunc}/>
   }
 
-  return <PaginatedList
-    itemList={candidates}
-    itemRowFunc={candidateRowFunc}
-    itemDetailsFunc={candidateDetailsFunc}
-    addItemModalFunc={addCandidateModalFunc}
-    rightButtonFunc={addCandidateButtonFunc}
-  />
+  return <>
+    <div className="col-span-3">
+      <PageTitleWithCount icon={<CandidatesIcon/>} title={`${candidates.length} candidates`}/>
+    </div>
+    <PaginatedList
+      itemList={candidates}
+      itemRowFunc={candidateRowFunc}
+      itemDetailsFunc={candidateDetailsFunc}
+      addItemModalFunc={addCandidateModalFunc}
+      rightButtonFunc={addCandidateButtonFunc}
+    />
+  </>
+
 }
 export default CandidateList

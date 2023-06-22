@@ -1,7 +1,5 @@
 import CandidateList from "./candidate_list"
-import CandidatesIcon from "@/icons/candidates"
 import GrpcService from "@/lib/grpc/service"
-import PageTitleWithCount from "@/components/page_title_with_count"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 
@@ -15,9 +13,6 @@ const Candidates = async () => {
 
   return (
     <div className="grid grid-cols-7 min-h-[620px] w-full">
-      <div className="col-span-3">
-        <PageTitleWithCount icon={<CandidatesIcon/>} count={candidateList.length} label={"candidates"}/>
-      </div>
       <CandidateList candidates={candidateList}/>
     </div>
   )
