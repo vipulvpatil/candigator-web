@@ -11,18 +11,6 @@ const Files = async () => {
   }
 
   const fileUploads = await GrpcService.getFileUploads(session.user.email)
-  // const unprocessedFileUploadsCount = fileUploads.filter((fileUpload) => {
-  //   return fileUpload.processingStatus !== "COMPLETED"
-  // }).length
-
-  // const title = <>
-  //   <>{fileUploads.length - unprocessedFileUploadsCount}{" files"}</>
-  //   {unprocessedFileUploadsCount > 0 &&
-  //   <div className="text-red-700/50 text-[24px] pl-1 relative top-[10px]">
-  //     {"("}{unprocessedFileUploadsCount}{" unprocessed)"}
-  //   </div>}
-  // </>
-
 
   return (
     <div className="grid grid-cols-7 min-h-[620px] w-full">

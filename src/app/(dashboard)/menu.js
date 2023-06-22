@@ -22,7 +22,6 @@ const Menu = () => {
           "Content-Type": "application/json",
         }
       })
-
       const respJson = await resp.json()
       setUnprocessedFileCount(respJson.unprocessedFileCount)
     }

@@ -27,7 +27,7 @@ const FileUploadsToggleButton = ({handleClick, badge, selected}) => {
   return <>
     <div
       className={`
-        inline-flex rounded-2xl h-12 mr-3 px-2
+        inline-flex rounded-2xl h-12 px-4
         justify-center items-center
         font-semibold text-[24px]
         cursor-pointer

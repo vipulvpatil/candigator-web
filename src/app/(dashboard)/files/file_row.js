@@ -1,5 +1,6 @@
 const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder}) => {
   let textColor = null
+  let statusTextColor = null
   let bgColor = null
   let hoverWrapper = "wrapperForHover"
   let topBorder = ""
@@ -7,6 +8,15 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
     textColor = "text-white"
     bgColor = "bg-bold"
     hoverWrapper = null
+  }
+
+  if (fileUpload.processingStatus === "FAILED") {
+    statusTextColor = "text-red-700"
+    if (selected) {
+      statusTextColor = "text-red-500"
+    }
+  } else {
+    statusTextColor = textColor
   }
 
   if (showTopBorder) {
@@ -36,7 +46,7 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
         text-[24px] text-black/50 text-right
         ${bgColor} ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textColor}`}>
+        <div className={`line-clamp-1 relative top-[4px] ${statusTextColor}`}>
           {fileUpload.processingStatus}
         </div>
       </div>

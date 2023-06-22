@@ -6,6 +6,7 @@ import FileUploadsToggleButton from "./file_uploads_toggle_button"
 import FilesIcon from "@/icons/files"
 import PageTitleWithCount from "@/components/page_title_with_count"
 import PaginatedList from "@/components/paginated_list"
+import Title from "./title"
 
 const FileList = ({files}) => {
   const [fileUploadsToggleSelected, setFileUploadsToggleSelected] = useState(false)
@@ -13,23 +14,11 @@ const FileList = ({files}) => {
   const [processedFiles, setProcessedFiles] = useState([])
   const [unprocessedFiles, setUnprocessedFiles] = useState([])
 
-  const unprocessedFileUploadsCount = files.filter((fileUpload) => {
-    return fileUpload.processingStatus !== "COMPLETED"
-  }).length
-
-  const title = <>
-    <>{files.length - unprocessedFileUploadsCount}{" files"}</>
-    {unprocessedFileUploadsCount > 0 &&
-    <div className="text-red-700/50 text-[24px] pl-1 relative top-[10px]">
-      {"("}{unprocessedFileUploadsCount}{" unprocessed)"}
-    </div>}
-  </>
-
   useEffect(() => {
     const processed = []
     const unprocessed = []
 
-    if (files && files.length > 0){
+    if (Array.isArray(files)){
       files.forEach((fileUpload) => {
         if(fileUpload.processingStatus === "COMPLETED") {
           processed.push(fileUpload)
@@ -41,6 +30,14 @@ const FileList = ({files}) => {
     setUnprocessedFiles(unprocessed)
     setProcessedFiles(processed)
   }, [files])
+
+  useEffect(() => {
+    if(!fileUploadsToggleSelected) {
+      setVisibleFiles(processedFiles)
+    } else {
+      setVisibleFiles(unprocessedFiles)
+    }
+  }, [fileUploadsToggleSelected, processedFiles, unprocessedFiles])
 
   const fileRowFunc = (fileUploadId, fileUpload, selected, setSelectedFileUploadId, showTopBorder) => {
     return <FileRow
@@ -57,10 +54,8 @@ const FileList = ({files}) => {
       handleClick={() => {
         if(fileUploadsToggleSelected) {
           setFileUploadsToggleSelected(false)
-          setVisibleFiles(processedFiles)
         } else {
           setFileUploadsToggleSelected(true)
-          setVisibleFiles(unprocessedFiles)
         }
         handleClick()
       }}
@@ -71,7 +66,7 @@ const FileList = ({files}) => {
 
   return <>
     <div className="col-span-3">
-      <PageTitleWithCount icon={<FilesIcon/>} title={title}/>
+      <PageTitleWithCount icon={<FilesIcon/>} title={<Title files={files}/>}/>
     </div>
     <PaginatedList
       itemList={visibleFiles}
