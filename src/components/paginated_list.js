@@ -22,9 +22,9 @@ const PaginatedList = (
     // TODO: This is inefficient. Make it better
     let matchedItem = null
     if (itemList) {
-      itemList.forEach(candidate => {
-        if(candidate.id === selectedItemId) {
-          matchedItem = candidate
+      itemList.forEach(item => {
+        if(item.id === selectedItemId) {
+          matchedItem = item
         }
       })
     }
