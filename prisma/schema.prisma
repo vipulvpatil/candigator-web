@@ -1,26 +1,26 @@
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider          = "postgresql"
+  url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL") // Only needed when using a cloud provider that doesn't support the creation of new databases, like Heroku. Learn more: https://pris.ly/d/migrate-shadow
 }
 
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String   @map("provider_account_id")
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -57,20 +57,35 @@ model Team {
   name        String
   users       User[]
   fileUploads FileUpload[]
-  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(3)
+  candidates  Candidate[]
+  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
 
   @@map("teams")
 }
 
 model FileUpload {
-  id               String @id @default(cuid())
+  id               String     @id @default(cuid())
   name             String
-  presignedUrl     String @map("presigned_url")
+  presignedUrl     String     @map("presigned_url")
   status           String
-  processingStatus String @map("processing_status")
-  createdAt        DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
-  teamId           String   @map("team_id")
-  team             Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  processingStatus String     @map("processing_status")
+  createdAt        DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+  teamId           String     @map("team_id")
+  team             Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  candidate        Candidate?
 
   @@map("file_uploads")
+}
+
+model Candidate {
+  id                     String      @id @default(cuid())
+  createdAt              DateTime    @default(now()) @map("created_at") @db.Timestamptz(3)
+  aiGeneratedPersona     Json?       @map("ai_generated_persona")
+  manuallyCreatedPersona Json?       @map("manually_created_persona")
+  fileUploadId           String?      @unique @map("file_upload_id")
+  fileUpload             FileUpload? @relation(fields: [fileUploadId], references: [id], onDelete: Cascade)
+  teamId                 String      @map("team_id")
+  team                   Team        @relation(fields: [teamId], references: [id], onDelete: Cascade)
+
+  @@map("candidates")
 }
