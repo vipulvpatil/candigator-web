@@ -3,7 +3,7 @@ import LoginButton from "./login_button"
 
 const Home = () => {
   return (
-    <main className="font-oswald  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
+    <main className="font-quicksand  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
       <div className="text-[64px] w-full text-center pb-6 text-bold">
         {"Candidate Tracker"}
       </div>

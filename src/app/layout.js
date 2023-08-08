@@ -1,13 +1,13 @@
 import "./globals.css"
 import {NextAuthProvider} from "./AuthProvider"
-import {Oswald} from "next/font/google"
+import {Quicksand} from "next/font/google"
 
-const oswald = Oswald({
+const quicksand = Quicksand({
   weight: ["400", "600", "700"],
   style: ["normal"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-oswald",
+  variable: "--font-quicksand",
 })
 
 export const metadata = {
@@ -18,7 +18,7 @@ export const metadata = {
 const RootLayout = ({children}) => {
   return (
     <html lang="en">
-      <body className={oswald.variable}>
+      <body className={quicksand.variable}>
         <NextAuthProvider>
           {children}
         </NextAuthProvider>

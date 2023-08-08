@@ -7,7 +7,7 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      oswald: ["var(--font-oswald)"],
+      quicksand: ["var(--font-quicksand)"],
     },
     extend: {
       colors: {
