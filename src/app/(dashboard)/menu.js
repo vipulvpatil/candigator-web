@@ -29,7 +29,7 @@ const Menu = () => {
   }, [segment])
 
   return (
-    <div className="w-[165px] flex-none flex flex-col min-h-[400px]">
+    <div className="w-[181px] flex-none flex flex-col min-h-[400px]">
       <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
       <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
       <MenuButton title={"files"} selected={segment === "files"} icon={<FilesIcon/>} badge={unprocessedFileCount}/>

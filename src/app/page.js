@@ -28,10 +28,10 @@ const Home = () => {
         </div>
       </div>
       <div className="w-hero flex mx-auto">
-        <div className="text-right text-[56px] w-[457px] mt-relax text-white pr-2">
+        <div className="text-right text-[56px] w-[457px] mt-relax text-white pr-2 font-semibold">
           {"Relax"}
         </div>
-        <div className="text-right text-[32px] w-[583px] mt-relaxSmall">
+        <div className="text-right text-[31px] w-[583px] mt-relaxSmall font-semibold">
           {"as we help you find the right candidate"}
         </div>
       </div>

@@ -28,8 +28,8 @@ module.exports = {
         primary: "24px",
       },
       margin: {
-        relax: "-67.5px",
-        relaxSmall : "-39px",
+        relax: "-63px",
+        relaxSmall : "-34.5px",
       },
       dropShadow: {
         button: "0 5px 10px rgba(0,0,0,0.5)",
