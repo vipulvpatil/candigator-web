@@ -44,7 +44,7 @@ const FileUploadsToggleButton = ({handleClick, badge, selected}) => {
           ">
           <div className="align-middle text-white">{count}</div>
         </div>
-        <div className="w-[183px]">
+        <div className="w-[223px]">
           {displayText}
         </div>
       </>

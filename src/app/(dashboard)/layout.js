@@ -8,9 +8,9 @@ import {getServerSession} from "next-auth"
 const DashboardLayout = async ({children}) => {
   const session = await getServerSession(authOptions)
   if (!session){
-    return  <>
+    return  <div className="font-quicksand">
       <SignInButton/>
-    </>
+    </div>
   }
 
   return (

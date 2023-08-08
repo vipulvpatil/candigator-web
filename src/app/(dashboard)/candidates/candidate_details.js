@@ -22,7 +22,7 @@ const CandidateDetails = ({candidate, onClose}) => {
         <CloseIcon/>
       </button>
       <div className="">
-        <div className="text-[24px] font-semibold text-black/70 leading-none">
+        <div className="text-[24px] font-normal text-black/70 leading-none">
           {candidate.id}
         </div>
       </div>

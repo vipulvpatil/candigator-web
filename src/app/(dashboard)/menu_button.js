@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 const MenuButton = ({title,  selected, icon, badge}) => {
-  let displayClass = "text-black fill-black font-normal hover:text-bold hover:bg-subtle/20 hover:fill-bold cursor-pointer"
+  let displayClass = "text-black fill-black hover:text-bold hover:bg-subtle/20 hover:fill-bold cursor-pointer"
 
   if (selected) {
     displayClass = "text-white bg-bold fill-white"
@@ -19,7 +19,7 @@ const MenuButton = ({title,  selected, icon, badge}) => {
   }
 
   return (
-    <Link href={`/${title}`} className={`flex text-[24px] font-normal text-left px-2 py-1 ${displayClass}`}>
+    <Link href={`/${title}`} className={`flex text-[24px] font-semibold text-left px-2 py-1 ${displayClass}`}>
       <div className="align-middle w-[34px] relative top-[-2px]">
         {icon}
       </div>

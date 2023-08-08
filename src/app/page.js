@@ -4,7 +4,7 @@ import LoginButton from "./login_button"
 const Home = () => {
   return (
     <main className="font-quicksand  w-full h-full text-black bg-gradient-to-b from-subtle to-white">
-      <div className="text-[64px] w-full text-center pb-6 text-bold">
+      <div className="text-[64px] w-full text-center pb-6 text-bold font-bold">
         {"Candidate Tracker"}
       </div>
       <div className="w-hero flex mx-auto">
@@ -19,11 +19,11 @@ const Home = () => {
           }}
           className="max-w-none"
         ></Image>
-        <div className="text-right text-primary w-[583px] h-[538px]">
-          <div className="mt-[-9px] pb-10">{"Convert any PDF resume into searchable candidate information"}</div>
-          <div className="pb-10">{"Manage upto 100 candidates using our basic plan"}</div>
-          <div className="pb-10">{"Easily search through all your candidate data"}</div>
-          <div>{"Try it for free"}</div>
+        <div className="text-right text-primary w-[583px] h-[538px] font-semibold">
+          <div className="mt-[-9px] pb-10">{"Convert resume into searchable candidate data"}</div>
+          <div className="pb-10">{"Manage upto 100 candidates with a basic plan"}</div>
+          <div className="pb-10">{"Easily search through your candidate data"}</div>
+          <div>{"Try it for free. Limited time only"}</div>
           <LoginButton/>
         </div>
       </div>
@@ -32,7 +32,7 @@ const Home = () => {
           {"Relax"}
         </div>
         <div className="text-right text-[32px] w-[583px] mt-relaxSmall">
-          {"as we help you find the right candidate in seconds"}
+          {"as we help you find the right candidate"}
         </div>
       </div>
     </main>

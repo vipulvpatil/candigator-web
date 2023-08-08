@@ -116,7 +116,7 @@ const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
     <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
       <AddCandidateIcon/>
     </div>
-    <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+    <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
       {"Choose File/s"}
     </div>
     <input
@@ -151,7 +151,7 @@ const GoToFilesButton = () => {
         <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
           <FilesIcon/>
         </div>
-        <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px]">
+        <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
           {"Go To Files"}
         </div>
       </button>
