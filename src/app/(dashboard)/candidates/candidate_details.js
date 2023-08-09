@@ -39,7 +39,9 @@ const CandidateDetails = ({candidate, onClose}) => {
         if(Array.isArray(data)) {
           if(isString(data[0])) {
             return <CandidateDetailArray key={key} label={key} values={data}/>
-          } else {
+          } else if(key === "Education"){
+            return <CandidateDetailForEducation key={key} label={key} values={data}/>
+          }else {
             // assuming array of objects
             return <CandidateDetailObject key={key} label={key} values={data}/>
           }
@@ -72,6 +74,32 @@ const CandidateDetailArray = ({label, values}) => {
       </div>
     })}
 
+  </div>
+}
+
+const CandidateDetailForEducation = ({label, values}) => {
+  return <div className="pt-5">
+    <div className="text-[18px] text-black/50">
+      {label}
+    </div>
+    {values.map((value, i) => {
+      let pt = "pt-4"
+      if (i === 0) {
+        pt = "pt-0"
+      }
+      return <div key={i} className={`${pt} text-[20px] font-normal text-black/90 leading-none`}>
+        {Object.keys(value).map((key) => {
+          let className = "pt-2"
+          if(key === "Institute"){
+            className = "font-semibold"
+          }
+
+          return <div key={key} className={`${className}`}>
+            {value[key]}
+          </div>
+        })}
+      </div>
+    })}
   </div>
 }
 
