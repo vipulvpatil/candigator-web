@@ -1,3 +1,4 @@
+import {buildPersona, buildResultantPersona} from "@/lib/candidate-builder/persona"
 import CandidateList from "./candidate_list"
 import GrpcService from "@/lib/grpc/service"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
@@ -27,13 +28,15 @@ const getCandidateListFor = async (userEmail) => {
 
 const processCandidates = (candidates) => {
   return candidates.map(candidate => {
-    const aiGeneratedPerson = JSON.parse(candidate.aiGeneratedPersona)
-    // const manuallyCreatedPersona = JSON.parse(candidate.manuallyCreatedPersona)
+    const aiGeneratedPerson = buildPersona(candidate.aiGeneratedPersona)
+    const manuallyCreatedPersona = buildPersona(candidate.manuallyCreatedPersona)
+    const displayPersona = buildResultantPersona(aiGeneratedPerson, manuallyCreatedPersona)
     Object.assign(candidate, {
-      name: aiGeneratedPerson.Name,
-      designation: aiGeneratedPerson["Recommended Roles"][0],
-      company: aiGeneratedPerson["Education"][0]["Institute"],
+      name: displayPersona.Name,
+      designation: displayPersona["Recommended Roles"][0],
+      company: displayPersona["Education"][0]["Institute"],
       updated_at: "324 days ago",
+      displayPersona: displayPersona,
     })
     return candidate
   })
