@@ -39,9 +39,7 @@ const CandidateDetails = ({candidate, onClose}) => {
         if(Array.isArray(data)) {
           if(isString(data[0])) {
             return <CandidateDetailArray key={key} label={key} values={data}/>
-          } else if(key === "Education"){
-            return <CandidateDetailForEducation key={key} label={key} values={data}/>
-          }else {
+          } else {
             // assuming array of objects
             return <CandidateDetailObject key={key} label={key} values={data}/>
           }
@@ -52,72 +50,50 @@ const CandidateDetails = ({candidate, onClose}) => {
   )
 }
 
-const CandidateDetailString = ({label, value}) => {
-  return <div className="pt-5">
-    <div className="text-[18px] text-black/50">
-      {label}
-    </div>
-    <div className="text-[24px] font-semibold text-black/70 leading-none">
-      {value}
-    </div>
+const CandidateDetailLabel = ({label}) => {
+  return <div className="pt-5 text-[18px] text-black/50">
+    {label}
   </div>
+}
+
+const CandidateDetailSubLabel = ({value}) => {
+  return <div className="text-[20px] font-semibold text-black/70 leading-none">
+    {value}
+  </div>
+}
+
+const CandidateDetailString = ({label, value}) => {
+  return <>
+    <CandidateDetailLabel label={label}/>
+    <CandidateDetailSubLabel value={value}/>
+  </>
 }
 
 const CandidateDetailArray = ({label, values}) => {
-  return <div className="pt-5">
-    <div className="text-[18px] text-black/50">
-      {label}
-    </div>
+  return <>
+    <CandidateDetailLabel label={label}/>
     {values.map((value, i) => {
-      return <div key={i} className="text-[24px] font-semibold text-black/70 leading-none">
-        {value}
+      return <div key={i}>
+        <CandidateDetailSubLabel value={value}/>
       </div>
     })}
 
-  </div>
-}
-
-const CandidateDetailForEducation = ({label, values}) => {
-  return <div className="pt-5">
-    <div className="text-[18px] text-black/50">
-      {label}
-    </div>
-    {values.map((value, i) => {
-      let pt = "pt-4"
-      if (i === 0) {
-        pt = "pt-0"
-      }
-      return <div key={i} className={`${pt} text-[20px] font-normal text-black/90 leading-none`}>
-        {Object.keys(value).map((key) => {
-          let className = "pt-2"
-          if(key === "Institute"){
-            className = "font-semibold"
-          }
-
-          return <div key={key} className={`${className}`}>
-            {value[key]}
-          </div>
-        })}
-      </div>
-    })}
-  </div>
+  </>
 }
 
 const CandidateDetailObject = ({label, values}) => {
-  return <div className="pt-5">
-    <div className="text-[18px] text-black/50">
-      {label}
-    </div>
+  return <>
+    <CandidateDetailLabel label={label}/>
     {values.map((value, i) => {
-      return <div key={i} className="pt-3 text-[20px] font-normal text-black/90 leading-none">
+      return <div key={i}>
         {Object.keys(value).map((key) => {
           return <div key={key}>
-            {value[key]}
+            <CandidateDetailSubLabel value={value[key]}/>
           </div>
         })}
       </div>
     })}
-  </div>
+  </>
 }
 
 export default CandidateDetails
