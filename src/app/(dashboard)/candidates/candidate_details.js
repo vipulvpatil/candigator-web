@@ -19,6 +19,7 @@ const CandidateDetails = ({candidate, onClose}) => {
       bg-white rounded-l-lg
         drop-shadow-modalLeft
         backdrop-blur-none
+        overflow-y-scroll
       "
       // The backdrop-blur-none is needed to fix dropshadow issue in safari.
     >
@@ -80,9 +81,9 @@ const CandidateDetailObject = ({label, values}) => {
       {label}
     </div>
     {values.map((value, i) => {
-      return <div key={i} className="text-[24px] font-semibold text-black/70 leading-none">
+      return <div key={i} className="pt-3 text-[20px] font-normal text-black/90 leading-none">
         {Object.keys(value).map((key) => {
-          return <div key={i} className="text-[20px] font-semibold text-black/90 leading-none">
+          return <div key={key}>
             {value[key]}
           </div>
         })}
