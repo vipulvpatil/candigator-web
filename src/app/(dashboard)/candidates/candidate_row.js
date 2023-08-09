@@ -1,11 +1,9 @@
 const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorder}) => {
-  let textColor = null
-  let bgColor = null
+  let textFontStyle = "font-normal"
   let hoverWrapper = "wrapperForHover"
   let topBorder = ""
   if (selected) {
-    textColor = "text-white"
-    bgColor = "bg-bold"
+    textFontStyle = "font-semibold"
     hoverWrapper = null
   }
 
@@ -24,9 +22,9 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
         col-span-2 pr-5 py-1 pl-1
         border-b-[1px] border-subtle/30
         text-[28px] text-black/70
-        ${bgColor} ${topBorder}
+        ${topBorder}
       `}>
-        <div className={`line-clamp-1 ${textColor}`}>
+        <div className={`line-clamp-1 ${textFontStyle}`}>
           {candidate.name}
         </div>
       </div>
@@ -34,9 +32,9 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
         col-span-2 pr-5 py-1
         border-b-[1px] border-subtle/30
         text-[24px] text-black/50
-        ${bgColor} ${topBorder}
+        ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textColor}`}>
+        <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
           {candidate.designation}
         </div>
       </div>
@@ -44,9 +42,9 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
         col-span-2 pr-5 py-1
         border-b-[1px] border-subtle/30
         text-[24px] text-black/50
-        ${bgColor} ${topBorder}
+        ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textColor}`}>
+        <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
           {candidate.company}
         </div>
       </div>
@@ -54,9 +52,9 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
         col-span-1 py-1 pr-1
         border-b-[1px] border-subtle/30
         text-[24px] text-black/50 text-right
-        ${bgColor} ${topBorder}
+        ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textColor}`}>
+        <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
           {candidate.updated_at}
         </div>
       </div>
