@@ -51,12 +51,12 @@ const CandidateDetails = ({candidate, onClose}) => {
 }
 
 const CandidateDetailLabel = ({label}) => {
-  return <div className="pt-5 text-[18px] text-black/50">
+  return <div className="pt-5 text-[18px] text-black/50 inline-block underline">
     {label}
   </div>
 }
 
-const CandidateDetailSubLabel = ({value}) => {
+const CandidateDetailText = ({value}) => {
   return <div className="text-[20px] font-semibold text-black/70 leading-none">
     {value}
   </div>
@@ -65,7 +65,7 @@ const CandidateDetailSubLabel = ({value}) => {
 const CandidateDetailString = ({label, value}) => {
   return <>
     <CandidateDetailLabel label={label}/>
-    <CandidateDetailSubLabel value={value}/>
+    <CandidateDetailText value={value}/>
   </>
 }
 
@@ -74,7 +74,7 @@ const CandidateDetailArray = ({label, values}) => {
     <CandidateDetailLabel label={label}/>
     {values.map((value, i) => {
       return <div key={i}>
-        <CandidateDetailSubLabel value={value}/>
+        <CandidateDetailText value={value}/>
       </div>
     })}
 
@@ -88,7 +88,7 @@ const CandidateDetailObject = ({label, values}) => {
       return <div key={i}>
         {Object.keys(value).map((key) => {
           return <div key={key}>
-            <CandidateDetailSubLabel value={value[key]}/>
+            <CandidateDetailText value={value[key]}/>
           </div>
         })}
       </div>
