@@ -48,7 +48,13 @@ const CandidateDetailLabel = ({label}) => {
 }
 
 const CandidateDetailText = ({value}) => {
-  return <div className="text-[20px] font-semibold text-black/70 leading-none">
+  return <div className="pt-1 text-[20px] font-semibold text-black/70 leading-none">
+    {value}
+  </div>
+}
+
+const CandidateDetailSubtext = ({value}) => {
+  return <div className="pt-[2px] text-[18px] font-normal text-black/70 leading-none">
     {value}
   </div>
 }
@@ -76,12 +82,15 @@ const CandidateDetailArrayElement = ({label, value}) => {
 }
 
 const CandidateDetailObject = ({label, values}) => {
-  // TODO: Check object key. And display only specific keys.
   const keysToDisplay = allowedObjectKeys[label]
   return <>
-    {keysToDisplay.map((key) => {
+    {keysToDisplay.map((key, index) => {
       const data = values[key]
-      return <CandidateDetailText key={key} value={data}/>
+      if (index == 0){
+        return <CandidateDetailText key={key} value={data}/>
+      } else {
+        return <CandidateDetailSubtext key={key} value={data}/>
+      }
     })}
   </>
 }
