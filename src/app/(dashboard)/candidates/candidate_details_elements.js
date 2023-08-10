@@ -83,6 +83,9 @@ const CandidateDetailArrayElement = ({label, value}) => {
 
 const CandidateDetailObject = ({label, values}) => {
   const keysToDisplay = allowedObjectKeys[label]
+  if(label === "Education") {
+    return <CandidateDetailEducation values={values}/>
+  }
   return <>
     {keysToDisplay.map((key, index) => {
       const data = values[key]
@@ -92,6 +95,14 @@ const CandidateDetailObject = ({label, values}) => {
         return <CandidateDetailSubtext key={key} value={data}/>
       }
     })}
+  </>
+}
+
+const CandidateDetailEducation = ({values}) => {
+  return <>
+    <CandidateDetailText key="Institute" value={values["Institute"]}/>
+    <CandidateDetailSubtext key={"Qualification"} value={values["Qualification"]}/>
+    <CandidateDetailSubtext key={"CompletionYear"} value={values["CompletionYear"]}/>
   </>
 }
 
