@@ -1,6 +1,5 @@
+import CandidateDetailElement from "./candidate_details_elements"
 import CloseIcon from "@/icons/close"
-
-let isString = value => typeof value === "string"
 
 const CandidateDetails = ({candidate, onClose}) => {
   if (!candidate) {
@@ -36,64 +35,12 @@ const CandidateDetails = ({candidate, onClose}) => {
       </div>
       {Object.keys(candidatePersona).map((key) => {
         const data = candidatePersona[key]
-        if(Array.isArray(data)) {
-          if(isString(data[0])) {
-            return <CandidateDetailArray key={key} label={key} values={data}/>
-          } else {
-            // assuming array of objects
-            return <CandidateDetailObject key={key} label={key} values={data}/>
-          }
-        }
-        return <CandidateDetailString key={key} label={key} value={data}/>
+        return <div key={key}>
+          <CandidateDetailElement label={key} value={data}/>
+        </div>
       })}
     </div>
   )
-}
-
-const CandidateDetailLabel = ({label}) => {
-  return <div className="pt-5 text-[18px] text-black/50 inline-block underline">
-    {label}
-  </div>
-}
-
-const CandidateDetailText = ({value}) => {
-  return <div className="text-[20px] font-semibold text-black/70 leading-none">
-    {value}
-  </div>
-}
-
-const CandidateDetailString = ({label, value}) => {
-  return <>
-    <CandidateDetailLabel label={label}/>
-    <CandidateDetailText value={value}/>
-  </>
-}
-
-const CandidateDetailArray = ({label, values}) => {
-  return <>
-    <CandidateDetailLabel label={label}/>
-    {values.map((value, i) => {
-      return <div key={i}>
-        <CandidateDetailText value={value}/>
-      </div>
-    })}
-
-  </>
-}
-
-const CandidateDetailObject = ({label, values}) => {
-  return <>
-    <CandidateDetailLabel label={label}/>
-    {values.map((value, i) => {
-      return <div key={i}>
-        {Object.keys(value).map((key) => {
-          return <div key={key}>
-            <CandidateDetailText value={value[key]}/>
-          </div>
-        })}
-      </div>
-    })}
-  </>
 }
 
 export default CandidateDetails
