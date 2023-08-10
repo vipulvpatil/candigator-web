@@ -1,9 +1,37 @@
 let isString = value => typeof value === "string"
 
+const allowedArray = [
+  "Tech Skills",
+  "Soft Skills",
+  "Recommended Roles",
+  "Education",
+  "Experience",
+  "BuilderVersion",
+  "BuiltBy",
+  "FileUploadId"
+]
+
+const allowedObjectKeys = {
+  "Education": [
+    "Institute",
+    "Qualification",
+    "CompletionYear",
+  ],
+  "Experience": [
+    "Title",
+    "Company Name",
+    "Starting Year",
+    "Ending Year",
+    "Ongoing",
+  ]
+}
+
 const CandidateDetailElement = ({label, value}) => {
   let valueElement
   if(Array.isArray(value)) {
-    valueElement = <CandidateDetailArray values={value}/>
+    if (allowedArray.includes(label)){
+      valueElement = <CandidateDetailArray label={label} values={value}/>
+    }
   } else {
     valueElement = <CandidateDetailText value={value}/>
   }
@@ -25,31 +53,33 @@ const CandidateDetailText = ({value}) => {
   </div>
 }
 
-const CandidateDetailArray = ({values}) => {
+const CandidateDetailArray = ({label, values}) => {
   return <>
     {values.map((value, i) => {
       return <div key={i}>
-        <CandidateDetailArrayElement value={value}/>
+        <CandidateDetailArrayElement label={label} value={value}/>
       </div>
     })}
   </>
 }
 
-const CandidateDetailArrayElement = ({value}) => {
+const CandidateDetailArrayElement = ({label, value}) => {
   let element = null
   if(isString(value)) {
     element = <CandidateDetailText value={value}/>
   } else {
-    // assume object
-    element = <CandidateDetailObject values={value}/>
+    if(Object.keys(allowedObjectKeys).includes(label)){
+      element = <CandidateDetailObject label={label} values={value}/>
+    }
   }
   return element
 }
 
-const CandidateDetailObject = ({values}) => {
+const CandidateDetailObject = ({label, values}) => {
   // TODO: Check object key. And display only specific keys.
+  const keysToDisplay = allowedObjectKeys[label]
   return <>
-    {Object.keys(values).map((key) => {
+    {keysToDisplay.map((key) => {
       const data = values[key]
       return <CandidateDetailText key={key} value={data}/>
     })}
