@@ -13,8 +13,10 @@ module.exports = {
       colors: {
         dark: "#002F3D",
         bold: "#006989",
-        subtle: "#C8E6D1",
+        subtle: "#F5B82E",
         disabled: "#575E60",
+        button: "#C44900",
+        buttonDark: "#A33C00",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

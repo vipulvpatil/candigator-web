@@ -23,7 +23,7 @@ const CandidateDetails = ({candidate, onClose}) => {
       // The backdrop-blur-none is needed to fix dropshadow issue in safari.
     >
       <button
-        className="float-right align-middle w-[34px] fill-bold hover:fill-dark"
+        className="float-right align-middle w-[34px] fill-button hover:fill-buttonDark"
         onClick={() => onClose()}
       >
         <CloseIcon/>

@@ -9,7 +9,7 @@ const LoginButton = () => {
 
   const loginButton = (
     <button
-      className="bg-bold hover:bg-dark text-white text-[56px] font-semibold rounded pt-0 pb-2 px-10 mt-[79px] drop-shadow-button"
+      className="bg-button hover:bg-buttonDark text-white text-[56px] font-semibold rounded pt-0 pb-2 px-10 mt-[79px] drop-shadow-button"
       onClick={()=>{signIn("google", {callbackUrl: "/candidates"})}}
     >
       {"Login with Google"}
@@ -19,7 +19,7 @@ const LoginButton = () => {
   const continueButton = (
      <Link href="/candidates">
       <button
-        className="bg-bold hover:bg-dark text-white text-[56px] font-semibold rounded pt-0 pb-2 px-10 mt-[79px] drop-shadow-button"
+        className="bg-button hover:bg-buttonDark text-white text-[56px] font-semibold rounded pt-0 pb-2 px-10 mt-[79px] drop-shadow-button"
       >
         {"Your Candidates"}
       </button>

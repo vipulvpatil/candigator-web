@@ -3,7 +3,7 @@ import AddCandidateIcon from "@/icons/add_candidate"
 const AddCandidateButton = ({handleClick}) => {
   return (
     <button className="
-      bg-bold hover:bg-dark text-white text-[18px]
+      bg-button hover:bg-buttonDark text-white text-[18px]
       fill-white rounded p-[6px]
       drop-shadow-button"
       onClick={handleClick}
