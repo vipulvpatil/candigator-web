@@ -11,12 +11,14 @@ const CandidateDetails = ({candidate, onClose}) => {
   const [candidateName, setCandidateName] = useState(null)
   const [candidateContactDetails, setCandidateContactDetails] = useState(null)
   const [candidateExperience, setCandidateExperience] = useState(null)
+  const [candidateEducation, setCandidateEducation] = useState(null)
   useEffect(() => {
     if (!candidate) {
       setCandidatePersona(null)
       setCandidateName(null)
       setCandidateContactDetails(null)
       setCandidateExperience(null)
+      setCandidateEducation(null)
       return
     }
 
@@ -38,11 +40,14 @@ const CandidateDetails = ({candidate, onClose}) => {
       "Experience": displayPersona["Experience"]
     })
 
+    setCandidateEducation({
+      "Education": displayPersona["Education"]
+    })
+
     setCandidatePersona({
       "Tech Skills": displayPersona["Tech Skills"],
       "Soft Skills": displayPersona["Soft Skills"],
       "Recommended Roles": displayPersona["Recommended Roles"],
-      "Education": displayPersona["Education"],
       "Certifications": displayPersona["Certifications"],
       "BuilderVersion": displayPersona["BuilderVersion"],
       "BuiltBy": displayPersona["BuiltBy"],
@@ -80,11 +85,13 @@ const CandidateDetails = ({candidate, onClose}) => {
         </div>
       </div>
       <CandidateSimpleElement label={"Name"} value={candidateName}/>
-      <div className="h-2"/>
+      <div className="h-3"/>
       <CandidateContactDetails candidateContactDetails={candidateContactDetails}/>
-      <div className="h-2"/>
+      <div className="h-4"/>
       <CandidateExperienceDetails candidateExperience={candidateExperience}/>
-      <div className="h-2"/>
+      <div className="h-4"/>
+      <CandidateEducationDetails candidateEducation={candidateEducation}/>
+      <div className="h-4"/>
       {Object.keys(candidatePersona).map((key) => {
         const data = candidatePersona[key]
         return <div key={key}>
@@ -157,6 +164,31 @@ const CandidateExperienceElement = ({values}) => {
     <CandidateDetailLeftAndRightFloat
       leftValue={values["Company Name"]}
       rightValue={`${values["Starting Year"]} - ${values["Ending Year"]}`}
+    />
+  </div>
+}
+
+const CandidateEducationDetails = ({candidateEducation}) => {
+  const data = candidateEducation["Education"] || []
+  return <div className="border-solid border-2 border-subtle/50 rounded-md p-1">
+    <CandidateSimpleElement label={"Education"}/>
+    {data.map((value, i) => {
+      let spaceElement = <div className="h-1"/>
+      let element = <CandidateEducationElement values={value}/>
+      return <div key={i} className="border-solid border-t-2 border-subtle/50">
+        {spaceElement}
+        {element}
+      </div>
+    })}
+  </div>
+}
+
+const CandidateEducationElement = ({values}) => {
+  return <div>
+    <CandidateSimpleElement value={values["Institute"]}/>
+    <CandidateDetailLeftAndRightFloat
+      leftValue={values["Qualification"]}
+      rightValue={values["CompletionYear"]}
     />
   </div>
 }
