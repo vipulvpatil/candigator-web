@@ -22,7 +22,7 @@ const CandidateDetails = ({candidate, onClose}) => {
     }
   }, [candidate])
 
-  if (!candidatePersona) {
+  if (!candidate || !candidatePersona) {
     return <></>
   }
 
