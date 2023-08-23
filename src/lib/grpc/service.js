@@ -129,6 +129,25 @@ const getCandidates = async (userEmail) => {
   })
 }
 
+const getCandidate = async (userEmail, id) => {
+  if (!userEmail) {
+    return
+  }
+  const md = metadataWithRequestingUserEmail(userEmail)
+  const GetCandidateRequest = {
+    userEmail: userEmail,
+    id: id
+  }
+  return await grpcServiceClient().getCandidate(
+    GetCandidateRequest, md
+  ).then((GetCandidateResponse) => {
+    return GetCandidateResponse.candidate
+  }).catch((err) => {
+    handleGrpcError(err)
+    return err.details
+  })
+}
+
 const GrpcService = {
   checkConnection,
   uploadFiles,
@@ -136,6 +155,7 @@ const GrpcService = {
   getUnprocessedFileUploadsCount,
   getFileUploads,
   getCandidates,
+  getCandidate,
 }
 
 export default GrpcService

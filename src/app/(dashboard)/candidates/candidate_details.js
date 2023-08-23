@@ -10,6 +10,7 @@ import {
 import {useEffect, useState} from "react"
 import CloseIcon from "@/icons/close"
 import EditCandidateIcon from "@/icons/edit_candidate"
+import Link from "next/link"
 
 const CandidateDetails = ({candidate, onClose}) => {
   const [candidatePersona, setCandidatePersona] = useState(null)
@@ -49,12 +50,14 @@ const CandidateDetails = ({candidate, onClose}) => {
       >
         <CloseIcon/>
       </button>
-      <button
-        className="float-right align-middle w-[34px] fill-button hover:fill-buttonDark"
-        onClick={() => onClose()}
-      >
-        <EditCandidateIcon/>
-      </button>
+      <Link href={`/candidates/${candidate.id}`}>
+        <button
+          className="float-right align-middle w-[34px] fill-button hover:fill-buttonDark"
+        >
+          <EditCandidateIcon/>
+        </button>
+      </Link>
+
       <div className="">
         <div className="text-[18px] font-normal text-black/50 leading-snug">
           {"id: "+candidate.id}

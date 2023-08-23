@@ -53,7 +53,8 @@ const grpcServiceClient = () => {
       completeFileUploads: promisify(client.CompleteFileUploads).bind(client),
       getUnprocessedFileUploadsCount: promisify(client.GetUnprocessedFileUploadsCount).bind(client),
       getFileUploads: promisify(client.GetFileUploads).bind(client),
-      getCandidates: promisify(client.GetCandidates).bind(client)
+      getCandidates: promisify(client.GetCandidates).bind(client),
+      getCandidate: promisify(client.GetCandidate).bind(client)
     }
   }
 
