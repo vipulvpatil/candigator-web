@@ -37,3 +37,7 @@ pnpm dev
 * ~DB testing support~
 * ~Sentry (for bugs and logging) setup~
 * Remote SSL support
+
+## Other tools
+* Icon source - https://materialui.co/icons
+* SVG optimizer - https://jakearchibald.github.io/svgomg/

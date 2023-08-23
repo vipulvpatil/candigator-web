@@ -9,6 +9,7 @@ import {
 } from "./candidate_details_elements"
 import {useEffect, useState} from "react"
 import CloseIcon from "@/icons/close"
+import EditCandidateIcon from "@/icons/edit_candidate"
 
 const CandidateDetails = ({candidate, onClose}) => {
   const [candidatePersona, setCandidatePersona] = useState(null)
@@ -40,10 +41,19 @@ const CandidateDetails = ({candidate, onClose}) => {
       // The backdrop-blur-none is needed to fix dropshadow issue in safari.
     >
       <button
-        className="float-right align-middle w-[34px] fill-button hover:fill-buttonDark"
+        className="
+          float-right align-middle w-[34px]
+          fill-button hover:fill-buttonDark
+          ml-2"
         onClick={() => onClose()}
       >
         <CloseIcon/>
+      </button>
+      <button
+        className="float-right align-middle w-[34px] fill-button hover:fill-buttonDark"
+        onClick={() => onClose()}
+      >
+        <EditCandidateIcon/>
       </button>
       <div className="">
         <div className="text-[18px] font-normal text-black/50 leading-snug">
