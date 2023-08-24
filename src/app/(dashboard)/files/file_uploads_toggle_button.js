@@ -5,7 +5,7 @@ const FileUploadsToggleButton = ({handleClick, badge, selected}) => {
     assignedClass = "text-white bg-bold"
     displayText = "Hide unprocessed"
   } else {
-    assignedClass = "text-black/50 bg-black/5 hover:text-bold hover:bg-subtle/20"
+    assignedClass = "text-black/50 bg-black/5 hover:text-bold hover:bg-subtleColor/20"
     displayText = "Show unprocessed"
   }
 

@@ -126,7 +126,7 @@ const CloseButton = ({onClose}) => {
     <button
       className="
         align-middle w-[34px] h-[34px]
-        fill-button hover:fill-buttonDark
+        fill-secondaryColor hover:fill-secondaryDarkColor
         ml-2"
       onClick={onClose}
     >

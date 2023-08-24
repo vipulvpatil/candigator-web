@@ -13,10 +13,11 @@ module.exports = {
       colors: {
         dark: "#002F3D",
         bold: "#006989",
-        subtle: "#F5B82E",
+        primaryColor: "#006989",
+        secondaryColor: "#A30000",
+        secondaryDarkColor: "#660000",
+        subtleColor: "#e2efde",
         disabled: "#575E60",
-        button: "#C44900",
-        buttonDark: "#A33C00",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
@@ -25,9 +26,6 @@ module.exports = {
       },
       width: {
         hero: "1040px",
-      },
-      fontSize: {
-        primary: "24px",
       },
       margin: {
         relax: "-63px",

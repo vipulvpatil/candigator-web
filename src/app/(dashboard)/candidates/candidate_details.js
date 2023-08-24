@@ -44,7 +44,7 @@ const CandidateDetails = ({candidate, onClose}) => {
       <button
         className="
           float-right align-middle w-[34px]
-          fill-button hover:fill-buttonDark
+          fill-secondaryColor hover:fill-secondaryDarkColor
           ml-2"
         onClick={() => onClose()}
       >
@@ -52,7 +52,7 @@ const CandidateDetails = ({candidate, onClose}) => {
       </button>
       <Link href={`/candidates/${candidate.id}`}>
         <button
-          className="float-right align-middle w-[34px] fill-button hover:fill-buttonDark"
+          className="float-right align-middle w-[34px] fill-secondaryColor hover:fill-secondaryDarkColor"
         >
           <EditCandidateIcon/>
         </button>

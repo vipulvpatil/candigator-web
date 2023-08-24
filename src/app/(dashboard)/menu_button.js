@@ -1,7 +1,7 @@
 import Link from "next/link"
 
 const MenuButton = ({title,  selected, icon, badge}) => {
-  let displayClass = "text-black fill-black hover:text-bold hover:bg-subtle/20 hover:fill-bold cursor-pointer"
+  let displayClass = "text-black fill-black hover:text-bold hover:bg-subtleColor/20 hover:fill-bold cursor-pointer"
 
   if (selected) {
     displayClass = "text-white bg-bold fill-white"

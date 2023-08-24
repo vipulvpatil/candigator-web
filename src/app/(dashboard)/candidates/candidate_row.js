@@ -20,7 +20,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
     >
       <div className={`
         col-span-2 pr-5 py-1 pl-1
-        border-b-[1px] border-subtle/30
+        border-b-[1px] border-subtleColor/30
         text-[28px] text-black/70
         ${topBorder}
       `}>
@@ -30,7 +30,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       </div>
       <div className={`
         col-span-2 pr-5 py-1
-        border-b-[1px] border-subtle/30
+        border-b-[1px] border-subtleColor/30
         text-[24px] text-black/50
         ${topBorder}
       `}>
@@ -40,7 +40,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       </div>
       <div className={`
         col-span-2 pr-5 py-1
-        border-b-[1px] border-subtle/30
+        border-b-[1px] border-subtleColor/30
         text-[24px] text-black/50
         ${topBorder}
       `}>
@@ -50,7 +50,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       </div>
       <div className={`
         col-span-1 py-1 pr-1
-        border-b-[1px] border-subtle/30
+        border-b-[1px] border-subtleColor/30
         text-[24px] text-black/50 text-right
         ${topBorder}
       `}>

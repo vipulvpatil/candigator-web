@@ -4,7 +4,7 @@ const SubmitButton = ({handleClick}) => {
   return (
     <button className="
       block
-      bg-button hover:bg-buttonDark text-white text-[18px]
+      bg-secondaryColor hover:bg-secondaryDarkColor text-white text-[18px]
       fill-white rounded p-[6px] my-2
       drop-shadow-button"
       onClick={handleClick}

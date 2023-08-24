@@ -105,7 +105,7 @@ const AddCandidateModal = ({show, handleClose}) => {
 
 const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
   return (<button className="
-    bg-button enabled:hover:bg-buttonDark text-white text-[18px]
+    bg-secondaryColor enabled:hover:bg-secondaryDarkColor text-white text-[18px]
     disabled:bg-disabled
     cursor-pointer disabled:cursor-not-allowed
     fill-white rounded p-[10px] m-6
@@ -143,7 +143,7 @@ const GoToFilesButton = () => {
   return (
     <Link href={"/files"} >
       <button className="
-        bg-button enabled:hover:bg-buttonDark text-white text-[18px]
+        bg-secondaryColor enabled:hover:bg-secondaryDarkColor text-white text-[18px]
         cursor-pointer
         fill-white rounded p-[10px] m-6
         drop-shadow-button"
@@ -182,7 +182,7 @@ const MultifilesWithUploadData = ({
 }
 
 const FileStatus = ({fileWithUploadData}) => {
-  return <div className="border-b-[1px] border-subtle/30 w-full flex justify-between">
+  return <div className="border-b-[1px] border-subtleColor/30 w-full flex justify-between">
     <div className="text-left">
       {fileWithUploadData.name}
     </div>
