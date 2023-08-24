@@ -8,6 +8,15 @@ import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
 
 const errorTextColor = "text-red-600"
+const regularLabelTextColor = "text-black/60"
+const regularValueTextColor = "text-black/70"
+const labelStyle = "text-[16px] font-bold mb-2"
+const valueStyle = `
+  text-[20px] font-semibold border-b-2 py-2 px-2 w-full
+  bg-transparent outline-none
+  focus:bg-black/5
+  `
+const errorStyle = "font-normal text-[16px]"
 
 const PersonaForm = ({candidate}) => {
   const form = useRef()
@@ -37,35 +46,35 @@ const PersonaForm = ({candidate}) => {
         <div>
         <label
           htmlFor="email"
-          className={`text-[20px] font-bold mb-2 ${
-            errors.email ? errorTextColor : "text-black/70"
+          className={`${labelStyle} ${
+            errors.email ? errorTextColor : regularLabelTextColor
           }`}
         >
           {"Email"}
         </label>
         <input
-          defaultValue={candidatePersona["email"]}
+          defaultValue={candidatePersona["Email"]}
           {...register("email", {
             required: "Email is required",
-            minLength: {
-              value: 5,
-              message: "Email should be atleast 5 chars long"
+            pattern: {
+              value: /.+@.+..+/,
+              message: "Email should be valid"
             }
           })}
-          className={
-            `text-[20px] font-semibold border-b-2 py-2 px-2 w-full
-            bg-transparent outline-none
-            ${errors.email ? errorTextColor : "text-black/70"}`
-          }
+          className={`
+            ${valueStyle}
+            ${errors.email ? errorTextColor : regularValueTextColor}
+          `}
         />
         </div>
-        {errors.email && <span className= {`font-normal ${errorTextColor}`}>{errors.email.message}</span>}
+        {errors.email && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.email.message}</span>}
         <SubmitButton handleClick={
           () => {new Event("submit", {cancelable: true, bubbles: true})}
         }/>
       </form>
 
       <div className="col-span-7">
+        {candidatePersona["Email"]}
         {candidatePersona["Phone"]}
         {candidatePersona["City"]}
         {candidatePersona["State"]}
