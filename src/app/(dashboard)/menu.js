@@ -5,6 +5,8 @@ import BillingIcon from "@/icons/billing"
 import CandidatesIcon from "@/icons/candidates"
 import FilesIcon from "@/icons/files"
 import MenuButton from "./menu_button"
+import MenuFooter from "./menu_footer"
+import MenuTitle from "./menu_title"
 import ProfileIcon from "@/icons/profile"
 import SearchIcon from "@/icons/search"
 import SettingsIcon from "@/icons/settings"
@@ -29,14 +31,16 @@ const Menu = () => {
   }, [segment])
 
   return (
-    <div className="w-[181px] flex-none flex flex-col min-h-[400px]">
+    <div className="h-full bg-primaryColor flex-shrink-0 flex-grow-0 basis-[220px] flex flex-col">
+      <MenuTitle/>
       <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
       <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
       <MenuButton title={"files"} selected={segment === "files"} icon={<FilesIcon/>} badge={unprocessedFileCount}/>
-      <div className="flex-grow"/>
       <MenuButton title={"billing"} selected={segment === "billing"} icon={<BillingIcon/>}/>
       <MenuButton title={"settings"} selected={segment === "settings"} icon={<SettingsIcon/>}/>
       <MenuButton title={"profile"} selected={segment === "profile"} icon={<ProfileIcon/>}/>
+      <div className="flex-grow"/>
+      <MenuFooter/>
     </div>
   )
 }

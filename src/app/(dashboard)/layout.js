@@ -1,5 +1,3 @@
-import Footer from "./footer"
-import Header from "./header"
 import Menu from "./menu"
 import SignInButton from "./sign_in_button"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
@@ -14,15 +12,11 @@ const DashboardLayout = async ({children}) => {
   }
 
   return (
-    <main className="font-quicksand w-full min-w-[1150px] min-h-fit h-screen">
-      <Header/>
-      <div className="min-h-fit flex flex-row">
-        <Menu/>
-        <div className="p-[45px] w-full min-h-fit shadow-main">
-          {children}
-        </div>
+    <main className="font-quicksand w-full min-w-[1150px] h-full flex flex-row">
+      <Menu/>
+      <div className="p-[45px] w-full shadow-main">
+        {children}
       </div>
-      <Footer/>
     </main>
   )
 }

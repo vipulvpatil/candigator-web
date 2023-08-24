@@ -3,7 +3,7 @@ import StatusBox from "@/app/status_box"
 
 const Billing = () => {
   return (
-    <div className="min-h-[620px] w-full">
+    <div className="h-full w-full">
       <PageTitle title="Billing"/>
       <StatusBox/>
     </div>

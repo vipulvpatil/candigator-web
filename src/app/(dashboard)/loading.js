@@ -1,6 +1,6 @@
 const Loading = () => {
   return (
-    <div className="min-h-[620px] w-full">
+    <div className="h-full w-full">
       {"Loading ..."}
     </div>
   )
