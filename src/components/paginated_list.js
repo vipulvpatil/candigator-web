@@ -6,8 +6,11 @@ import PageNumbers from "./page_numbers"
 const ITEMS_PER_PAGE = 10
 
 const PaginatedList = (
-  {itemList, itemRowFunc, selectedItemId, setSelectedItem}
+  {itemList, itemRowFunc, selectedItemId, setSelectedItem, view}
 ) => {
+  const [selectedPage, setSelectedPage] = useState(1)
+  const [visibleItems, setVisibleItems] = useState([])
+
   let pageCount
   if (itemList && itemList.length) {
     pageCount = Math.ceil(itemList.length/ITEMS_PER_PAGE)
@@ -15,8 +18,28 @@ const PaginatedList = (
     pageCount = 0
   }
 
-  const [selectedPage, setSelectedPage] = useState(1)
-  const [visibleItems, setVisibleItems] = useState([])
+  let pageNumberDiv
+  if (view === "short") {
+    pageNumberDiv =
+      <div className="col-span-7">
+        <PageNumbers
+          pageCount={pageCount}
+          selectedPage={selectedPage}
+          handlePageSelected={(pageNumber) => {setSelectedPage(pageNumber)}}
+        />
+      </div>
+  } else {
+    pageNumberDiv = <>
+      <div className="col-span-4">
+        <PageNumbers
+          pageCount={pageCount}
+          selectedPage={selectedPage}
+          handlePageSelected={(pageNumber) => {setSelectedPage(pageNumber)}}
+        />
+      </div>
+      <div className="col-span-3"></div>
+    </>
+  }
 
   useEffect(() => {
     // TODO: This is inefficient. Make it better
@@ -58,14 +81,7 @@ const PaginatedList = (
         return <div key={`blank_${item}`} className="h-[51px] col-span-7"></div>
       }
     })}
-    <div className="col-span-4">
-      <PageNumbers
-        pageCount={pageCount}
-        selectedPage={selectedPage}
-        handlePageSelected={(pageNumber) => {setSelectedPage(pageNumber)}}
-      />
-    </div>
-    <div className="col-span-3"></div>
+    {pageNumberDiv}
   </>
 }
 

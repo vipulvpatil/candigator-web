@@ -31,15 +31,12 @@ const CandidateDetails = ({candidate, onClose}) => {
   return (
     <div
       className="
-        absolute right-0 top-[87px]
-        w-[600px] h-[722px]
+        w-[600px] h-[642px]
         p-[22px]
-      bg-white rounded-l-lg
-        drop-shadow-modalLeft
-        backdrop-blur-none
+      bg-white rounded-lg
         overflow-y-scroll
+        flex-grow-0 flex-shrink-0 basis-[600px]
       "
-      // The backdrop-blur-none is needed to fix dropshadow issue in safari.
     >
       <button
         className="

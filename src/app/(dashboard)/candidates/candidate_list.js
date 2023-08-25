@@ -21,6 +21,7 @@ const CandidateList = ({candidates}) => {
       selected={selectedCandidateId === candidate.id}
       setSelectedCandidateId={setSelectedCandidateId}
       showTopBorder={showTopBorder}
+      view={selectedCandidateId?"short":"long"}
     />
   }
 
@@ -33,17 +34,19 @@ const CandidateList = ({candidates}) => {
         <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
       </div>
     </div>
-
-    <div className="grid grid-cols-7 p-[22px] m-[22px] bg-white rounded-lg">
-      <PaginatedList
-        itemList={candidates}
-        itemRowFunc={candidateRowFunc}
-        selectedItemId={selectedCandidateId}
-        setSelectedItem={setSelectedCandidate}
-      />
+    <div className="flex flex-row m-[22px]">
+      <div className="flex-grow grid grid-cols-7 p-[22px] bg-white rounded-lg mr-[22px]">
+        <PaginatedList
+          itemList={candidates}
+          itemRowFunc={candidateRowFunc}
+          selectedItemId={selectedCandidateId}
+          setSelectedItem={setSelectedCandidate}
+          view={selectedCandidateId?"short":"long"}
+        />
+      </div>
+      <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
     </div>
     <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
-    <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
   </>
 
 }
