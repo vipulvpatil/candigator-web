@@ -2,6 +2,7 @@
 import {useEffect, useRef, useState} from "react"
 import BackButton from "./back_button"
 import PageHeader from "@/components/page_header"
+import SaveButton from "./save_button"
 import SubmitButton from "./submit_button"
 import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
@@ -131,6 +132,7 @@ const PersonaForm = ({candidate}) => {
   return <>
     <PageHeader title={`id: ${candidate && candidate.id}`}>
       <BackButton handleClick={() => router.back()}/>
+      <SaveButton handleClick={() => router.back()}/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
