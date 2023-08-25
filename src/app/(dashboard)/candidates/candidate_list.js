@@ -35,7 +35,10 @@ const CandidateList = ({candidates}) => {
       </div>
     </div>
     <div className="flex flex-row m-[22px]">
-      <div className="flex-grow grid grid-cols-7 p-[22px] bg-white rounded-lg mr-[22px]">
+      <div className={`
+        flex-grow grid grid-cols-7
+        p-[22px] bg-white rounded-lg
+      `}>
         <PaginatedList
           itemList={candidates}
           itemRowFunc={candidateRowFunc}
@@ -48,6 +51,5 @@ const CandidateList = ({candidates}) => {
     </div>
     <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
   </>
-
 }
 export default CandidateList

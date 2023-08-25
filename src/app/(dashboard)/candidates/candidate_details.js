@@ -31,12 +31,10 @@ const CandidateDetails = ({candidate, onClose}) => {
   return (
     <div
       className="
-        w-[600px] h-[642px]
-        p-[22px]
-      bg-white rounded-lg
+        w-[600px] h-[642px] p-[22px] ml-[22px]
+        bg-white rounded-lg
         overflow-y-scroll
-        flex-grow-0 flex-shrink-0 basis-[600px]
-      "
+        flex-grow-0 flex-shrink-0 basis-[600px]"
     >
       <button
         className="

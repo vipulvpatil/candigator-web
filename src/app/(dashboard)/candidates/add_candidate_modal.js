@@ -72,33 +72,33 @@ const AddCandidateModal = ({show, handleClose}) => {
   return (
     <>
       <div
-        className="
-          col-span-7
-          absolute top-[84px] left-[165px] h-[728px]
-          background-blur-sm bg-black/30 right-0
-        "
-        onClick={closeModal}
+      className="
+        absolute top-[65px] left-[220px]
+        bottom-0 right-0
+        background-blur-sm bg-black/30
+      "
+      onClick={closeModal}
       />
-      <div className="col-span-1"></div>
       <div
         className="
-          absolute top-[84px] left-[450px] right-[450px]
-          p-[22px] rounded-b-lg
-          min-h-[200px]
-          max-h-[500px]
+          absolute top-[65px] left-[220px]
+          right-0
+          mt-[100px] mb-auto
+          ml-auto mr-auto w-[50%]
+          p-[22px] rounded-lg
+          min-h-[200px] max-h-[500px] min-w-[400px]
         bg-white
-          drop-shadow-modal col-span-5
+          drop-shadow-modal
           text-center
         "
       >
         <div className="text-[32px]">Add candidates</div>
-        <div className="">Select one or more PDF files to upload</div>
+        <div>Select one or more PDF files to upload</div>
         {actionButton}
         <MultifilesWithUploadData
           filesWithUploadData={filesWithUploadData}
         />
       </div>
-      <div className="col-span-1"></div>
     </>
   )
 }
