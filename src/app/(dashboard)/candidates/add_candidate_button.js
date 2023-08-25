@@ -4,8 +4,7 @@ const AddCandidateButton = ({handleClick}) => {
   return (
     <button className="
       bg-secondaryColor hover:bg-secondaryDarkColor text-white text-[18px]
-      fill-white rounded p-[6px]
-      drop-shadow-button"
+      fill-white rounded p-[6px] align-text-top"
       onClick={handleClick}
     >
       <div className="inline-flex align-middle w-[28px] relative top-[-2px]">

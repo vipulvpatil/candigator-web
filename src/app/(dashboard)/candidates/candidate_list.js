@@ -4,8 +4,7 @@ import AddCandidateButton from "./add_candidate_button"
 import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "./candidate_details"
 import CandidateRow from "./candidate_row"
-import CandidatesIcon from "@/icons/candidates"
-import PageTitleWithCount from "@/components/page_title_with_count"
+import {PageTitle} from "@/components/page_title"
 import PaginatedList from "@/components/paginated_list"
 import {useState} from "react"
 
@@ -26,9 +25,9 @@ const CandidateList = ({candidates}) => {
   }
 
   return <>
-    <div className="grid grid-cols-7 px-4 pt-3 pb-0 bg-white">
+    <div className="grid grid-cols-7 px-[22px] py-2 bg-white">
       <div className="col-span-3">
-        <PageTitleWithCount icon={<CandidatesIcon/>} title={`${candidates.length} candidates`}/>
+        <PageTitle title={`${candidates.length} Candidates`}/>
       </div>
       <div className="col-span-4 text-right">
         <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>

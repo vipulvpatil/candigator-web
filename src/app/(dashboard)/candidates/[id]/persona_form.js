@@ -2,7 +2,7 @@
 import {useEffect, useRef, useState} from "react"
 import CandidatesIcon from "@/icons/candidates"
 import CloseIcon from "@/icons/close"
-import PageTitleWithCount from "@/components/page_title_with_count"
+import {PageTitleWithIcon} from "@/components/page_title"
 import SubmitButton from "./submit_button"
 import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
@@ -112,7 +112,7 @@ const PersonaForm = ({candidate}) => {
 
   return <>
     <div className="col-span-5">
-      <PageTitleWithCount icon={<CandidatesIcon/>} title={candidate && candidate.id}/>
+      <PageTitleWithIcon icon={<CandidatesIcon/>} title={candidate && candidate.id}/>
     </div>
     <div className="col-span-2 text-right">
       <CloseButton onClose={() => router.back()}/>

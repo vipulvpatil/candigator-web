@@ -3,8 +3,7 @@
 import {useEffect, useState} from "react"
 import FileRow from "./file_row"
 import FileUploadsToggleButton from "./file_uploads_toggle_button"
-import FilesIcon from "@/icons/files"
-import PageTitleWithCount from "@/components/page_title_with_count"
+import {PageTitle} from "@/components/page_title"
 import PaginatedList from "@/components/paginated_list"
 import Title from "./title"
 
@@ -53,7 +52,7 @@ const FileList = ({files}) => {
 
   return <>
     <div className="col-span-3">
-      <PageTitleWithCount icon={<FilesIcon/>} title={<Title files={files}/>}/>
+      <PageTitle title={<Title files={files}/>}/>
     </div>
     <div className="col-span-4 text-right">
       <FileUploadsToggleButton

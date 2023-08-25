@@ -2,7 +2,7 @@ import ProcessingIcon from "@/icons/processing"
 
 const Title = ({files}) => {
   if (!Array.isArray(files)) {
-    return <>{"files"}</>
+    return <>{"Files"}</>
   }
 
   const unprocessedFileUploadsCount = files.filter((fileUpload) => {
@@ -14,7 +14,7 @@ const Title = ({files}) => {
   }).length
 
   return <>
-    <>{files.length - unprocessedFileUploadsCount}{" files"}</>
+    <>{files.length - unprocessedFileUploadsCount}{" Files"}</>
     {unprocessedFileUploadsCount > 0 &&
     <div>
       <div className="inline-flex text-red-700/50 text-[24px] pl-1">

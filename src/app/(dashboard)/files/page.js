@@ -13,8 +13,10 @@ const Files = async () => {
   const fileUploads = await GrpcService.getFileUploads(session.user.email)
 
   return (
-    <div className="grid grid-cols-7 min-h-[620px] w-full">
-      <FileList files={fileUploads}/>
+    <div className="min-h-[620px] bg-gray-200">
+      <div className="grid grid-cols-7 px-[22px] py-2 bg-white">
+        <FileList files={fileUploads}/>
+      </div>
     </div>
   )
 }
