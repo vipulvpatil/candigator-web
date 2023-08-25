@@ -1,8 +1,7 @@
 "use client"
 import {useEffect, useRef, useState} from "react"
-import CandidatesIcon from "@/icons/candidates"
-import CloseIcon from "@/icons/close"
-import {PageTitleWithIcon} from "@/components/page_title"
+import BackButton from "./back_button"
+import PageHeader from "@/components/page_header"
 import SubmitButton from "./submit_button"
 import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
@@ -44,28 +43,46 @@ const PersonaForm = ({candidate}) => {
         ref={form}
       >
         <div>
-        <label
-          htmlFor="email"
-          className={`${labelStyle} ${
-            errors.email ? errorTextColor : regularLabelTextColor
-          }`}
-        >
-          {"Email"}
-        </label>
-        <input
-          defaultValue={candidatePersona["Email"]}
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: /.+@.+..+/,
-              message: "Email should be valid"
-            }
-          })}
-          className={`
-            ${valueStyle}
-            ${errors.email ? errorTextColor : regularValueTextColor}
-          `}
-        />
+          <label
+            htmlFor="name"
+            className={`${labelStyle} ${
+              errors.name ? errorTextColor : regularLabelTextColor
+            }`}
+          >
+            {"Name"}
+          </label>
+          <input
+            defaultValue={candidatePersona["Name"]}
+            {...register("name", {
+              required: "Name is required"
+            })}
+            className={`
+              ${valueStyle}
+              ${errors.name ? errorTextColor : regularValueTextColor}
+            `}
+          />
+          <label
+            htmlFor="email"
+            className={`${labelStyle} ${
+              errors.email ? errorTextColor : regularLabelTextColor
+            }`}
+          >
+            {"Email"}
+          </label>
+          <input
+            defaultValue={candidatePersona["Email"]}
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: /.+@.+..+/,
+                message: "Email should be valid"
+              }
+            })}
+            className={`
+              ${valueStyle}
+              ${errors.email ? errorTextColor : regularValueTextColor}
+            `}
+          />
         </div>
         {errors.email && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.email.message}</span>}
         <SubmitButton handleClick={
@@ -74,6 +91,7 @@ const PersonaForm = ({candidate}) => {
       </form>
 
       <div className="col-span-7">
+        {candidatePersona["Name"]}
         {candidatePersona["Email"]}
         {candidatePersona["Phone"]}
         {candidatePersona["City"]}
@@ -111,28 +129,18 @@ const PersonaForm = ({candidate}) => {
   }
 
   return <>
-    <div className="col-span-5">
-      <PageTitleWithIcon icon={<CandidatesIcon/>} title={candidate && candidate.id}/>
+    <PageHeader title={`id: ${candidate && candidate.id}`}>
+      <BackButton handleClick={() => router.back()}/>
+    </PageHeader>
+    <div className="flex flex-row m-[22px]">
+      <div className="
+        flex-grow grid grid-cols-7
+        p-[22px] bg-white rounded-lg
+      ">
+        {mainComponent}
+      </div>
     </div>
-    <div className="col-span-2 text-right">
-      <CloseButton onClose={() => router.back()}/>
-    </div>
-    {mainComponent}
   </>
-}
-
-const CloseButton = ({onClose}) => {
-  return (
-    <button
-      className="
-        align-middle w-[34px] h-[34px]
-        fill-secondaryColor hover:fill-secondaryDarkColor
-        ml-2"
-      onClick={onClose}
-    >
-      <CloseIcon/>
-    </button>
-  )
 }
 
 export default PersonaForm

@@ -14,7 +14,7 @@ const Candidate = async ({params}) => {
   console.log(candidate)
   if(!candidate || !candidate.id) {
     return (
-      <div className="grid grid-cols-7 min-h-[620px] w-full">
+      <div className="min-h-[620px] bg-gray-200">
         {"No candidate found"}
       </div>
     )
@@ -22,7 +22,7 @@ const Candidate = async ({params}) => {
   candidate = processCandidate(candidate)
 
   return (
-    <div className="grid grid-cols-7 min-h-[620px] w-full">
+    <div className="min-h-[620px] bg-gray-200">
       <PersonaForm candidate={candidate}/>
     </div>
   )
