@@ -25,18 +25,23 @@ const CandidateList = ({candidates}) => {
   }
 
   return <>
-    <div className="col-span-3">
-      <PageTitleWithCount icon={<CandidatesIcon/>} title={`${candidates.length} candidates`}/>
+    <div className="grid grid-cols-7 px-4 pt-3 pb-0 bg-white">
+      <div className="col-span-3">
+        <PageTitleWithCount icon={<CandidatesIcon/>} title={`${candidates.length} candidates`}/>
+      </div>
+      <div className="col-span-4 text-right">
+        <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
+      </div>
     </div>
-    <div className="col-span-4 text-right">
-      <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
+
+    <div className="grid grid-cols-7 p-[22px] m-[22px] bg-white rounded-lg">
+      <PaginatedList
+        itemList={candidates}
+        itemRowFunc={candidateRowFunc}
+        selectedItemId={selectedCandidateId}
+        setSelectedItem={setSelectedCandidate}
+      />
     </div>
-    <PaginatedList
-      itemList={candidates}
-      itemRowFunc={candidateRowFunc}
-      selectedItemId={selectedCandidateId}
-      setSelectedItem={setSelectedCandidate}
-    />
     <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
     <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
   </>

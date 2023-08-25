@@ -14,7 +14,7 @@ const DashboardLayout = async ({children}) => {
   return (
     <main className="font-quicksand w-full min-w-[1150px] h-full flex flex-row">
       <Menu/>
-      <div className="p-[45px] w-full shadow-main">
+      <div className="w-full bg-gray-200 min-h-[725px]">
         {children}
       </div>
     </main>

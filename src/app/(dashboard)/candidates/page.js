@@ -13,7 +13,7 @@ const Candidates = async () => {
   const candidateList = await getCandidateListFor(session.user.email)
 
   return (
-    <div className="grid grid-cols-7 min-h-[620px] w-full">
+    <div className="min-h-[620px] bg-gray-200">
       <CandidateList candidates={candidateList}/>
     </div>
   )

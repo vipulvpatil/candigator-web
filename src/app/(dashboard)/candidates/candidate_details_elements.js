@@ -104,20 +104,20 @@ export const CandidateContactDetails = ({candidatePersona}) => {
   const state = candidatePersona["State"] || "N/A"
   const country = candidatePersona["Country"] || "N/A"
 
-  return <div className="border-solid border-2 border-subtleColor/50 rounded-md clear-both">
+  return <div className="border-solid border-2 border-subtleColor rounded-md clear-both">
     <div className="clear-both">
-      <div className="w-[50%] inline-block border-subtleColor/50 border-r-2 border-b-2 p-1">
+      <div className="w-[50%] inline-block border-subtleColor border-r-2 border-b-2 p-1">
         <CandidateContactElement label="Email" value={email}/>
       </div>
-      <div className="w-[50%] inline-block border-subtleColor/50 border-b-2 p-1">
+      <div className="w-[50%] inline-block border-subtleColor border-b-2 p-1">
         <CandidateContactElement label="Phone" value={phone}/>
       </div>
     </div>
     <div className="clear-both">
-      <div className="w-[33%] inline-block border-subtleColor/50 border-r-2 p-1">
+      <div className="w-[33%] inline-block border-subtleColor border-r-2 p-1">
         <CandidateContactElement label="City" value={city}/>
       </div>
-      <div className="w-[33%] inline-block border-subtleColor/50 border-r-2 p-1">
+      <div className="w-[33%] inline-block border-subtleColor border-r-2 p-1">
         <CandidateContactElement label="State" value={state}/>
       </div>
       <div className="w-[33%] inline-block p-1">
@@ -129,12 +129,12 @@ export const CandidateContactDetails = ({candidatePersona}) => {
 
 export const CandidateExperienceDetails = ({candidatePersona}) => {
   const data = candidatePersona["Experience"] || []
-  return <div className="border-solid border-2 border-subtleColor/50 rounded-md p-1">
+  return <div className="border-solid border-2 border-subtleColor rounded-md p-1">
     <CandidateSimpleElement label={"Years of experience"} value={candidatePersona["YoE"]}/>
     {data.map((value, i) => {
       let spaceElement = <div className="h-1"/>
       let element = <CandidateExperienceElement values={value}/>
-      return <div key={i} className="border-solid border-t-2 border-subtleColor/50">
+      return <div key={i} className="border-solid border-t-2 border-subtleColor">
         {spaceElement}
         {element}
       </div>
@@ -144,12 +144,12 @@ export const CandidateExperienceDetails = ({candidatePersona}) => {
 
 export const CandidateEducationDetails = ({candidatePersona}) => {
   const data = candidatePersona["Education"] || []
-  return <div className="border-solid border-2 border-subtleColor/50 rounded-md p-1">
+  return <div className="border-solid border-2 border-subtleColor rounded-md p-1">
     <CandidateSimpleElement label={"Education"}/>
     {data.map((value, i) => {
       let spaceElement = <div className="h-1"/>
       let element = <CandidateEducationElement values={value}/>
-      return <div key={i} className="border-solid border-t-2 border-subtleColor/50">
+      return <div key={i} className="border-solid border-t-2 border-subtleColor">
         {spaceElement}
         {element}
       </div>
@@ -161,11 +161,11 @@ export const CandidateSkillDetails = ({candidatePersona}) => {
   const techSkills = candidatePersona["Tech Skills"] || ["N/A"]
   const softSkills = candidatePersona["Soft Skills"] || ["N/A"]
 
-  return <div className="border-solid border-2 border-subtleColor/50 rounded-md clear-both table table-fixed">
-    <div className="w-[50%] h-full table-cell border-subtleColor/50 border-r-2 p-1 align-top">
+  return <div className="border-solid border-2 border-subtleColor rounded-md clear-both table table-fixed">
+    <div className="w-[50%] h-full table-cell border-subtleColor border-r-2 p-1 align-top">
       <CandidateSkillElement label="Technical skills" values={techSkills}/>
     </div>
-    <div className="w-[50%] h-full table-cell border-subtleColor/50 p-1 align-top">
+    <div className="w-[50%] h-full table-cell border-subtleColor p-1 align-top">
       <CandidateSkillElement label="Soft skills" values={softSkills}/>
     </div>
   </div>
@@ -174,7 +174,7 @@ export const CandidateSkillDetails = ({candidatePersona}) => {
 export const CandidateRoleDetails = ({candidatePersona}) => {
   const roles = candidatePersona["Recommended Roles"] || ["N/A"]
 
-  return <div className="border-solid border-2 border-subtleColor/50 rounded-md clear-both">
+  return <div className="border-solid border-2 border-subtleColor rounded-md clear-both">
     <div className="w-[50%] h-full table-cell p-1 align-top">
       <CandidateArrayElement label="Recommended Roles" values={roles}/>
     </div>
@@ -184,7 +184,7 @@ export const CandidateRoleDetails = ({candidatePersona}) => {
 export const CandidateCertDetails = ({candidatePersona}) => {
   const certs = candidatePersona["Certificates"] || ["None"]
 
-  return <div className="border-solid border-2 border-subtleColor/50 rounded-md clear-both">
+  return <div className="border-solid border-2 border-subtleColor rounded-md clear-both">
     <div className="w-[50%] h-full table-cell p-1 align-top">
       <CandidateArrayElement label="Certificates" values={certs}/>
     </div>

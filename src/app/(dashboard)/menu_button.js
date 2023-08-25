@@ -1,12 +1,10 @@
 import Link from "next/link"
 
 const MenuButton = ({title, selected, icon, badge}) => {
-  // let displayClass = "text-black fill-black hover:text-bold hover:bg-subtleColor/20 hover:fill-bold cursor-pointer"
   let displayClass = "text-white fill-white hover:bg-subtleColor/20 cursor-pointer"
 
   if (selected) {
-    // displayClass = "text-white bg-bold fill-white"
-    displayClass = "text-bold bg-subtleColor fill-bold"
+    displayClass = "text-bold fill-bold bg-gradient-to-r from-subtleColor to-subtleColor/70"
   }
 
   let count = "0"

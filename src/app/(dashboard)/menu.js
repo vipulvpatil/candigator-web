@@ -31,7 +31,9 @@ const Menu = () => {
   }, [segment])
 
   return (
-    <div className="h-full bg-primaryColor flex-shrink-0 flex-grow-0 basis-[220px] flex flex-col">
+    <div className="h-full min-h-[725px] bg-primaryColor
+      flex-shrink-0 flex-grow-0 basis-[220px] flex flex-col
+    ">
       <MenuTitle/>
       <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
       <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
