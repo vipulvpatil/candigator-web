@@ -5,7 +5,7 @@ const FileUploadsToggleButton = ({handleClick, badge, selected}) => {
     assignedClass = "text-white bg-bold"
     displayText = "Hide unprocessed"
   } else {
-    assignedClass = "text-black/50 bg-black/5 hover:text-bold hover:bg-subtleColor/20"
+    assignedClass = "text-bold bg-subtleColor hover:text-black/50 hover:bg-black/5"
     displayText = "Show unprocessed"
   }
 
@@ -27,9 +27,9 @@ const FileUploadsToggleButton = ({handleClick, badge, selected}) => {
   return <>
     <div
       className={`
-        inline-flex rounded-2xl h-12 px-4
+        inline-flex rounded-2xl h-10 px-4
         justify-center items-center
-        font-semibold text-[24px]
+        font-semibold text-[20px]
         cursor-pointer
         ${assignedClass}
       `}
@@ -44,7 +44,7 @@ const FileUploadsToggleButton = ({handleClick, badge, selected}) => {
           ">
           <div className="align-middle text-white">{count}</div>
         </div>
-        <div className="w-[223px]">
+        <div className="w-[185px]">
           {displayText}
         </div>
       </>

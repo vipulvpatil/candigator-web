@@ -4,7 +4,7 @@ import AddCandidateButton from "./add_candidate_button"
 import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "./candidate_details"
 import CandidateRow from "./candidate_row"
-import {PageTitle} from "@/components/page_title"
+import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import {useState} from "react"
 
@@ -25,19 +25,14 @@ const CandidateList = ({candidates}) => {
   }
 
   return <>
-    <div className="grid grid-cols-7 px-[22px] py-2 bg-white">
-      <div className="col-span-3">
-        <PageTitle title={`${candidates.length} Candidates`}/>
-      </div>
-      <div className="col-span-4 text-right">
-        <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
-      </div>
-    </div>
+    <PageHeader title={`${candidates.length} Candidates`}>
+      <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
+    </PageHeader>
     <div className="flex flex-row m-[22px]">
-      <div className={`
+      <div className="
         flex-grow grid grid-cols-7
         p-[22px] bg-white rounded-lg
-      `}>
+      ">
         <PaginatedList
           itemList={candidates}
           itemRowFunc={candidateRowFunc}

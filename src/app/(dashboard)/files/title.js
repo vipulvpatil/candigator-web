@@ -14,7 +14,7 @@ const Title = ({files}) => {
   }).length
 
   return <>
-    <>{files.length - unprocessedFileUploadsCount}{" Files"}</>
+    {files.length - unprocessedFileUploadsCount}{" Files"}
     {unprocessedFileUploadsCount > 0 &&
     <div>
       <div className="inline-flex text-red-700/50 text-[24px] pl-1">

@@ -14,9 +14,7 @@ const Files = async () => {
 
   return (
     <div className="min-h-[620px] bg-gray-200">
-      <div className="grid grid-cols-7 px-[22px] py-2 bg-white">
-        <FileList files={fileUploads}/>
-      </div>
+      <FileList files={fileUploads}/>
     </div>
   )
 }

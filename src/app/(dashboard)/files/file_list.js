@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react"
 import FileRow from "./file_row"
 import FileUploadsToggleButton from "./file_uploads_toggle_button"
-import {PageTitle} from "@/components/page_title"
+import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import Title from "./title"
 
@@ -51,10 +51,7 @@ const FileList = ({files}) => {
   }
 
   return <>
-    <div className="col-span-3">
-      <PageTitle title={<Title files={files}/>}/>
-    </div>
-    <div className="col-span-4 text-right">
+    <PageHeader title={<Title files={files}/>}>
       <FileUploadsToggleButton
         handleClick={() => {
           if(fileUploadsToggleSelected) {
@@ -66,13 +63,20 @@ const FileList = ({files}) => {
         badge={unprocessedFileUploads.length}
         selected={fileUploadsToggleSelected}
       />
+    </PageHeader>
+    <div className="flex flex-row m-[22px]">
+      <div className="
+        flex-grow grid grid-cols-7
+        p-[22px] bg-white rounded-lg
+      ">
+        <PaginatedList
+          itemList={visibleFileUploads}
+          itemRowFunc={fileRowFunc}
+          selectedItemId={selectedFileUploadId}
+          setSelectedItem={setSelectedFileUpload}
+        />
+      </div>
     </div>
-    <PaginatedList
-      itemList={visibleFileUploads}
-      itemRowFunc={fileRowFunc}
-      selectedItemId={selectedFileUploadId}
-      setSelectedItem={setSelectedFileUpload}
-    />
   </>
 }
 
