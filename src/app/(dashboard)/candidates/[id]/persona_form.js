@@ -9,16 +9,8 @@ import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
 
-const errorTextColor = "text-red-600"
-const regularLabelTextColor = "text-black/60"
-const regularValueTextColor = "text-black/70"
-const labelStyle = "text-[16px] font-bold mb-2"
-const valueStyle = `
-  text-[20px] font-semibold border-b-2 py-2 px-2 w-full
-  bg-transparent outline-none
-  focus:bg-black/5
-  `
-const errorStyle = "font-normal text-[16px]"
+const errorTextColor = ""
+const errorStyle = ""
 
 const personaSchema = yup.object().shape({
   name: yup.string().required(),
@@ -55,40 +47,39 @@ const PersonaForm = ({candidate}) => {
         <div>
           <label
             htmlFor="name"
-            className={`${labelStyle} ${
-              errors.name ? errorTextColor : regularLabelTextColor
-            }`}
+            className="text-[16px] font-bold mb-2 text-black/60"
           >
             {"Name"}
           </label>
           <input
             defaultValue={candidatePersona["Name"]}
             {...register("name")}
-            className={`
-              ${valueStyle}
-              ${errors.name ? errorTextColor : regularValueTextColor}
-            `}
+            className="
+              text-[20px] font-semibold border-b-2 py-1 px-1 w-full
+              outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+              text-black/80
+            "
           />
-          {errors.name && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.name.message}</span>}
+          {errors.name && <span className="text-red-600 font-normal text-[16px]">{errors.name.message}</span>}
         </div>
+        <div className="h-4"/>
         <div>
           <label
             htmlFor="email"
-            className={`${labelStyle} ${
-              errors.email ? errorTextColor : regularLabelTextColor
-            }`}
+            className={"text-[16px] font-bold mb-2 text-black/60"}
           >
             {"Email"}
           </label>
           <input
             defaultValue={candidatePersona["Email"]}
             {...register("email")}
-            className={`
-              ${valueStyle}
-              ${errors.email ? errorTextColor : regularValueTextColor}
-            `}
+            className="
+              text-[20px] font-semibold border-b-2 py-1 px-1 w-full
+              outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+              text-black/80
+            "
           />
-          {errors.email && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.email.message}</span>}
+          {errors.email && <span className="text-red-600 font-normal text-[16px]">{errors.email.message}</span>}
         </div>
         <SubmitButton handleClick={
           () => {new Event("submit", {cancelable: true, bubbles: true})}
