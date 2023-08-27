@@ -1,4 +1,5 @@
 "use client"
+import * as yup from "yup"
 import {useEffect, useRef, useState} from "react"
 import BackButton from "./back_button"
 import PageHeader from "@/components/page_header"
@@ -6,6 +7,7 @@ import SaveButton from "./save_button"
 import SubmitButton from "./submit_button"
 import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
+import {yupResolver} from "@hookform/resolvers/yup"
 
 const errorTextColor = "text-red-600"
 const regularLabelTextColor = "text-black/60"
@@ -18,11 +20,18 @@ const valueStyle = `
   `
 const errorStyle = "font-normal text-[16px]"
 
+const personaSchema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email()
+})
+
 const PersonaForm = ({candidate}) => {
   const form = useRef()
   const router = useRouter()
   const [candidatePersona, setCandidatePersona] = useState(null)
-  const {register, handleSubmit, formState: {errors}} = useForm()
+  const {register, handleSubmit, formState: {errors}} = useForm(
+    {resolver: yupResolver(personaSchema)}
+  )
   let mainComponent
 
   const onSubmit = data => console.log(data)
@@ -54,14 +63,15 @@ const PersonaForm = ({candidate}) => {
           </label>
           <input
             defaultValue={candidatePersona["Name"]}
-            {...register("name", {
-              required: "Name is required"
-            })}
+            {...register("name")}
             className={`
               ${valueStyle}
               ${errors.name ? errorTextColor : regularValueTextColor}
             `}
           />
+          {errors.name && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.name.message}</span>}
+        </div>
+        <div>
           <label
             htmlFor="email"
             className={`${labelStyle} ${
@@ -72,20 +82,14 @@ const PersonaForm = ({candidate}) => {
           </label>
           <input
             defaultValue={candidatePersona["Email"]}
-            {...register("email", {
-              required: "Email is required",
-              pattern: {
-                value: /.+@.+..+/,
-                message: "Email should be valid"
-              }
-            })}
+            {...register("email")}
             className={`
               ${valueStyle}
               ${errors.email ? errorTextColor : regularValueTextColor}
             `}
           />
+          {errors.email && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.email.message}</span>}
         </div>
-        {errors.email && <span className= {`${errorStyle} ${errorTextColor}`}>{errors.email.message}</span>}
         <SubmitButton handleClick={
           () => {new Event("submit", {cancelable: true, bubbles: true})}
         }/>
