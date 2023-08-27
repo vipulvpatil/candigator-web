@@ -9,12 +9,14 @@ import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
 
-const errorTextColor = ""
-const errorStyle = ""
-
 const personaSchema = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().email()
+  name: yup.string().required("required"),
+  email: yup.string().email("must be a valid email"),
+  yoe: yup.lazy((value) =>
+    value === ""
+      ? yup.string()
+      : yup.number().typeError("must be a number")
+  ),
 })
 
 const PersonaForm = ({candidate}) => {
@@ -44,56 +46,64 @@ const PersonaForm = ({candidate}) => {
         className="col-span-7 w-[60%]"
         ref={form}
       >
-        <div>
-          <label
-            htmlFor="name"
-            className="text-[16px] font-bold mb-2 text-black/60"
-          >
-            {"Name"}
-          </label>
-          <input
-            defaultValue={candidatePersona["Name"]}
-            {...register("name")}
-            className="
-              text-[20px] font-semibold border-b-2 py-1 px-1 w-full
-              outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-              text-black/80
-            "
-          />
-          {errors.name && <span className="text-red-600 font-normal text-[16px]">{errors.name.message}</span>}
-        </div>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["Name"]}
+          inputProps={register("name")}
+          labelKey="name"
+          labelText="Name"
+          error={errors.name}
+        />
         <div className="h-4"/>
-        <div>
-          <label
-            htmlFor="email"
-            className={"text-[16px] font-bold mb-2 text-black/60"}
-          >
-            {"Email"}
-          </label>
-          <input
-            defaultValue={candidatePersona["Email"]}
-            {...register("email")}
-            className="
-              text-[20px] font-semibold border-b-2 py-1 px-1 w-full
-              outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-              text-black/80
-            "
-          />
-          {errors.email && <span className="text-red-600 font-normal text-[16px]">{errors.email.message}</span>}
-        </div>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["Email"]}
+          inputProps={register("email")}
+          labelKey="email"
+          labelText="Email"
+          error={errors.email}
+        />
+        <div className="h-4"/>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["Phone"]}
+          inputProps={register("phone")}
+          labelKey="phone"
+          labelText="Phone"
+        />
+        <div className="h-4"/>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["City"]}
+          inputProps={register("city")}
+          labelKey="city"
+          labelText="City"
+        />
+        <div className="h-4"/>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["State"]}
+          inputProps={register("state")}
+          labelKey="state"
+          labelText="State"
+        />
+        <div className="h-4"/>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["Country"]}
+          inputProps={register("country")}
+          labelKey="country"
+          labelText="Country"
+        />
+        <div className="h-4"/>
+        <EditablePersonaElement
+          defaultValue={candidatePersona["YoE"]}
+          inputProps={register("yoe")}
+          labelKey="yoe"
+          labelText="Years of Experience"
+          error={errors.yoe}
+        />
+        <div className="h-4"/>
         <SubmitButton handleClick={
           () => {new Event("submit", {cancelable: true, bubbles: true})}
         }/>
       </form>
 
       <div className="col-span-7">
-        {candidatePersona["Name"]}
-        {candidatePersona["Email"]}
-        {candidatePersona["Phone"]}
-        {candidatePersona["City"]}
-        {candidatePersona["State"]}
-        {candidatePersona["Country"]}
-        {candidatePersona["YoE"]}
         {(candidatePersona["Experience"] || []).map((exp) => {
           return <>
             {exp["Title"]}
@@ -138,6 +148,27 @@ const PersonaForm = ({candidate}) => {
       </div>
     </div>
   </>
+}
+
+const EditablePersonaElement = ({defaultValue, inputProps, labelKey, labelText, error}) => {
+  return <div>
+    <label
+      htmlFor={labelKey}
+      className="text-[16px] font-bold mb-2 text-black/60"
+    >
+      {labelText}
+    </label>
+    <input
+      defaultValue={defaultValue}
+      {...inputProps}
+      className="
+        text-[20px] font-semibold border-b-2 py-1 px-1 w-full
+        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+        text-black/80
+      "
+    />
+    {error && <span className="text-red-600 font-normal text-[16px]">{error.message}</span>}
+  </div>
 }
 
 export default PersonaForm
