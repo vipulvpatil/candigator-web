@@ -39,7 +39,11 @@ const personaSchema = yup.object().shape({
       Qualification: yup.string(),
       CompletionYear: yup.string(),
     })
-  )
+  ),
+  "Tech Skills": yup.array().of(yup.string()),
+  "Soft Skills": yup.array().of(yup.string()),
+  "Recommended Roles": yup.array().of(yup.string()),
+  Certificates: yup.array().of(yup.string())
 })
 
 const PersonaForm = ({candidate}) => {
@@ -57,18 +61,27 @@ const PersonaForm = ({candidate}) => {
         Country: candidate?.displayPersona["Country"],
         YoE: candidate?.displayPersona["YoE"],
         Experience: candidate?.displayPersona["Experience"],
-        Education: candidate?.displayPersona["Education"]
+        Education: candidate?.displayPersona["Education"],
+        "Tech Skills": candidate?.displayPersona["Tech Skills"],
+        "Soft Skills": candidate?.displayPersona["Soft Skills"],
+        "Recommended Roles": candidate?.displayPersona["Recommended Roles"],
+        Certificates: candidate?.displayPersona["Certificates"],
       }
     }
   )
 
   const {fields: experience}  = useFieldArray({name: "Experience", control})
   const {fields: education}  = useFieldArray({name: "Education", control})
-  let mainComponent
+  const {fields: techSkills}  = useFieldArray({name: "Tech Skills", control})
+  const {fields: softSkills}  = useFieldArray({name: "Soft Skills", control})
+  const {fields: recommendedRoles}  = useFieldArray({name: "Recommended Roles", control})
+  const {fields: certificates}  = useFieldArray({name: "Certificates", control})
 
   const onSubmit = data => {
     console.log(data)
   }
+
+  let mainComponent
 
   if (candidate) {
     mainComponent = <>
@@ -167,7 +180,6 @@ const PersonaForm = ({candidate}) => {
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Education"}
         </div>
-        {console.log(education)}
         {education.map((field, index) => {
           return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
             <EditablePersonaInputElement
@@ -190,22 +202,59 @@ const PersonaForm = ({candidate}) => {
             />
           </div>
         })}
+        <div className="text-[24px] font-bold mb-2 text-black/60">
+          {"Technical Skills"}
+        </div>
+        {techSkills.map((field, index) => {
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+            <EditablePersonaInputElement
+              inputProps={register(`Tech Skills.${index}`)}
+              labelKey={`Tech Skills.${index}`}
+              labelText=""
+              error={errors?.["Tech Skills"]?.[index]}
+            />
+          </div>
+        })}
+        <div className="text-[24px] font-bold mb-2 text-black/60">
+          {"Soft Skills"}
+        </div>
+        {softSkills.map((field, index) => {
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+            <EditablePersonaInputElement
+              inputProps={register(`Soft Skills.${index}`)}
+              labelKey={`Soft Skills.${index}`}
+              labelText=""
+              error={errors?.["Soft Skills"]?.[index]}
+            />
+          </div>
+        })}
+        <div className="text-[24px] font-bold mb-2 text-black/60">
+          {"Recommended Roles"}
+        </div>
+        {recommendedRoles.map((field, index) => {
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+            <EditablePersonaInputElement
+              inputProps={register(`Recommended Roles.${index}`)}
+              labelKey={`Recommended Roles.${index}`}
+              labelText=""
+              error={errors?.["Recommended Roles"]?.[index]}
+            />
+          </div>
+        })}
+        <div className="text-[24px] font-bold mb-2 text-black/60">
+          {"Certificates"}
+        </div>
+        {certificates.map((field, index) => {
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+            <EditablePersonaInputElement
+              inputProps={register(`Certificates.${index}`)}
+              labelKey={`Certificates.${index}`}
+              labelText=""
+              error={errors?.["Certificates"]?.[index]}
+            />
+          </div>
+        })}
       </form>
-
-      <div className="">
-        {(candidate?.displayPersona["Tech Skills"] || []).map((skill) => {
-          return <>{skill}</>
-        })}
-        {(candidate?.displayPersona["Soft Skills"] || []).map((skill) => {
-          return <>{skill}</>
-        })}
-        {(candidate?.displayPersona["Recommended Roles"] || []).map((role) => {
-          return <>{role}</>
-        })}
-        {(candidate?.displayPersona["Certificates"] || []).map((cert) => {
-          return <>{cert}</>
-        })}
-      </div>
     </>
   }
 
