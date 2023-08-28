@@ -121,31 +121,31 @@ const PersonaForm = ({candidate}) => {
           return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
             <EditablePersonaInputElement
               inputProps={register(`Experience.${index}.${"Title"}`)}
-              labelKey="Title"
+              labelKey={`Experience.${index}.${"Title"}`}
               labelText="Title"
               error={errors.Experience?.[index]?.["Title"]}
             />
             <EditablePersonaInputElement
               inputProps={register(`Experience.${index}.${"Company Name"}`)}
-              labelKey="Company Name"
+              labelKey={`Experience.${index}.${"Company Name"}`}
               labelText="Company Name"
               error={errors.Experience?.[index]?.["Company Name"]}
             />
             <EditablePersonaInputElement
               inputProps={register(`Experience.${index}.${"Starting Year"}`)}
-              labelKey="Starting Year"
+              labelKey={`Experience.${index}.${"Starting Year"}`}
               labelText="Starting Year"
               error={errors.Experience?.[index]?.["Starting Year"]}
             />
             <EditablePersonaInputElement
               inputProps={register(`Experience.${index}.${"Ending Year"}`)}
-              labelKey="Ending Year"
+              labelKey={`Experience.${index}.${"Ending Year"}`}
               labelText="Ending Year"
               error={errors.Experience?.[index]?.["Ending Year"]}
             />
-            <EditablePersonaInputElement
+            <EditablePersonaRadioElement
               inputProps={register(`Experience.${index}.${"Ongoing"}`)}
-              labelKey="Ongoing"
+              labelKey={`Experience.${index}.${"Ongoing"}`}
               labelText="Ongoing"
               error={errors.Experience?.[index]?.["Ongoing"]}
             />
@@ -154,13 +154,6 @@ const PersonaForm = ({candidate}) => {
       </form>
 
       <div className="">
-        {(candidate?.displayPersona["Experience"] || []).map((exp) => {
-          return <>
-            {exp["Title"]}
-            {exp["Company Name"]}
-            {`${exp["Starting Year"]} - ${exp["Ending Year"]}`}
-          </>
-        })}
         {(candidate?.displayPersona["Education"] || []).map((edu) => {
           return <>
             {edu["Institute"]}
@@ -215,13 +208,47 @@ const EditablePersonaInputElement = ({inputProps, labelKey, labelText, error}) =
       {labelText}
     </label>
     <input
+      id={labelKey}
       {...inputProps}
-      className="
-        text-[20px] font-semibold border-b-2 py-1 px-1 w-full
+      className="text-[20px] font-semibold border-b-2 py-1 px-1 w-full
         outline-none bg-subtleColor/50 focus:bg-subtleColor/70
         text-black/80
       "
     />
+    {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
+  </div>
+}
+
+const EditablePersonaRadioElement = ({inputProps, labelKey, labelText, error}) => {
+  return <div>
+    <label
+      htmlFor={labelKey}
+      className="text-[16px] font-bold mb-2 text-black/60"
+    >
+      {labelText}
+      <div className="text-[20px] font-semibold border-b-2 py-1 px-1 w-full
+        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+        text-black/80
+      ">
+        <input
+        type="radio"
+        value="true"
+        {...inputProps}/>
+        True
+      </div>
+      <div className="text-[20px] font-semibold border-b-2 py-1 px-1 w-full
+        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+        text-black/80
+      ">
+        <input
+          type="radio"
+          value="false"
+          checked
+          {...inputProps}
+        />False
+      </div>
+    </label>
+
     {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
   </div>
 }
