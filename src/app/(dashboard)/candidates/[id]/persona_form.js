@@ -2,6 +2,7 @@
 import * as yup from "yup"
 import {useFieldArray, useForm} from "react-hook-form"
 import BackButton from "./back_button"
+import GenericButton from "./generic_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "./save_button"
 import {useRef} from "react"
@@ -75,7 +76,7 @@ const PersonaForm = ({candidate}) => {
   const {fields: techSkills}  = useFieldArray({name: "Tech Skills", control})
   const {fields: softSkills}  = useFieldArray({name: "Soft Skills", control})
   const {fields: recommendedRoles}  = useFieldArray({name: "Recommended Roles", control})
-  const {fields: certificates}  = useFieldArray({name: "Certificates", control})
+  const {fields: certificates, prepend: prependCertificate}  = useFieldArray({name: "Certificates", control})
 
   const onSubmit = data => {
     console.log(data)
@@ -87,63 +88,77 @@ const PersonaForm = ({candidate}) => {
     mainComponent = <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-[60%]"
+        className="w-full"
         ref={form}
       >
-        <EditablePersonaInputElement
-          inputProps={register("Name")}
-          labelKey="Name"
-          labelText="Name"
-          error={errors.Name}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("Name")}
+            labelKey="Name"
+            labelText="Name"
+            error={errors.Name}
+          />
+        </div>
         <div className="h-4"/>
-        <EditablePersonaInputElement
-          inputProps={register("Email")}
-          labelKey="Email"
-          labelText="Email"
-          error={errors.Email}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("Email")}
+            labelKey="Email"
+            labelText="Email"
+            error={errors.Email}
+          />
+        </div>
         <div className="h-4"/>
-        <EditablePersonaInputElement
-          inputProps={register("Phone")}
-          labelKey="Phone"
-          labelText="Phone"
-          error={errors.Phone}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("Phone")}
+            labelKey="Phone"
+            labelText="Phone"
+            error={errors.Phone}
+          />
+        </div>
         <div className="h-4"/>
-        <EditablePersonaInputElement
-          inputProps={register("City")}
-          labelKey="City"
-          labelText="City"
-          error={errors.City}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("City")}
+            labelKey="City"
+            labelText="City"
+            error={errors.City}
+          />
+        </div>
         <div className="h-4"/>
-        <EditablePersonaInputElement
-          inputProps={register("State")}
-          labelKey="State"
-          labelText="State"
-          error={errors.State}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("State")}
+            labelKey="State"
+            labelText="State"
+            error={errors.State}
+          />
+        </div>
         <div className="h-4"/>
-        <EditablePersonaInputElement
-          inputProps={register("Country")}
-          labelKey="Country"
-          labelText="Country"
-          error={errors.Country}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("Country")}
+            labelKey="Country"
+            labelText="Country"
+            error={errors.Country}
+          />
+        </div>
         <div className="h-4"/>
-        <EditablePersonaInputElement
-          inputProps={register("YoE")}
-          labelKey="YoE"
-          labelText="Years of Experience"
-          error={errors.YoE}
-        />
+        <div className="w-[60%]">
+          <EditablePersonaInputElement
+            inputProps={register("YoE")}
+            labelKey="YoE"
+            labelText="Years of Experience"
+            error={errors.YoE}
+          />
+        </div>
         <div className="h-8"/>
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Experience"}
         </div>
         {experience.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
             <EditablePersonaInputElement
               inputProps={register(`Experience.${index}.${"Title"}`)}
               labelKey={`Experience.${index}.${"Title"}`}
@@ -181,7 +196,7 @@ const PersonaForm = ({candidate}) => {
           {"Education"}
         </div>
         {education.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
             <EditablePersonaInputElement
               inputProps={register(`Education.${index}.${"Institute"}`)}
               labelKey={`Education.${index}.${"Institute"}`}
@@ -206,7 +221,7 @@ const PersonaForm = ({candidate}) => {
           {"Technical Skills"}
         </div>
         {techSkills.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
             <EditablePersonaInputElement
               inputProps={register(`Tech Skills.${index}`)}
               labelKey={`Tech Skills.${index}`}
@@ -219,7 +234,7 @@ const PersonaForm = ({candidate}) => {
           {"Soft Skills"}
         </div>
         {softSkills.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
             <EditablePersonaInputElement
               inputProps={register(`Soft Skills.${index}`)}
               labelKey={`Soft Skills.${index}`}
@@ -232,7 +247,7 @@ const PersonaForm = ({candidate}) => {
           {"Recommended Roles"}
         </div>
         {recommendedRoles.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
             <EditablePersonaInputElement
               inputProps={register(`Recommended Roles.${index}`)}
               labelKey={`Recommended Roles.${index}`}
@@ -243,9 +258,12 @@ const PersonaForm = ({candidate}) => {
         })}
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Certificates"}
+          <GenericButton handleClick={()=> prependCertificate("")}>
+            Add Certificate
+          </GenericButton>
         </div>
         {certificates.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
             <EditablePersonaInputElement
               inputProps={register(`Certificates.${index}`)}
               labelKey={`Certificates.${index}`}
