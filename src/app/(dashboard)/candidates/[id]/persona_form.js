@@ -4,7 +4,6 @@ import {useEffect, useRef, useState} from "react"
 import BackButton from "./back_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "./save_button"
-import SubmitButton from "./submit_button"
 import {useForm} from "react-hook-form"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
@@ -43,7 +42,7 @@ const PersonaForm = ({candidate}) => {
     mainComponent = <>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="col-span-7 w-[60%]"
+        className="w-[60%]"
         ref={form}
       >
         <EditablePersonaElement
@@ -98,9 +97,6 @@ const PersonaForm = ({candidate}) => {
           error={errors.yoe}
         />
         <div className="h-4"/>
-        <SubmitButton handleClick={
-          () => {new Event("submit", {cancelable: true, bubbles: true})}
-        }/>
       </form>
 
       <div className="col-span-7">
@@ -137,12 +133,17 @@ const PersonaForm = ({candidate}) => {
   return <>
     <PageHeader title={`id: ${candidate && candidate.id}`}>
       <BackButton handleClick={() => router.back()}/>
-      <SaveButton handleClick={() => router.back()}/>
+      <SaveButton handleClick={
+        () => {
+          form.current.dispatchEvent(
+            new Event("submit", {cancelable: true, bubbles: true})
+        )}
+      }/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
-        flex-grow grid grid-cols-7
-        p-[22px] bg-white rounded-lg
+        flex-grow
+        p-[22px] bg-white rounded-lg h-[637px] overflow-y-scroll
       ">
         {mainComponent}
       </div>
