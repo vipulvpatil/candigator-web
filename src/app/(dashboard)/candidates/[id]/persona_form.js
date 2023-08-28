@@ -1,155 +1,183 @@
 "use client"
 import * as yup from "yup"
-import {useEffect, useRef, useState} from "react"
+import {useFieldArray, useForm} from "react-hook-form"
 import BackButton from "./back_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "./save_button"
-import {useForm} from "react-hook-form"
+import {useRef} from "react"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
 
 const personaSchema = yup.object().shape({
-  name: yup.string().required("required"),
-  email: yup.string().email("must be a valid email"),
-  yoe: yup.lazy((value) =>
+  Name: yup.string().required("required"),
+  Email: yup.string().email("must be a valid email"),
+  Phone: yup.string(),
+  State: yup.string(),
+  City: yup.string(),
+  Country: yup.string(),
+  YoE: yup.lazy((value) =>
     value === ""
       ? yup.string()
       : yup.number().typeError("must be a number")
   ),
-  // experience: yup.array().of(
-  //   yup.object().shape({
-  //     title: yup.string().required("required"),
-  //     companyName: yup.string(),
-  //     startingYear: yup.string(),
-  //     endingYear: yup.string(),
-  //     ongoing: yup.boolean(),
-  //   })
-  // )
+  Experience: yup.array().of(
+    yup.object().shape({
+      Title: yup.string().required("required"),
+      "Company Name": yup.string(),
+      "Starting Year": yup.string(),
+      "Ending Year": yup.string(),
+      Ongoing: yup.boolean().notRequired(),
+    })
+  )
 })
 
 const PersonaForm = ({candidate}) => {
   const form = useRef()
   const router = useRouter()
-  const [candidatePersona, setCandidatePersona] = useState(null)
-  const {register, handleSubmit, formState: {errors}} = useForm(
+  const {register, handleSubmit, formState: {errors}, control} = useForm(
     {
       resolver: yupResolver(personaSchema),
       defaultValues: {
-        name: candidate?.displayPersona["Name"],
-        email: candidate?.displayPersona["Email"],
-        phone: candidate?.displayPersona["Phone"],
-        city: candidate?.displayPersona["City"],
-        state: candidate?.displayPersona["State"],
-        country: candidate?.displayPersona["Country"],
-        yoe: candidate?.displayPersona["YoE"],
+        Name: candidate?.displayPersona["Name"],
+        Email: candidate?.displayPersona["Email"],
+        Phone: candidate?.displayPersona["Phone"],
+        City: candidate?.displayPersona["City"],
+        State: candidate?.displayPersona["State"],
+        Country: candidate?.displayPersona["Country"],
+        YoE: candidate?.displayPersona["YoE"],
+        Experience: candidate?.displayPersona["Experience"],
       }
     }
   )
+
+  const {fields: experience}  = useFieldArray({name: "Experience", control})
   let mainComponent
 
-  const onSubmit = data => console.log(data)
+  const onSubmit = data => {
+    console.log(data)
+  }
 
-  useEffect(() => {
-    if (!candidate) {
-      setCandidatePersona(null)
-    } else {
-      const displayPersona = candidate.displayPersona
-      setCandidatePersona(displayPersona)
-    }
-  }, [candidate])
-
-  if (candidate && candidatePersona) {
+  if (candidate) {
     mainComponent = <>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="w-[60%]"
         ref={form}
       >
-        <EditablePersonaElement
-          inputProps={register("name")}
-          labelKey="name"
+        <EditablePersonaInputElement
+          inputProps={register("Name")}
+          labelKey="Name"
           labelText="Name"
-          error={errors.name}
+          error={errors.Name}
         />
         <div className="h-4"/>
-        <EditablePersonaElement
-          inputProps={register("email")}
-          labelKey="email"
+        <EditablePersonaInputElement
+          inputProps={register("Email")}
+          labelKey="Email"
           labelText="Email"
-          error={errors.email}
+          error={errors.Email}
         />
         <div className="h-4"/>
-        <EditablePersonaElement
-          inputProps={register("phone")}
-          labelKey="phone"
+        <EditablePersonaInputElement
+          inputProps={register("Phone")}
+          labelKey="Phone"
           labelText="Phone"
+          error={errors.Phone}
         />
         <div className="h-4"/>
-        <EditablePersonaElement
-          inputProps={register("city")}
-          labelKey="city"
+        <EditablePersonaInputElement
+          inputProps={register("City")}
+          labelKey="City"
           labelText="City"
+          error={errors.City}
         />
         <div className="h-4"/>
-        <EditablePersonaElement
-          inputProps={register("state")}
-          labelKey="state"
+        <EditablePersonaInputElement
+          inputProps={register("State")}
+          labelKey="State"
           labelText="State"
+          error={errors.State}
         />
         <div className="h-4"/>
-        <EditablePersonaElement
-          inputProps={register("country")}
-          labelKey="country"
+        <EditablePersonaInputElement
+          inputProps={register("Country")}
+          labelKey="Country"
           labelText="Country"
+          error={errors.Country}
         />
         <div className="h-4"/>
-        <EditablePersonaElement
-          inputProps={register("yoe")}
-          labelKey="yoe"
+        <EditablePersonaInputElement
+          inputProps={register("YoE")}
+          labelKey="YoE"
           labelText="Years of Experience"
-          error={errors.yoe}
+          error={errors.YoE}
         />
-        {/* <div className="h-8"/>
+        <div className="h-8"/>
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Experience"}
         </div>
-        {(candidatePersona["Experience"] || []).map((exp) => {
-          return <>
-            <EditablePersonaElement
-              inputProps={register("experience.title")}
-              labelKey="title"
+        {console.log(experience)}
+        {experience.map((field, index) => {
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+            <EditablePersonaInputElement
+              inputProps={register(`Experience.${index}.${"Title"}`)}
+              labelKey="Title"
               labelText="Title"
-              error={errors.experience?.title}
+              error={errors.Experience?.[index]?.["Title"]}
             />
-          </>
-        })} */}
+            <EditablePersonaInputElement
+              inputProps={register(`Experience.${index}.${"Company Name"}`)}
+              labelKey="Company Name"
+              labelText="Company Name"
+              error={errors.Experience?.[index]?.["Company Name"]}
+            />
+            <EditablePersonaInputElement
+              inputProps={register(`Experience.${index}.${"Starting Year"}`)}
+              labelKey="Starting Year"
+              labelText="Starting Year"
+              error={errors.Experience?.[index]?.["Starting Year"]}
+            />
+            <EditablePersonaInputElement
+              inputProps={register(`Experience.${index}.${"Ending Year"}`)}
+              labelKey="Ending Year"
+              labelText="Ending Year"
+              error={errors.Experience?.[index]?.["Ending Year"]}
+            />
+            <EditablePersonaInputElement
+              inputProps={register(`Experience.${index}.${"Ongoing"}`)}
+              labelKey="Ongoing"
+              labelText="Ongoing"
+              error={errors.Experience?.[index]?.["Ongoing"]}
+            />
+          </div>
+        })}
       </form>
 
       <div className="">
-        {(candidatePersona["Experience"] || []).map((exp) => {
+        {(candidate?.displayPersona["Experience"] || []).map((exp) => {
           return <>
             {exp["Title"]}
             {exp["Company Name"]}
             {`${exp["Starting Year"]} - ${exp["Ending Year"]}`}
           </>
         })}
-        {(candidatePersona["Education"] || []).map((edu) => {
+        {(candidate?.displayPersona["Education"] || []).map((edu) => {
           return <>
             {edu["Institute"]}
             {edu["Qualification"]}
             {edu["CompletionYear"]}
           </>
         })}
-        {(candidatePersona["Tech Skills"] || []).map((skill) => {
+        {(candidate?.displayPersona["Tech Skills"] || []).map((skill) => {
           return <>{skill}</>
         })}
-        {(candidatePersona["Soft Skills"] || []).map((skill) => {
+        {(candidate?.displayPersona["Soft Skills"] || []).map((skill) => {
           return <>{skill}</>
         })}
-        {(candidatePersona["Recommended Roles"] || []).map((role) => {
+        {(candidate?.displayPersona["Recommended Roles"] || []).map((role) => {
           return <>{role}</>
         })}
-        {(candidatePersona["Certificates"] || []).map((cert) => {
+        {(candidate?.displayPersona["Certificates"] || []).map((cert) => {
           return <>{cert}</>
         })}
       </div>
@@ -161,6 +189,7 @@ const PersonaForm = ({candidate}) => {
       <BackButton handleClick={() => router.back()}/>
       <SaveButton handleClick={
         () => {
+          console.log(errors)
           form.current.dispatchEvent(
             new Event("submit", {cancelable: true, bubbles: true})
         )}
@@ -177,7 +206,7 @@ const PersonaForm = ({candidate}) => {
   </>
 }
 
-const EditablePersonaElement = ({inputProps, labelKey, labelText, error}) => {
+const EditablePersonaInputElement = ({inputProps, labelKey, labelText, error}) => {
   return <div>
     <label
       htmlFor={labelKey}
@@ -193,7 +222,7 @@ const EditablePersonaElement = ({inputProps, labelKey, labelText, error}) => {
         text-black/80
       "
     />
-    {error && <span className="text-red-600 font-normal text-[16px]">{error.message}</span>}
+    {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
   </div>
 }
 
