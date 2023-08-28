@@ -16,6 +16,15 @@ const personaSchema = yup.object().shape({
       ? yup.string()
       : yup.number().typeError("must be a number")
   ),
+  // experience: yup.array().of(
+  //   yup.object().shape({
+  //     title: yup.string().required("required"),
+  //     companyName: yup.string(),
+  //     startingYear: yup.string(),
+  //     endingYear: yup.string(),
+  //     ongoing: yup.boolean(),
+  //   })
+  // )
 })
 
 const PersonaForm = ({candidate}) => {
@@ -23,7 +32,18 @@ const PersonaForm = ({candidate}) => {
   const router = useRouter()
   const [candidatePersona, setCandidatePersona] = useState(null)
   const {register, handleSubmit, formState: {errors}} = useForm(
-    {resolver: yupResolver(personaSchema)}
+    {
+      resolver: yupResolver(personaSchema),
+      defaultValues: {
+        name: candidate?.displayPersona["Name"],
+        email: candidate?.displayPersona["Email"],
+        phone: candidate?.displayPersona["Phone"],
+        city: candidate?.displayPersona["City"],
+        state: candidate?.displayPersona["State"],
+        country: candidate?.displayPersona["Country"],
+        yoe: candidate?.displayPersona["YoE"],
+      }
+    }
   )
   let mainComponent
 
@@ -46,7 +66,6 @@ const PersonaForm = ({candidate}) => {
         ref={form}
       >
         <EditablePersonaElement
-          defaultValue={candidatePersona["Name"]}
           inputProps={register("name")}
           labelKey="name"
           labelText="Name"
@@ -54,7 +73,6 @@ const PersonaForm = ({candidate}) => {
         />
         <div className="h-4"/>
         <EditablePersonaElement
-          defaultValue={candidatePersona["Email"]}
           inputProps={register("email")}
           labelKey="email"
           labelText="Email"
@@ -62,44 +80,52 @@ const PersonaForm = ({candidate}) => {
         />
         <div className="h-4"/>
         <EditablePersonaElement
-          defaultValue={candidatePersona["Phone"]}
           inputProps={register("phone")}
           labelKey="phone"
           labelText="Phone"
         />
         <div className="h-4"/>
         <EditablePersonaElement
-          defaultValue={candidatePersona["City"]}
           inputProps={register("city")}
           labelKey="city"
           labelText="City"
         />
         <div className="h-4"/>
         <EditablePersonaElement
-          defaultValue={candidatePersona["State"]}
           inputProps={register("state")}
           labelKey="state"
           labelText="State"
         />
         <div className="h-4"/>
         <EditablePersonaElement
-          defaultValue={candidatePersona["Country"]}
           inputProps={register("country")}
           labelKey="country"
           labelText="Country"
         />
         <div className="h-4"/>
         <EditablePersonaElement
-          defaultValue={candidatePersona["YoE"]}
           inputProps={register("yoe")}
           labelKey="yoe"
           labelText="Years of Experience"
           error={errors.yoe}
         />
-        <div className="h-4"/>
+        {/* <div className="h-8"/>
+        <div className="text-[24px] font-bold mb-2 text-black/60">
+          {"Experience"}
+        </div>
+        {(candidatePersona["Experience"] || []).map((exp) => {
+          return <>
+            <EditablePersonaElement
+              inputProps={register("experience.title")}
+              labelKey="title"
+              labelText="Title"
+              error={errors.experience?.title}
+            />
+          </>
+        })} */}
       </form>
 
-      <div className="col-span-7">
+      <div className="">
         {(candidatePersona["Experience"] || []).map((exp) => {
           return <>
             {exp["Title"]}
@@ -151,7 +177,7 @@ const PersonaForm = ({candidate}) => {
   </>
 }
 
-const EditablePersonaElement = ({defaultValue, inputProps, labelKey, labelText, error}) => {
+const EditablePersonaElement = ({inputProps, labelKey, labelText, error}) => {
   return <div>
     <label
       htmlFor={labelKey}
@@ -160,7 +186,6 @@ const EditablePersonaElement = ({defaultValue, inputProps, labelKey, labelText, 
       {labelText}
     </label>
     <input
-      defaultValue={defaultValue}
       {...inputProps}
       className="
         text-[20px] font-semibold border-b-2 py-1 px-1 w-full
