@@ -44,13 +44,14 @@ const personaSchema = yup.object().shape({
   "Tech Skills": yup.array().of(yup.string()),
   "Soft Skills": yup.array().of(yup.string()),
   "Recommended Roles": yup.array().of(yup.string()),
-  Certificates: yup.array().of(yup.string())
+  Certificates: yup.array(yup.string().required("required")).max(5, "max limit (5) reached")
 })
 
 const PersonaForm = ({candidate}) => {
   const form = useRef()
   const router = useRouter()
-  const {register, handleSubmit, formState: {errors}, control} = useForm(
+  const {
+    register, handleSubmit, formState: {errors}, control} = useForm(
     {
       resolver: yupResolver(personaSchema),
       defaultValues: {
@@ -80,7 +81,10 @@ const PersonaForm = ({candidate}) => {
     fields: certificates,
     prepend: prependCertificate,
     remove: removeCertificate,
-  }  = useFieldArray({name: "Certificates", control})
+    move: moveCertificate,
+  }  = useFieldArray({
+    name: "Certificates", control,
+  })
 
   const onSubmit = data => {
     console.log(data)
@@ -261,8 +265,13 @@ const PersonaForm = ({candidate}) => {
           </div>
         })}
         <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Certificates"}
-          <GenericEditButton handleClick={()=> prependCertificate("")}>
+          {"Certificates"} <div className="inline font-semibold text-[20px]">(Max 5)</div>
+          <GenericEditButton handleClick={()=> {
+            console.log(certificates)
+            if(certificates.length < 5){
+              prependCertificate("")
+            }
+          }}>
             Add Certificate
           </GenericEditButton>
         </div>
@@ -273,7 +282,9 @@ const PersonaForm = ({candidate}) => {
               labelKey={`Certificates.${index}`}
               labelText=""
               error={errors?.["Certificates"]?.[index]}
-              remove={()=> removeCertificate(index)}
+              handleRemove={()=> removeCertificate(index)}
+              handleMoveUp={index > 0 && (() => moveCertificate(index, index-1))}
+              handleMoveDown={(index < certificates.length-1) && (() => moveCertificate(index, index+1))}
             />
           </div>
         })}
@@ -304,7 +315,7 @@ const PersonaForm = ({candidate}) => {
 }
 
 const EditablePersonaInputElement = (
-  {inputProps, labelKey, labelText, error, remove, moveUp, moveDown}
+  {inputProps, labelKey, labelText, error, handleRemove, handleMoveUp, handleMoveDown}
 ) => {
   return <div>
     <label
@@ -322,17 +333,17 @@ const EditablePersonaInputElement = (
           text-black/80 flex-grow inline
         "
       />
-      <div className="">
-        {remove && <GenericEditButton handleClick={remove}>
-          Remove
-        </GenericEditButton>}
-        {remove && <GenericEditButton handleClick={moveUp}>
+      {<div>
+        {handleMoveUp && <GenericEditButton handleClick={handleMoveUp}>
           &nbsp;&uarr;&nbsp;
         </GenericEditButton>}
-        {remove && <GenericEditButton handleClick={moveDown}>
-        &nbsp;&darr;&nbsp;
+        {handleMoveDown && <GenericEditButton handleClick={handleMoveDown}>
+          &nbsp;&darr;&nbsp;
         </GenericEditButton>}
-      </div>
+        {handleRemove && <GenericEditButton handleClick={handleRemove}>
+          Delete
+        </GenericEditButton>}
+      </div>}
     </div>
     {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
   </div>
