@@ -26,7 +26,12 @@ const personaSchema = yup.object().shape({
       "Company Name": yup.string(),
       "Starting Year": yup.string(),
       "Ending Year": yup.string(),
-      Ongoing: yup.boolean().notRequired(),
+      Ongoing: yup.lazy((value) =>
+        value === ""
+          ? yup.string()
+          : yup.boolean().typeError("must be 'true', 'false' or empty")
+      ),
+      // yup.boolean("must be 'true' or 'false'").notRequired(),
     })
   )
 })
@@ -143,7 +148,7 @@ const PersonaForm = ({candidate}) => {
               labelText="Ending Year"
               error={errors.Experience?.[index]?.["Ending Year"]}
             />
-            <EditablePersonaRadioElement
+            <EditablePersonaInputElement
               inputProps={register(`Experience.${index}.${"Ongoing"}`)}
               labelKey={`Experience.${index}.${"Ongoing"}`}
               labelText="Ongoing"
@@ -215,40 +220,6 @@ const EditablePersonaInputElement = ({inputProps, labelKey, labelText, error}) =
         text-black/80
       "
     />
-    {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
-  </div>
-}
-
-const EditablePersonaRadioElement = ({inputProps, labelKey, labelText, error}) => {
-  return <div>
-    <label
-      htmlFor={labelKey}
-      className="text-[16px] font-bold mb-2 text-black/60"
-    >
-      {labelText}
-      <div className="text-[20px] font-semibold border-b-2 py-1 px-1 w-full
-        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-        text-black/80
-      ">
-        <input
-        type="radio"
-        value="true"
-        {...inputProps}/>
-        True
-      </div>
-      <div className="text-[20px] font-semibold border-b-2 py-1 px-1 w-full
-        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-        text-black/80
-      ">
-        <input
-          type="radio"
-          value="false"
-          checked
-          {...inputProps}
-        />False
-      </div>
-    </label>
-
     {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
   </div>
 }
