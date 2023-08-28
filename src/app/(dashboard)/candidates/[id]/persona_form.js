@@ -22,7 +22,7 @@ const personaSchema = yup.object().shape({
   ),
   Experience: yup.array().of(
     yup.object().shape({
-      Title: yup.string().required("required"),
+      Title: yup.string(),
       "Company Name": yup.string(),
       "Starting Year": yup.string(),
       "Ending Year": yup.string(),
@@ -31,7 +31,13 @@ const personaSchema = yup.object().shape({
           ? yup.string()
           : yup.boolean().typeError("must be 'true', 'false' or empty")
       ),
-      // yup.boolean("must be 'true' or 'false'").notRequired(),
+    })
+  ),
+  Education: yup.array().of(
+    yup.object().shape({
+      Institute: yup.string(),
+      Qualification: yup.string(),
+      CompletionYear: yup.string(),
     })
   )
 })
@@ -51,11 +57,13 @@ const PersonaForm = ({candidate}) => {
         Country: candidate?.displayPersona["Country"],
         YoE: candidate?.displayPersona["YoE"],
         Experience: candidate?.displayPersona["Experience"],
+        Education: candidate?.displayPersona["Education"]
       }
     }
   )
 
   const {fields: experience}  = useFieldArray({name: "Experience", control})
+  const {fields: education}  = useFieldArray({name: "Education", control})
   let mainComponent
 
   const onSubmit = data => {
@@ -121,7 +129,6 @@ const PersonaForm = ({candidate}) => {
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Experience"}
         </div>
-        {console.log(experience)}
         {experience.map((field, index) => {
           return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
             <EditablePersonaInputElement
@@ -156,16 +163,36 @@ const PersonaForm = ({candidate}) => {
             />
           </div>
         })}
+        <div className="h-8"/>
+        <div className="text-[24px] font-bold mb-2 text-black/60">
+          {"Education"}
+        </div>
+        {console.log(education)}
+        {education.map((field, index) => {
+          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4">
+            <EditablePersonaInputElement
+              inputProps={register(`Education.${index}.${"Institute"}`)}
+              labelKey={`Education.${index}.${"Institute"}`}
+              labelText="Institute"
+              error={errors.Education?.[index]?.["Institute"]}
+            />
+            <EditablePersonaInputElement
+              inputProps={register(`Education.${index}.${"Qualification"}`)}
+              labelKey={`Education.${index}.${"Qualification"}`}
+              labelText="Qualification"
+              error={errors.Education?.[index]?.["Qualification"]}
+            />
+            <EditablePersonaInputElement
+              inputProps={register(`Education.${index}.${"CompletionYear"}`)}
+              labelKey={`Education.${index}.${"CompletionYear"}`}
+              labelText="CompletionYear"
+              error={errors.Education?.[index]?.["CompletionYear"]}
+            />
+          </div>
+        })}
       </form>
 
       <div className="">
-        {(candidate?.displayPersona["Education"] || []).map((edu) => {
-          return <>
-            {edu["Institute"]}
-            {edu["Qualification"]}
-            {edu["CompletionYear"]}
-          </>
-        })}
         {(candidate?.displayPersona["Tech Skills"] || []).map((skill) => {
           return <>{skill}</>
         })}
