@@ -2,7 +2,7 @@
 import * as yup from "yup"
 import {useFieldArray, useForm} from "react-hook-form"
 import BackButton from "./back_button"
-import GenericButton from "./generic_button"
+import GenericEditButton from "./generic_edit_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "./save_button"
 import {useRef} from "react"
@@ -76,7 +76,11 @@ const PersonaForm = ({candidate}) => {
   const {fields: techSkills}  = useFieldArray({name: "Tech Skills", control})
   const {fields: softSkills}  = useFieldArray({name: "Soft Skills", control})
   const {fields: recommendedRoles}  = useFieldArray({name: "Recommended Roles", control})
-  const {fields: certificates, prepend: prependCertificate}  = useFieldArray({name: "Certificates", control})
+  const {
+    fields: certificates,
+    prepend: prependCertificate,
+    remove: removeCertificate,
+  }  = useFieldArray({name: "Certificates", control})
 
   const onSubmit = data => {
     console.log(data)
@@ -258,9 +262,9 @@ const PersonaForm = ({candidate}) => {
         })}
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Certificates"}
-          <GenericButton handleClick={()=> prependCertificate("")}>
+          <GenericEditButton handleClick={()=> prependCertificate("")}>
             Add Certificate
-          </GenericButton>
+          </GenericEditButton>
         </div>
         {certificates.map((field, index) => {
           return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
@@ -269,6 +273,7 @@ const PersonaForm = ({candidate}) => {
               labelKey={`Certificates.${index}`}
               labelText=""
               error={errors?.["Certificates"]?.[index]}
+              remove={()=> removeCertificate(index)}
             />
           </div>
         })}
@@ -298,7 +303,9 @@ const PersonaForm = ({candidate}) => {
   </>
 }
 
-const EditablePersonaInputElement = ({inputProps, labelKey, labelText, error}) => {
+const EditablePersonaInputElement = (
+  {inputProps, labelKey, labelText, error, remove, moveUp, moveDown}
+) => {
   return <div>
     <label
       htmlFor={labelKey}
@@ -306,14 +313,27 @@ const EditablePersonaInputElement = ({inputProps, labelKey, labelText, error}) =
     >
       {labelText}
     </label>
-    <input
-      id={labelKey}
-      {...inputProps}
-      className="text-[20px] font-semibold border-b-2 py-1 px-1 w-full
-        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-        text-black/80
-      "
-    />
+    <div className="flex flex-row">
+      <input
+        id={labelKey}
+        {...inputProps}
+        className="text-[20px] font-semibold border-b-2 py-1 px-1
+          outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+          text-black/80 flex-grow inline
+        "
+      />
+      <div className="">
+        {remove && <GenericEditButton handleClick={remove}>
+          Remove
+        </GenericEditButton>}
+        {remove && <GenericEditButton handleClick={moveUp}>
+          &nbsp;&uarr;&nbsp;
+        </GenericEditButton>}
+        {remove && <GenericEditButton handleClick={moveDown}>
+        &nbsp;&darr;&nbsp;
+        </GenericEditButton>}
+      </div>
+    </div>
     {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
   </div>
 }

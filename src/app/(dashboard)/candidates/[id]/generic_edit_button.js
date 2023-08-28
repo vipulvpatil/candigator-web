@@ -1,9 +1,9 @@
-const GenericButton = ({children, handleClick}) => {
+const GenericEditButton = ({children, handleClick}) => {
   return (
     <button className="
       bg-subtleColor hover:bg-subtleColor/40
       text-primaryColor text-[18px]
-      rounded p-[6px] align-middle ml-5"
+      rounded p-[6px] align-middle ml-2"
       onClick={handleClick}
     >
       <div className="inline-flex align-middle font-semibold">
@@ -12,4 +12,4 @@ const GenericButton = ({children, handleClick}) => {
     </button>
   )
 }
-export default GenericButton
+export default GenericEditButton
