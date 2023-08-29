@@ -45,8 +45,26 @@ const personaSchema = yup.object().shape({
   "Tech Skills": yup.array().of(yup.string("required")).max(5, "max limit (5) reached"),
   "Soft Skills": yup.array().of(yup.string("required")).max(5, "max limit (5) reached"),
   "Recommended Roles": yup.array().of(yup.string("required")).max(3, "max limit (3) reached"),
-  Certificates: yup.array(yup.string().required("required")).max(5, "max limit (5) reached")
+  Certifications: yup.array(yup.string().required("required")).max(5, "max limit (5) reached")
 })
+
+const updateCandidate = async (id, personaData) => {
+  const body = JSON.stringify({
+    id: id,
+    manuallyCreatedPersona: JSON.stringify(personaData),
+  })
+  const resp = await fetch("/api/candidate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: body
+  })
+
+  const respJson = await resp.json()
+  console.log(respJson)
+  return respJson
+}
 
 const PersonaForm = ({candidate}) => {
   const form = useRef()
@@ -68,7 +86,7 @@ const PersonaForm = ({candidate}) => {
         "Tech Skills": candidate?.displayPersona["Tech Skills"],
         "Soft Skills": candidate?.displayPersona["Soft Skills"],
         "Recommended Roles": candidate?.displayPersona["Recommended Roles"],
-        Certificates: candidate?.displayPersona["Certificates"],
+        Certifications: candidate?.displayPersona["Certifications"],
       }
     }
   )
@@ -105,17 +123,18 @@ const PersonaForm = ({candidate}) => {
     remove: removeRecommendedRole,
   }  = useFieldArray({name: "Recommended Roles", control})
   const {
-    fields: certificates,
-    prepend: prependCertificate,
-    remove: removeCertificate,
+    fields: certifications,
+    prepend: prependCertification,
+    remove: removeCertification,
   }  = useFieldArray({
-    name: "Certificates", control,
+    name: "Certifications", control,
   })
 
   const onSubmit = data => {
     const sanitizedData = sanitizePersonaData(data)
     console.log(data)
     console.log(sanitizedData)
+    updateCandidate(candidate.id, sanitizedData)
   }
 
   let mainComponent
@@ -368,23 +387,23 @@ const PersonaForm = ({candidate}) => {
           })}
         </EditArrayCollection>
         <EditArrayCollection
-          array={certificates}
-          addLabel={"Add Certificate"}
-          label={"Certificates"}
+          array={certifications}
+          addLabel={"Add Certification"}
+          label={"Certifications"}
           maxElements={5}
           defaultElement={""}
-          prependElement={prependCertificate}
+          prependElement={prependCertification}
         >
-          {certificates.map((field, index) => {
+          {certifications.map((field, index) => {
             return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
               <EditablePersonaInputElement
-                inputProps={register(`Certificates.${index}`)}
-                labelKey={`Certificates.${index}`}
+                inputProps={register(`Certifications.${index}`)}
+                labelKey={`Certifications.${index}`}
                 labelText=""
-                error={errors?.["Certificates"]?.[index]}
-                handleRemove={()=> removeCertificate(index)}
-                handleMoveUp={index > 0 && (() => swap("Certificates", index, index-1))}
-                handleMoveDown={(index < certificates.length-1) && (() => swap("Certificates", index, index+1))}
+                error={errors?.["Certifications"]?.[index]}
+                handleRemove={()=> removeCertification(index)}
+                handleMoveUp={index > 0 && (() => swap("Certifications", index, index-1))}
+                handleMoveDown={(index < certifications.length-1) && (() => swap("Certifications", index, index+1))}
               />
             </div>
           })}
@@ -448,6 +467,11 @@ const sanitizePersonaData = (data) => {
       return false
     }
     return true
+  }).map((exp) => {
+    if(typeof exp["Ongoing"] === "string") {
+      delete exp["Ongoing"]
+    }
+    return exp
   })
 
   if (experience?.length > 0){
@@ -524,7 +548,7 @@ const sanitizePersonaData = (data) => {
     delete personaData["Recommended Roles"]
   }
 
-  const certs = personaData["Certificates"]?.filter((cert, index) => {
+  const certs = personaData["Certifications"]?.filter((cert, index) => {
     if(index >= 5){
       return false
     }
@@ -535,9 +559,9 @@ const sanitizePersonaData = (data) => {
   })
 
   if (certs?.length > 0){
-    personaData["Certificates"] = certs
+    personaData["Certifications"] = certs
   } else {
-    delete personaData["Certificates"]
+    delete personaData["Certifications"]
   }
 
   return personaData

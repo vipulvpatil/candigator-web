@@ -182,11 +182,11 @@ export const CandidateRoleDetails = ({candidatePersona}) => {
 }
 
 export const CandidateCertDetails = ({candidatePersona}) => {
-  const certs = candidatePersona["Certificates"] || ["None"]
+  const certs = candidatePersona["Certifications"] || ["None"]
 
   return <div className="border-solid border-2 border-subtleColor rounded-md clear-both">
     <div className="w-[50%] h-full table-cell p-1 align-top">
-      <CandidateArrayElement label="Certificates" values={certs}/>
+      <CandidateArrayElement label="Certifications" values={certs}/>
     </div>
   </div>
 }

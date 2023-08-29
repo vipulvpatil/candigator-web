@@ -148,6 +148,26 @@ const getCandidate = async (userEmail, id) => {
   })
 }
 
+const updateCandidate = async (userEmail, id, manuallyCreatedPersona) => {
+  if (!userEmail) {
+    return
+  }
+  const md = metadataWithRequestingUserEmail(userEmail)
+  const UpdateCandidateRequest = {
+    userEmail: userEmail,
+    id: id,
+    manuallyCreatedPersona: manuallyCreatedPersona
+  }
+  return await grpcServiceClient().updateCandidate(
+    UpdateCandidateRequest, md
+  ).then((UpdateCandidateResponse) => {
+    return UpdateCandidateResponse
+  }).catch((err) => {
+    handleGrpcError(err)
+    return err.details
+  })
+}
+
 const GrpcService = {
   checkConnection,
   uploadFiles,
@@ -156,6 +176,7 @@ const GrpcService = {
   getFileUploads,
   getCandidates,
   getCandidate,
+  updateCandidate,
 }
 
 export default GrpcService
