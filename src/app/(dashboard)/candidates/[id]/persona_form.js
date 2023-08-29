@@ -52,7 +52,7 @@ const PersonaForm = ({candidate}) => {
   const form = useRef()
   const router = useRouter()
   const {
-    register, handleSubmit, formState: {errors}, control} = useForm(
+    register, handleSubmit, formState: {errors}, control, getValues, setValue} = useForm(
     {
       resolver: yupResolver(personaSchema),
       defaultValues: {
@@ -73,41 +73,41 @@ const PersonaForm = ({candidate}) => {
     }
   )
 
+  const swap = (registeredElement, i, j) => {
+    const temp = getValues(`${registeredElement}.${i}`)
+    setValue(`${registeredElement}.${i}`, getValues(`${registeredElement}.${j}`))
+    setValue(`${registeredElement}.${j}`, temp)
+  }
+
   const {
     fields: experience,
     prepend: prependExperience,
     remove: removeExperience,
-    move: moveExperience,
   }  = useFieldArray({name: "Experience", control})
   const {
     fields: education,
     prepend: prependEducation,
     remove: removeEducation,
-    move: moveEducation,
   }  = useFieldArray({name: "Education", control})
   const {
     fields: techSkills,
     prepend: prependTechSkill,
     remove: removeTechSkill,
-    move: moveTechSkill,
   }  = useFieldArray({name: "Tech Skills", control})
   const {
     fields: softSkills,
     prepend: prependSoftSkill,
     remove: removeSoftSkill,
-    move: moveSoftSkill,
   }  = useFieldArray({name: "Soft Skills", control})
   const {
     fields: recommendedRoles,
     prepend: prependRecommendedRole,
     remove: removeRecommendedRole,
-    move: moveRecommendedRole,
   }  = useFieldArray({name: "Recommended Roles", control})
   const {
     fields: certificates,
     prepend: prependCertificate,
     remove: removeCertificate,
-    move: moveCertificate,
   }  = useFieldArray({
     name: "Certificates", control,
   })
@@ -206,8 +206,8 @@ const PersonaForm = ({candidate}) => {
         >
           {experience.map((field, index) => {
             const handleRemove=()=> removeExperience(index)
-            const handleMoveUp=index > 0 && (() => moveExperience(index, index-1))
-            const handleMoveDown=(index < experience.length-1) && (() => moveExperience(index, index+1))
+            const handleMoveUp=index > 0 && (() => swap("Experience", index, index-1))
+            const handleMoveDown=(index < experience.length-1) && (() => swap("Experience", index, index+1))
             return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
               <EditablePersonaInputElement
                 inputProps={register(`Experience.${index}.${"Title"}`)}
@@ -268,8 +268,8 @@ const PersonaForm = ({candidate}) => {
         >
           {education.map((field, index) => {
             const handleRemove=()=> removeEducation(index)
-            const handleMoveUp=index > 0 && (() => moveEducation(index, index-1))
-            const handleMoveDown=(index < education.length-1) && (() => moveEducation(index, index+1))
+            const handleMoveUp=index > 0 && (() => swap("Education", index, index-1))
+            const handleMoveDown=(index < education.length-1) && (() => swap("Education", index, index+1))
             return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
               <EditablePersonaInputElement
                 inputProps={register(`Education.${index}.${"Institute"}`)}
@@ -317,8 +317,8 @@ const PersonaForm = ({candidate}) => {
                 labelText=""
                 error={errors?.["Tech Skills"]?.[index]}
                 handleRemove={()=> removeTechSkill(index)}
-                handleMoveUp={index > 0 && (() => moveTechSkill(index, index-1))}
-                handleMoveDown={(index < techSkills.length-1) && (() => moveTechSkill(index, index+1))}
+                handleMoveUp={index > 0 && (() => swap("Tech Skills", index, index-1))}
+                handleMoveDown={(index < techSkills.length-1) && (() => swap("Tech Skills", index, index+1))}
               />
             </div>
           })}
@@ -339,8 +339,8 @@ const PersonaForm = ({candidate}) => {
                 labelText=""
                 error={errors?.["Soft Skills"]?.[index]}
                 handleRemove={()=> removeSoftSkill(index)}
-                handleMoveUp={index > 0 && (() => moveSoftSkill(index, index-1))}
-                handleMoveDown={(index < softSkills.length-1) && (() => moveSoftSkill(index, index+1))}
+                handleMoveUp={index > 0 && (() => swap("Soft Skills", index, index-1))}
+                handleMoveDown={(index < techSkills.length-1) && (() => swap("Soft Skills", index, index+1))}
               />
             </div>
           })}
@@ -361,8 +361,8 @@ const PersonaForm = ({candidate}) => {
                 labelText=""
                 error={errors?.["Recommended Roles"]?.[index]}
                 handleRemove={()=> removeRecommendedRole(index)}
-                handleMoveUp={index > 0 && (() => moveRecommendedRole(index, index-1))}
-                handleMoveDown={(index < recommendedRoles.length-1) && (() => moveRecommendedRole(index, index+1))}
+                handleMoveUp={index > 0 && (() => swap("Recommended Roles", index, index-1))}
+                handleMoveDown={(index < recommendedRoles.length-1) && (() => swap("Recommended Roles", index, index+1))}
               />
             </div>
           })}
@@ -383,8 +383,8 @@ const PersonaForm = ({candidate}) => {
                 labelText=""
                 error={errors?.["Certificates"]?.[index]}
                 handleRemove={()=> removeCertificate(index)}
-                handleMoveUp={index > 0 && (() => moveCertificate(index, index-1))}
-                handleMoveDown={(index < certificates.length-1) && (() => moveCertificate(index, index+1))}
+                handleMoveUp={index > 0 && (() => swap("Certificates", index, index-1))}
+                handleMoveDown={(index < certificates.length-1) && (() => swap("Certificates", index, index+1))}
               />
             </div>
           })}
