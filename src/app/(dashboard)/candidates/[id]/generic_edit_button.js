@@ -5,6 +5,7 @@ const GenericEditButton = ({children, handleClick, additionalStyling}) => {
       text-primaryColor text-[18px]
       rounded p-[6px] align-middle ${additionalStyling}`}
       onClick={handleClick}
+      type="button"
     >
       <div className="inline-flex align-middle font-semibold">
         {children}
