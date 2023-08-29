@@ -33,17 +33,17 @@ const personaSchema = yup.object().shape({
           : yup.boolean().typeError("must be 'true', 'false' or empty")
       ),
     })
-  ),
+  ).max(10, "max limit (10) reached"),
   Education: yup.array().of(
     yup.object().shape({
       Institute: yup.string(),
       Qualification: yup.string(),
       CompletionYear: yup.string(),
     })
-  ),
-  "Tech Skills": yup.array().of(yup.string()),
-  "Soft Skills": yup.array().of(yup.string()),
-  "Recommended Roles": yup.array().of(yup.string()),
+  ).max(5, "max limit (5) reached"),
+  "Tech Skills": yup.array().of(yup.string("required")).max(5, "max limit (5) reached"),
+  "Soft Skills": yup.array().of(yup.string("required")).max(5, "max limit (5) reached"),
+  "Recommended Roles": yup.array().of(yup.string("required")).max(3, "max limit (3) reached"),
   Certificates: yup.array(yup.string().required("required")).max(5, "max limit (5) reached")
 })
 
@@ -112,6 +112,7 @@ const PersonaForm = ({candidate}) => {
   })
 
   const onSubmit = data => {
+    sanitizePersonaData(data)
     console.log(data)
   }
 
@@ -187,14 +188,11 @@ const PersonaForm = ({candidate}) => {
           />
         </div>
         <div className="h-8"/>
-        <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Experience"}
-        </div>
         <EditArrayCollection
           array={education}
           addLabel={"Add Experience"}
           label={"Experience"}
-          maxElements={5}
+          maxElements={10}
           defaultElement={{
             Title: "",
             "Company Name": "",
@@ -240,14 +238,14 @@ const PersonaForm = ({candidate}) => {
                 error={errors.Experience?.[index]?.["Ongoing"]}
               />
               <div>
-                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"mt-2"}>
+                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"mt-2"}>
+                  Delete
+                </GenericEditButton>}
+                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&uarr;&nbsp;
                 </GenericEditButton>}
                 {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&darr;&nbsp;
-                </GenericEditButton>}
-                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"ml-2 mt-2"}>
-                  Delete
                 </GenericEditButton>}
               </div>
             </div>
@@ -289,17 +287,15 @@ const PersonaForm = ({candidate}) => {
                 labelText="CompletionYear"
                 error={errors.Education?.[index]?.["CompletionYear"]}
               />
-              <div>
-                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"mt-2"}>
+                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"mt-2"}>
+                  Delete
+                </GenericEditButton>}
+                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&uarr;&nbsp;
                 </GenericEditButton>}
                 {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&darr;&nbsp;
                 </GenericEditButton>}
-                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"ml-2 mt-2"}>
-                  Delete
-                </GenericEditButton>}
-              </div>
             </div>
           })}
         </EditArrayCollection>
@@ -415,6 +411,130 @@ const PersonaForm = ({candidate}) => {
       </div>
     </div>
   </>
+}
+
+const sanitizePersonaData = (personaData) => {
+  if(personaData["Phone"]?.trim().length === 0){
+    delete personaData["Phone"]
+  }
+  if(personaData["State"]?.trim().length === 0){
+    delete personaData["State"]
+  }
+  if(personaData["City"]?.trim().length === 0){
+    delete personaData["City"]
+  }
+  if(personaData["Country"]?.trim().length === 0){
+    delete personaData["Country"]
+  }
+  if(String(personaData["YoE"])?.trim().length === 0){
+    delete personaData["YoE"]
+  }
+
+  const experience = personaData["Experience"]?.filter((exp, index) => {
+    if(index >= 10){
+      return false
+    }
+    if(
+      exp["Title"]?.trim().length === 0 &&
+      exp["Company Name"]?.trim().length === 0 &&
+      exp["Starting Year"]?.trim().length === 0 &&
+      exp["Ending Year"]?.trim().length === 0 &&
+      String(exp["Ongoing"])?.trim().length === 0
+    ) {
+      return false
+    }
+    return true
+  })
+
+  if (experience?.length > 0){
+    personaData["Experience"] = experience
+  } else {
+    delete personaData["Experience"]
+  }
+
+  const education = personaData["Education"]?.filter((edu, index) => {
+    if(index >= 5){
+      return false
+    }
+    if(
+      edu["Institute"]?.trim().length === 0 &&
+      edu["Qualification"]?.trim().length === 0 &&
+      edu["CompletionYear"]?.trim().length === 0
+    ) {
+      return false
+    }
+    return true
+  })
+
+  if (education?.length > 0){
+    personaData["Education"] = education
+  } else {
+    delete personaData["Education"]
+  }
+
+  const techSkills = personaData["Tech Skills"]?.filter((skill, index) => {
+    if(index >= 5){
+      return false
+    }
+    if(skill?.trim().length === 0) {
+      return false
+    }
+    return true
+  })
+
+  if (techSkills?.length > 0){
+    personaData["Tech Skills"] = techSkills
+  } else {
+    delete personaData["Tech Skills"]
+  }
+
+  const softSkills = personaData["Soft Skills"]?.filter((skill, index) => {
+    if(index >= 5){
+      return false
+    }
+    if(skill?.trim().length === 0) {
+      return false
+    }
+    return true
+  })
+
+  if (softSkills?.length > 0){
+    personaData["Soft Skills"] = softSkills
+  } else {
+    delete personaData["Soft Skills"]
+  }
+
+  const recRoles = personaData["Recommended Roles"]?.filter((role, index) => {
+    if(index >= 3){
+      return false
+    }
+    if(role?.trim().length === 0) {
+      return false
+    }
+    return true
+  })
+
+  if (recRoles?.length > 0){
+    personaData["Recommended Roles"] = recRoles
+  } else {
+    delete personaData["Recommended Roles"]
+  }
+
+  const certs = personaData["Certificates"]?.filter((cert, index) => {
+    if(index >= 5){
+      return false
+    }
+    if(cert?.trim().length === 0) {
+      return false
+    }
+    return true
+  })
+
+  if (certs?.length > 0){
+    personaData["Certificates"] = certs
+  } else {
+    delete personaData["Certificates"]
+  }
 }
 
 const EditArrayCollection = ({
