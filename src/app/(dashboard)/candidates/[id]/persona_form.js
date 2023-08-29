@@ -5,6 +5,7 @@ import BackButton from "./back_button"
 import GenericEditButton from "./generic_edit_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "./save_button"
+import clone from "just-clone"
 import {useRef} from "react"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
@@ -112,8 +113,9 @@ const PersonaForm = ({candidate}) => {
   })
 
   const onSubmit = data => {
-    sanitizePersonaData(data)
+    const sanitizedData = sanitizePersonaData(data)
     console.log(data)
+    console.log(sanitizedData)
   }
 
   let mainComponent
@@ -413,7 +415,9 @@ const PersonaForm = ({candidate}) => {
   </>
 }
 
-const sanitizePersonaData = (personaData) => {
+const sanitizePersonaData = (data) => {
+  const personaData = clone(data)
+
   if(personaData["Phone"]?.trim().length === 0){
     delete personaData["Phone"]
   }
@@ -535,6 +539,8 @@ const sanitizePersonaData = (personaData) => {
   } else {
     delete personaData["Certificates"]
   }
+
+  return personaData
 }
 
 const EditArrayCollection = ({
