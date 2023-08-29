@@ -264,30 +264,27 @@ const PersonaForm = ({candidate}) => {
             />
           </div>
         })}
-        <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Certificates"} <div className="inline font-semibold text-[20px]">(Max 5)</div>
-          <GenericEditButton handleClick={()=> {
-            console.log(certificates)
-            if(certificates.length < 5){
-              prependCertificate("")
-            }
-          }}>
-            Add Certificate
-          </GenericEditButton>
-        </div>
-        {certificates.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
-            <EditablePersonaInputElement
-              inputProps={register(`Certificates.${index}`)}
-              labelKey={`Certificates.${index}`}
-              labelText=""
-              error={errors?.["Certificates"]?.[index]}
-              handleRemove={()=> removeCertificate(index)}
-              handleMoveUp={index > 0 && (() => moveCertificate(index, index-1))}
-              handleMoveDown={(index < certificates.length-1) && (() => moveCertificate(index, index+1))}
-            />
-          </div>
-        })}
+        <EditArrayCollection
+          array={certificates}
+          label={"Certificates"}
+          maxElements={5}
+          defaultElement={""}
+          prependElement={prependCertificate}
+        >
+          {certificates.map((field, index) => {
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+              <EditablePersonaInputElement
+                inputProps={register(`Certificates.${index}`)}
+                labelKey={`Certificates.${index}`}
+                labelText=""
+                error={errors?.["Certificates"]?.[index]}
+                handleRemove={()=> removeCertificate(index)}
+                handleMoveUp={index > 0 && (() => moveCertificate(index, index-1))}
+                handleMoveDown={(index < certificates.length-1) && (() => moveCertificate(index, index+1))}
+              />
+            </div>
+          })}
+        </EditArrayCollection>
       </form>
     </>
   }
@@ -311,6 +308,27 @@ const PersonaForm = ({candidate}) => {
         {mainComponent}
       </div>
     </div>
+  </>
+}
+
+const EditArrayCollection = ({
+  array,
+  label, maxElements,
+  defaultElement, prependElement,
+  children
+}) => {
+  return <>
+    <div className="text-[24px] font-bold mb-2 text-black/60">
+      {label} <div className="inline font-semibold text-[20px]">{`(Max ${maxElements})`}</div>
+      <GenericEditButton handleClick={()=> {
+        if(array.length < maxElements){
+          prependElement(defaultElement)
+        }
+      }}>
+        Add Certificate
+      </GenericEditButton>
+    </div>
+    {children}
   </>
 }
 
