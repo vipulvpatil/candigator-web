@@ -74,9 +74,24 @@ const PersonaForm = ({candidate}) => {
 
   const {fields: experience}  = useFieldArray({name: "Experience", control})
   const {fields: education}  = useFieldArray({name: "Education", control})
-  const {fields: techSkills}  = useFieldArray({name: "Tech Skills", control})
-  const {fields: softSkills}  = useFieldArray({name: "Soft Skills", control})
-  const {fields: recommendedRoles}  = useFieldArray({name: "Recommended Roles", control})
+  const {
+    fields: techSkills,
+    prepend: prependTechSkill,
+    remove: removeTechSkill,
+    move: moveTechSkill,
+  }  = useFieldArray({name: "Tech Skills", control})
+  const {
+    fields: softSkills,
+    prepend: prependSoftSkill,
+    remove: removeSoftSkill,
+    move: moveSoftSkill,
+  }  = useFieldArray({name: "Soft Skills", control})
+  const {
+    fields: recommendedRoles,
+    prepend: prependRecommendedRole,
+    remove: removeRecommendedRole,
+    move: moveRecommendedRole,
+  }  = useFieldArray({name: "Recommended Roles", control})
   const {
     fields: certificates,
     prepend: prependCertificate,
@@ -225,47 +240,75 @@ const PersonaForm = ({candidate}) => {
             />
           </div>
         })}
-        <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Technical Skills"}
-        </div>
-        {techSkills.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
-            <EditablePersonaInputElement
-              inputProps={register(`Tech Skills.${index}`)}
-              labelKey={`Tech Skills.${index}`}
-              labelText=""
-              error={errors?.["Tech Skills"]?.[index]}
-            />
-          </div>
-        })}
-        <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Soft Skills"}
-        </div>
-        {softSkills.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
-            <EditablePersonaInputElement
-              inputProps={register(`Soft Skills.${index}`)}
-              labelKey={`Soft Skills.${index}`}
-              labelText=""
-              error={errors?.["Soft Skills"]?.[index]}
-            />
-          </div>
-        })}
-        <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Recommended Roles"}
-        </div>
-        {recommendedRoles.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
-            <EditablePersonaInputElement
-              inputProps={register(`Recommended Roles.${index}`)}
-              labelKey={`Recommended Roles.${index}`}
-              labelText=""
-              error={errors?.["Recommended Roles"]?.[index]}
-            />
-          </div>
-        })}
+        <EditArrayCollection
+          array={techSkills}
+          addLabel={"Add Skill"}
+          label={"Technical Skills"}
+          maxElements={5}
+          defaultElement={""}
+          prependElement={prependTechSkill}
+        >
+          {techSkills.map((field, index) => {
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+              <EditablePersonaInputElement
+                inputProps={register(`Tech Skills.${index}`)}
+                labelKey={`Tech Skills.${index}`}
+                labelText=""
+                error={errors?.["Tech Skills"]?.[index]}
+                handleRemove={()=> removeTechSkill(index)}
+                  handleMoveUp={index > 0 && (() => moveTechSkill(index, index-1))}
+                  handleMoveDown={(index < certificates.length-1) && (() => moveTechSkill(index, index+1))}
+              />
+            </div>
+          })}
+        </EditArrayCollection>
+        <EditArrayCollection
+          array={softSkills}
+          addLabel={"Add Skill"}
+          label={"Soft Skills"}
+          maxElements={5}
+          defaultElement={""}
+          prependElement={prependSoftSkill}
+        >
+          {softSkills.map((field, index) => {
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+              <EditablePersonaInputElement
+                inputProps={register(`Soft Skills.${index}`)}
+                labelKey={`Soft Skills.${index}`}
+                labelText=""
+                error={errors?.["Soft Skills"]?.[index]}
+                handleRemove={()=> removeSoftSkill(index)}
+                handleMoveUp={index > 0 && (() => moveSoftSkill(index, index-1))}
+                handleMoveDown={(index < certificates.length-1) && (() => moveSoftSkill(index, index+1))}
+              />
+            </div>
+          })}
+        </EditArrayCollection>
+        <EditArrayCollection
+          array={recommendedRoles}
+          addLabel={"Add Role"}
+          label={"Recommended Roles"}
+          maxElements={3}
+          defaultElement={""}
+          prependElement={prependRecommendedRole}
+        >
+          {recommendedRoles.map((field, index) => {
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+              <EditablePersonaInputElement
+                inputProps={register(`Recommended Roles.${index}`)}
+                labelKey={`Recommended Roles.${index}`}
+                labelText=""
+                error={errors?.["Recommended Roles"]?.[index]}
+                handleRemove={()=> removeRecommendedRole(index)}
+                handleMoveUp={index > 0 && (() => moveRecommendedRole(index, index-1))}
+                handleMoveDown={(index < certificates.length-1) && (() => moveRecommendedRole(index, index+1))}
+              />
+            </div>
+          })}
+        </EditArrayCollection>
         <EditArrayCollection
           array={certificates}
+          addLabel={"Add Certificate"}
           label={"Certificates"}
           maxElements={5}
           defaultElement={""}
@@ -313,7 +356,7 @@ const PersonaForm = ({candidate}) => {
 
 const EditArrayCollection = ({
   array,
-  label, maxElements,
+  label, addLabel, maxElements,
   defaultElement, prependElement,
   children
 }) => {
@@ -325,7 +368,7 @@ const EditArrayCollection = ({
           prependElement(defaultElement)
         }
       }}>
-        Add Certificate
+        {addLabel}
       </GenericEditButton>
     </div>
     {children}
