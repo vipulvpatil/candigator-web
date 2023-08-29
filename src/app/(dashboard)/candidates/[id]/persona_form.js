@@ -73,7 +73,12 @@ const PersonaForm = ({candidate}) => {
   )
 
   const {fields: experience}  = useFieldArray({name: "Experience", control})
-  const {fields: education}  = useFieldArray({name: "Education", control})
+  const {
+    fields: education,
+    prepend: prependEducation,
+    remove: removeEducation,
+    move: moveEducation,
+  }  = useFieldArray({name: "Education", control})
   const {
     fields: techSkills,
     prepend: prependTechSkill,
@@ -215,31 +220,55 @@ const PersonaForm = ({candidate}) => {
           </div>
         })}
         <div className="h-8"/>
-        <div className="text-[24px] font-bold mb-2 text-black/60">
-          {"Education"}
-        </div>
-        {education.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
-            <EditablePersonaInputElement
-              inputProps={register(`Education.${index}.${"Institute"}`)}
-              labelKey={`Education.${index}.${"Institute"}`}
-              labelText="Institute"
-              error={errors.Education?.[index]?.["Institute"]}
-            />
-            <EditablePersonaInputElement
-              inputProps={register(`Education.${index}.${"Qualification"}`)}
-              labelKey={`Education.${index}.${"Qualification"}`}
-              labelText="Qualification"
-              error={errors.Education?.[index]?.["Qualification"]}
-            />
-            <EditablePersonaInputElement
-              inputProps={register(`Education.${index}.${"CompletionYear"}`)}
-              labelKey={`Education.${index}.${"CompletionYear"}`}
-              labelText="CompletionYear"
-              error={errors.Education?.[index]?.["CompletionYear"]}
-            />
-          </div>
-        })}
+        <EditArrayCollection
+          array={education}
+          addLabel={"Add Education"}
+          label={"Education"}
+          maxElements={5}
+          defaultElement={{
+            Institute: "",
+            Qualification: "",
+            CompletionYear: ""
+          }}
+          prependElement={prependEducation}
+        >
+          {education.map((field, index) => {
+            const handleRemove=()=> removeEducation(index)
+            const handleMoveUp=index > 0 && (() => moveEducation(index, index-1))
+            const handleMoveDown=(index < education.length-1) && (() => moveEducation(index, index+1))
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+              <EditablePersonaInputElement
+                inputProps={register(`Education.${index}.${"Institute"}`)}
+                labelKey={`Education.${index}.${"Institute"}`}
+                labelText="Institute"
+                error={errors.Education?.[index]?.["Institute"]}
+              />
+              <EditablePersonaInputElement
+                inputProps={register(`Education.${index}.${"Qualification"}`)}
+                labelKey={`Education.${index}.${"Qualification"}`}
+                labelText="Qualification"
+                error={errors.Education?.[index]?.["Qualification"]}
+              />
+              <EditablePersonaInputElement
+                inputProps={register(`Education.${index}.${"CompletionYear"}`)}
+                labelKey={`Education.${index}.${"CompletionYear"}`}
+                labelText="CompletionYear"
+                error={errors.Education?.[index]?.["CompletionYear"]}
+              />
+              <div>
+                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"mt-2"}>
+                  &nbsp;&uarr;&nbsp;
+                </GenericEditButton>}
+                {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
+                  &nbsp;&darr;&nbsp;
+                </GenericEditButton>}
+                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"ml-2 mt-2"}>
+                  Delete
+                </GenericEditButton>}
+              </div>
+            </div>
+          })}
+        </EditArrayCollection>
         <EditArrayCollection
           array={techSkills}
           addLabel={"Add Skill"}
@@ -256,8 +285,8 @@ const PersonaForm = ({candidate}) => {
                 labelText=""
                 error={errors?.["Tech Skills"]?.[index]}
                 handleRemove={()=> removeTechSkill(index)}
-                  handleMoveUp={index > 0 && (() => moveTechSkill(index, index-1))}
-                  handleMoveDown={(index < certificates.length-1) && (() => moveTechSkill(index, index+1))}
+                handleMoveUp={index > 0 && (() => moveTechSkill(index, index-1))}
+                handleMoveDown={(index < techSkills.length-1) && (() => moveTechSkill(index, index+1))}
               />
             </div>
           })}
@@ -279,7 +308,7 @@ const PersonaForm = ({candidate}) => {
                 error={errors?.["Soft Skills"]?.[index]}
                 handleRemove={()=> removeSoftSkill(index)}
                 handleMoveUp={index > 0 && (() => moveSoftSkill(index, index-1))}
-                handleMoveDown={(index < certificates.length-1) && (() => moveSoftSkill(index, index+1))}
+                handleMoveDown={(index < softSkills.length-1) && (() => moveSoftSkill(index, index+1))}
               />
             </div>
           })}
@@ -301,7 +330,7 @@ const PersonaForm = ({candidate}) => {
                 error={errors?.["Recommended Roles"]?.[index]}
                 handleRemove={()=> removeRecommendedRole(index)}
                 handleMoveUp={index > 0 && (() => moveRecommendedRole(index, index-1))}
-                handleMoveDown={(index < certificates.length-1) && (() => moveRecommendedRole(index, index+1))}
+                handleMoveDown={(index < recommendedRoles.length-1) && (() => moveRecommendedRole(index, index+1))}
               />
             </div>
           })}
@@ -395,13 +424,13 @@ const EditablePersonaInputElement = (
         "
       />
       {<div>
-        {handleMoveUp && <GenericEditButton handleClick={handleMoveUp}>
+        {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"ml-2"}>
           &nbsp;&uarr;&nbsp;
         </GenericEditButton>}
-        {handleMoveDown && <GenericEditButton handleClick={handleMoveDown}>
+        {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2"}>
           &nbsp;&darr;&nbsp;
         </GenericEditButton>}
-        {handleRemove && <GenericEditButton handleClick={handleRemove}>
+        {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"ml-2"}>
           Delete
         </GenericEditButton>}
       </div>}
