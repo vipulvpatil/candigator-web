@@ -72,7 +72,12 @@ const PersonaForm = ({candidate}) => {
     }
   )
 
-  const {fields: experience}  = useFieldArray({name: "Experience", control})
+  const {
+    fields: experience,
+    prepend: prependExperience,
+    remove: removeExperience,
+    move: moveExperience,
+  }  = useFieldArray({name: "Experience", control})
   const {
     fields: education,
     prepend: prependEducation,
@@ -185,40 +190,69 @@ const PersonaForm = ({candidate}) => {
         <div className="text-[24px] font-bold mb-2 text-black/60">
           {"Experience"}
         </div>
-        {experience.map((field, index) => {
-          return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
-            <EditablePersonaInputElement
-              inputProps={register(`Experience.${index}.${"Title"}`)}
-              labelKey={`Experience.${index}.${"Title"}`}
-              labelText="Title"
-              error={errors.Experience?.[index]?.["Title"]}
-            />
-            <EditablePersonaInputElement
-              inputProps={register(`Experience.${index}.${"Company Name"}`)}
-              labelKey={`Experience.${index}.${"Company Name"}`}
-              labelText="Company Name"
-              error={errors.Experience?.[index]?.["Company Name"]}
-            />
-            <EditablePersonaInputElement
-              inputProps={register(`Experience.${index}.${"Starting Year"}`)}
-              labelKey={`Experience.${index}.${"Starting Year"}`}
-              labelText="Starting Year"
-              error={errors.Experience?.[index]?.["Starting Year"]}
-            />
-            <EditablePersonaInputElement
-              inputProps={register(`Experience.${index}.${"Ending Year"}`)}
-              labelKey={`Experience.${index}.${"Ending Year"}`}
-              labelText="Ending Year"
-              error={errors.Experience?.[index]?.["Ending Year"]}
-            />
-            <EditablePersonaInputElement
-              inputProps={register(`Experience.${index}.${"Ongoing"}`)}
-              labelKey={`Experience.${index}.${"Ongoing"}`}
-              labelText="Ongoing"
-              error={errors.Experience?.[index]?.["Ongoing"]}
-            />
-          </div>
-        })}
+        <EditArrayCollection
+          array={education}
+          addLabel={"Add Experience"}
+          label={"Experience"}
+          maxElements={5}
+          defaultElement={{
+            Title: "",
+            "Company Name": "",
+            "Starting Year": "",
+            "Ending Year": "",
+            Ongoing: false,
+          }}
+          prependElement={prependExperience}
+        >
+          {experience.map((field, index) => {
+            const handleRemove=()=> removeExperience(index)
+            const handleMoveUp=index > 0 && (() => moveExperience(index, index-1))
+            const handleMoveDown=(index < experience.length-1) && (() => moveExperience(index, index+1))
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+              <EditablePersonaInputElement
+                inputProps={register(`Experience.${index}.${"Title"}`)}
+                labelKey={`Experience.${index}.${"Title"}`}
+                labelText="Title"
+                error={errors.Experience?.[index]?.["Title"]}
+              />
+              <EditablePersonaInputElement
+                inputProps={register(`Experience.${index}.${"Company Name"}`)}
+                labelKey={`Experience.${index}.${"Company Name"}`}
+                labelText="Company Name"
+                error={errors.Experience?.[index]?.["Company Name"]}
+              />
+              <EditablePersonaInputElement
+                inputProps={register(`Experience.${index}.${"Starting Year"}`)}
+                labelKey={`Experience.${index}.${"Starting Year"}`}
+                labelText="Starting Year"
+                error={errors.Experience?.[index]?.["Starting Year"]}
+              />
+              <EditablePersonaInputElement
+                inputProps={register(`Experience.${index}.${"Ending Year"}`)}
+                labelKey={`Experience.${index}.${"Ending Year"}`}
+                labelText="Ending Year"
+                error={errors.Experience?.[index]?.["Ending Year"]}
+              />
+              <EditablePersonaInputElement
+                inputProps={register(`Experience.${index}.${"Ongoing"}`)}
+                labelKey={`Experience.${index}.${"Ongoing"}`}
+                labelText="Ongoing"
+                error={errors.Experience?.[index]?.["Ongoing"]}
+              />
+              <div>
+                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"mt-2"}>
+                  &nbsp;&uarr;&nbsp;
+                </GenericEditButton>}
+                {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
+                  &nbsp;&darr;&nbsp;
+                </GenericEditButton>}
+                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"ml-2 mt-2"}>
+                  Delete
+                </GenericEditButton>}
+              </div>
+            </div>
+          })}
+        </EditArrayCollection>
         <div className="h-8"/>
         <EditArrayCollection
           array={education}
@@ -396,7 +430,7 @@ const EditArrayCollection = ({
         if(array.length < maxElements){
           prependElement(defaultElement)
         }
-      }}>
+      }} additionalStyling={"ml-2"}>
         {addLabel}
       </GenericEditButton>
     </div>
