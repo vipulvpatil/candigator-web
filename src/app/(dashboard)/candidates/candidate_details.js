@@ -74,10 +74,10 @@ const CandidateDetails = ({candidate, onClose}) => {
       <div className="h-4"/>
       <CandidateCertDetails candidatePersona={candidatePersona}/>
       <div className="h-4"/>
-      <CandidateSimpleElement label={"BuilderVersion"} value={candidatePersona["BuilderVersion"]}/>
+      <CandidateSimpleElement label={"BuilderVersion"} value={`${candidatePersona["BuiltBy"] === "AI"?candidatePersona["BuilderVersion"]:"N/A"}`}/>
       <CandidateSimpleElement label={"BuiltBy"} value={candidatePersona["BuiltBy"]}/>
       <div className="h-1"/>
-      <CandidateSimpleElement label={"FileUploadId"} value={candidatePersona["FileUploadId"]}/>
+      <CandidateSimpleElement label={"FileUploadId"} value={candidatePersona["FileUploadId"] || "N/A"}/>
       <div className="h-1"/>
     </div>
   )

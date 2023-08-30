@@ -69,6 +69,7 @@ const updateCandidate = async (id, personaData) => {
 const PersonaForm = ({candidate}) => {
   const form = useRef()
   const router = useRouter()
+
   const {
     register, handleSubmit, formState: {errors}, control, getValues, setValue} = useForm(
     {
@@ -134,7 +135,7 @@ const PersonaForm = ({candidate}) => {
     const sanitizedData = sanitizePersonaData(data)
     console.log(data)
     console.log(sanitizedData)
-    updateCandidate(candidate.id, sanitizedData)
+    updateCandidate(candidate?.id, sanitizedData)
   }
 
   let mainComponent
@@ -413,7 +414,7 @@ const PersonaForm = ({candidate}) => {
   }
 
   return <>
-    <PageHeader title={`id: ${candidate && candidate.id}`}>
+    <PageHeader title={`${(candidate && candidate.id)?"Edit Candidate":"Add Candidate"}`}>
       <BackButton handleClick={() => router.back()}/>
       <SaveButton handleClick={
         () => {

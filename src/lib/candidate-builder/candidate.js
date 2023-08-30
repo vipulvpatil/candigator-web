@@ -7,7 +7,7 @@ export const processCandidates = (candidates) => {
 }
 
 export const processCandidate = (candidate) => {
-  const aiGeneratedPerson = buildPersona(candidate.aiGeneratedPersona)
+  const aiGeneratedPerson = buildPersona(candidate.aiGeneratedPersona) || {}
   const manuallyCreatedPersona = buildPersona(candidate.manuallyCreatedPersona)
   const displayPersona = buildResultantPersona(aiGeneratedPerson, manuallyCreatedPersona)
   Object.assign(candidate, {
@@ -18,4 +18,31 @@ export const processCandidate = (candidate) => {
     displayPersona: displayPersona,
   })
   return candidate
+}
+
+export const emptyCandidate = {
+  displayPersona: {
+    Name: "",
+    Email: "",
+    Phone: "",
+    City: "",
+    State: "",
+    Country: "",
+    YoE: 0,
+    Experience: [{
+      "Company Name": "",
+      "Starting Year": "",
+      "Ending Year": "",
+      Ongoing: "",
+    }],
+    Education: [{
+      Institute: "",
+      Qualification: "",
+      CompletionYear: "",
+    }],
+    "Tech Skills": [""],
+    "Soft Skills": [""],
+    "Recommended Roles": [""],
+    Certifications: [""],
+  }
 }
