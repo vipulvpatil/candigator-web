@@ -1,16 +1,20 @@
 "use client"
 import BackButton from "@/components/back_button"
 import DeleteButton from "@/components/delete_button"
+import FileUploadDeleteModal from "./file_upload_delete_modal"
 import PageHeader from "@/components/page_header"
 import {useRouter} from "next/navigation"
+import {useState} from "react"
 
 const FileUploadDetail = ({fileUpload}) => {
   const router = useRouter()
+  const [showFileUploadDeleteModal, setShowFileUploadDeleteModal] = useState(false)
+
 
   return <>
     <PageHeader title={"Uploaded File Data"}>
       <BackButton handleClick={() => router.back()}/>
-      <DeleteButton handleClick={() => router.back()}/>
+      <DeleteButton handleClick={() => setShowFileUploadDeleteModal(true)}/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
@@ -64,6 +68,15 @@ const FileUploadDetail = ({fileUpload}) => {
         }
       </div>
     </div>
+    <FileUploadDeleteModal
+      show={showFileUploadDeleteModal}
+      warningText={
+        <div className="text-errorColor">
+          {"This file was used to populate a candidate's data."}
+        </div>
+      }
+      handleClose={() => setShowFileUploadDeleteModal(false)}
+    />
   </>
 }
 
