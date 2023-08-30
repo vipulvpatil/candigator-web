@@ -19,6 +19,10 @@ const createFileUploads = async (files) => {
   })
 
   const respJson = await resp.json()
+  if(respJson.error){
+    throw {name : "ServerError", message : respJson.error}
+  }
+
   return respJson.data
 }
 
@@ -116,6 +120,10 @@ const completeFileUpload = async (completedFileUploads) => {
   })
 
   const respJson = await resp.json()
+  if(respJson.error){
+    throw {name : "ServerError", message : respJson.error}
+  }
+
   return respJson.data
 }
 

@@ -95,6 +95,11 @@ const AddCandidateModal = ({show, handleClose}) => {
         <div className="text-[32px]">Add candidates</div>
         <div>Select one or more PDF files to upload</div>
         {actionButton}
+        {currentUploadStatus === UploadStatus.Failure &&
+          <div className="text-[20px] text-errorColor font-semibold mb-6">
+            {"Something went wrong"}
+          </div>
+        }
         <MultifilesWithUploadData
           filesWithUploadData={filesWithUploadData}
         />
