@@ -620,7 +620,7 @@ const EditablePersonaInputElement = (
         </GenericEditButton>}
       </div>}
     </div>
-    {error && <span className="text-red-600 font-semibold text-[16px]">{error.message}</span>}
+    {error && <span className="text-errorColor font-semibold text-[16px]">{error.message}</span>}
   </div>
 }
 

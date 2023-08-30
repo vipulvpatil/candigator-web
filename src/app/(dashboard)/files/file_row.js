@@ -12,7 +12,7 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
   }
 
   if (fileUpload.processingStatus === "FAILED") {
-    statusTextColor = "text-red-700"
+    statusTextColor = "text-errorColor"
   } else {
     statusTextColor = null
   }

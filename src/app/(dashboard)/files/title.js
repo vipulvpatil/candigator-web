@@ -17,7 +17,7 @@ const Title = ({files}) => {
     {files.length - unprocessedFileUploadsCount}{" Files"}
     {unprocessedFileUploadsCount > 0 &&
     <div>
-      <div className="inline-flex text-red-700/50 text-[24px] pl-1">
+      <div className="inline-flex text-errorColor/50 text-[24px] pl-1">
         {"("}{unprocessedFileUploadsCount}{" unprocessed)"}
       </div>
       {willBeProcessedFileUploadCount > 0 && <div className="

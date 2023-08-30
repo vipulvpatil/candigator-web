@@ -54,10 +54,10 @@ const FileUploadDetail = ({fileUpload}) => {
         </div>}
         {fileUpload.processingStatus === "COMPLETED" &&
           <>
-            <div className="text-red-600 font-semibold text-[16px]">
+            <div className="text-errorColor font-semibold text-[16px]">
               {"This file was used to populate a candidate's data. "}
             </div>
-            <div className="text-red-600 font-bold text-[16px]">
+            <div className="text-errorColor font-bold text-[16px]">
               {"Deleting this file is not recommended"}
             </div>
           </>

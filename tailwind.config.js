@@ -18,6 +18,7 @@ module.exports = {
         secondaryDarkColor: "#660000",
         subtleColor: "#e2efde",
         disabled: "#575E60",
+        errorColor: "#DC2626"
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
