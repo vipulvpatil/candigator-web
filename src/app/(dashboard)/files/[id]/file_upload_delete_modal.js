@@ -1,6 +1,6 @@
 import DeleteButton from "@/components/delete_button"
 
-const FileUploadDeleteModal = ({show, warningText, handleClose}) => {
+const FileUploadDeleteModal = ({show, fileUploadId, warningText, handleClose}) => {
   const closeModal = () => {
     handleClose()
   }
@@ -39,11 +39,24 @@ const FileUploadDeleteModal = ({show, warningText, handleClose}) => {
           <div>{"This action is irreversible. Are you sure?"}</div>
         </div>
         <div className="m-6">
-          <DeleteButton/>
+          <DeleteButton handleClick={() => deleteFileUpload(fileUploadId)}/>
         </div>
       </div>
     </>
   )
+}
+
+const deleteFileUpload = async (id) => {
+  const resp = await fetch(`/api/file_uploads/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    }
+  })
+
+  const respJson = await resp.json()
+
+  console.log(respJson)
 }
 
 export default FileUploadDeleteModal

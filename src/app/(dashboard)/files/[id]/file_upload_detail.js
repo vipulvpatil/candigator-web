@@ -10,7 +10,6 @@ const FileUploadDetail = ({fileUpload}) => {
   const router = useRouter()
   const [showFileUploadDeleteModal, setShowFileUploadDeleteModal] = useState(false)
 
-
   return <>
     <PageHeader title={"Uploaded File Data"}>
       <BackButton handleClick={() => router.back()}/>
@@ -70,6 +69,7 @@ const FileUploadDetail = ({fileUpload}) => {
     </div>
     <FileUploadDeleteModal
       show={showFileUploadDeleteModal}
+      fileUploadId={fileUpload.id}
       warningText={
         <div className="text-errorColor">
           {"This file was used to populate a candidate's data."}
