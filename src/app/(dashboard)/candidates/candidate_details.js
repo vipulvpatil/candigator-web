@@ -9,7 +9,7 @@ import {
 } from "./candidate_details_elements"
 import {useEffect, useState} from "react"
 import CloseIcon from "@/icons/close"
-import EditCandidateIcon from "@/icons/edit_candidate"
+import EditIcon from "@/icons/edit"
 import Link from "next/link"
 
 const CandidateDetails = ({candidate, onClose}) => {
@@ -49,7 +49,7 @@ const CandidateDetails = ({candidate, onClose}) => {
         <button
           className="float-right align-middle w-[34px] fill-secondaryColor hover:fill-secondaryDarkColor"
         >
-          <EditCandidateIcon/>
+          <EditIcon/>
         </button>
       </Link>
 
