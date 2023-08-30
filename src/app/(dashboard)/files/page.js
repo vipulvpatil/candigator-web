@@ -10,7 +10,8 @@ const Files = async () => {
     return <></>
   }
 
-  const fileUploads = await GrpcService.getFileUploads(session.user.email)
+  const response  = await GrpcService.getFileUploads(session.user.email)
+  const fileUploads = response.data
 
   return (
     <div className="min-h-[620px] bg-gray-200">

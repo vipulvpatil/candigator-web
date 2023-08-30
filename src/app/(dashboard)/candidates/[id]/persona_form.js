@@ -63,7 +63,7 @@ const updateCandidate = async (id, personaData) => {
 
   const respJson = await resp.json()
   console.log(respJson)
-  return respJson
+  return respJson.data
 }
 
 const PersonaForm = ({candidate}) => {

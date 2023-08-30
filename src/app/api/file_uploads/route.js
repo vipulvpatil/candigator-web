@@ -13,7 +13,13 @@ export const POST = async (req) => {
   }
 
   const files = await req.json()
-  const fileUploads = await GrpcService.completeFileUploads(session.user.email, files)
+  const response = await GrpcService.completeFileUploads(session.user.email, files)
+  if (response.error) {
+    return NextResponse.json(
+      {error: response.error},
+      {status: 500}
+    )
+  }
 
-  return NextResponse.json({fileUploads})
+  return NextResponse.json({data: response.data})
 }

@@ -22,11 +22,12 @@ const Candidate = async ({params}) => {
     )
   }
 
-  let candidate = await GrpcService.getCandidate(session.user.email, params.id)
+  const response = await GrpcService.getCandidate(session.user.email, params.id)
+  const candidate = processCandidate(response.data)
+
   if(!candidate || !candidate.id) {
     return <NoCandidateFound/>
   }
-  candidate = processCandidate(candidate)
 
   return (
     <div className="min-h-[620px] bg-gray-200">

@@ -25,7 +25,7 @@ const Menu = () => {
         }
       })
       const respJson = await resp.json()
-      setUnprocessedFileCount(respJson.unprocessedFileCount)
+      setUnprocessedFileCount(respJson.data)
     }
     loadUnprocessedFileCount()
   }, [segment])

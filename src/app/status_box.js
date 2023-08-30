@@ -11,7 +11,8 @@ const StatusBox = async () => {
   if(session) {
     statusText = "signed in"
     if(session.user && session.user.email) {
-      statusText = await GrpcService.checkConnection(session.user.email)
+      const response = await GrpcService.checkConnection(session.user.email)
+      statusText = response.data || response.error
     }
   }
   return <>{"Status: "}{statusText}</>

@@ -30,10 +30,10 @@ const checkConnection = async (userEmail) => {
   return await grpcServiceClient().checkConnection(
     checkConnectionRequest, md
   ).then((checkConnectionResponse) => {
-    return checkConnectionResponse.connectionStatus
+    return {data: checkConnectionResponse.connectionStatus}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -49,10 +49,10 @@ const uploadFiles = async (userEmail, files) => {
   return await grpcServiceClient().uploadFiles(
     uploadFilesRequest, md
   ).then((uploadFilesResponse) => {
-    return uploadFilesResponse.fileUploads
+    return {data: uploadFilesResponse.fileUploads}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -68,10 +68,10 @@ const completeFileUploads = async (userEmail, fileUploadUpdates) => {
   return await grpcServiceClient().completeFileUploads(
     completeFileUploadsRequest, md
   ).then((completeFileUploadsResponse) => {
-    return completeFileUploadsResponse.fileUploads
+    return {data: completeFileUploadsResponse.fileUploads}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -86,10 +86,10 @@ const getUnprocessedFileUploadsCount = async (userEmail) => {
   return await grpcServiceClient().getUnprocessedFileUploadsCount(
     GetUnprocessedFileUploadsCountRequest, md
   ).then((GetUnprocessedFileUploadsCountResponse) => {
-    return GetUnprocessedFileUploadsCountResponse.count
+    return {data: GetUnprocessedFileUploadsCountResponse.count}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -104,10 +104,10 @@ const getFileUploads = async (userEmail) => {
   return await grpcServiceClient().getFileUploads(
     GetFileUploadsRequest, md
   ).then((GetFileUploadsResponse) => {
-    return GetFileUploadsResponse.fileUploads
+    return {data: GetFileUploadsResponse.fileUploads}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -123,10 +123,10 @@ const getFileUpload = async (userEmail, id) => {
   return await grpcServiceClient().getFileUpload(
     GetFileUploadRequest, md
   ).then((GetFileUploadResponse) => {
-    return GetFileUploadResponse.fileUpload
+    return {data: GetFileUploadResponse.fileUpload}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -142,10 +142,10 @@ const deleteFileUpload = async (userEmail, id) => {
   return await grpcServiceClient().deleteFileUpload(
     DeleteFileUploadRequest, md
   ).then((DeleteFileUploadResponse) => {
-    return DeleteFileUploadResponse
+    return {data: DeleteFileUploadResponse}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -160,10 +160,10 @@ const getCandidates = async (userEmail) => {
   return await grpcServiceClient().getCandidates(
     GetCandidatesRequest, md
   ).then((GetCandidatesResponse) => {
-    return GetCandidatesResponse.candidates
+    return {data: GetCandidatesResponse.candidates}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -179,10 +179,10 @@ const getCandidate = async (userEmail, id) => {
   return await grpcServiceClient().getCandidate(
     GetCandidateRequest, md
   ).then((GetCandidateResponse) => {
-    return GetCandidateResponse.candidate
+    return {data: GetCandidateResponse.candidate}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 
@@ -199,10 +199,10 @@ const updateCandidate = async (userEmail, id, manuallyCreatedPersona) => {
   return await grpcServiceClient().updateCandidate(
     UpdateCandidateRequest, md
   ).then((UpdateCandidateResponse) => {
-    return UpdateCandidateResponse
+    return {data: UpdateCandidateResponse}
   }).catch((err) => {
     handleGrpcError(err)
-    return err.details
+    return {error: err.details}
   })
 }
 

@@ -1,7 +1,7 @@
 import {buildPersona, buildResultantPersona} from "./persona"
 
 export const processCandidates = (candidates) => {
-  return candidates.map(candidate => {
+  return candidates?.map(candidate => {
     return processCandidate(candidate)
   })
 }

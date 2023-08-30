@@ -13,7 +13,8 @@ const File = async ({params}) => {
     return <NoFileFound/>
   }
 
-  let file = await GrpcService.getFileUpload(session.user.email, params.id)
+  const response = await GrpcService.getFileUpload(session.user.email, params.id)
+  const file = response.data
   if(!file || !file.id) {
     return <NoFileFound/>
   }

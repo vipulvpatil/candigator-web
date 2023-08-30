@@ -18,8 +18,8 @@ const createFileUploads = async (files) => {
     body: body
   })
 
-  const respJson =  await resp.json()
-  return respJson.fileUploads
+  const respJson = await resp.json()
+  return respJson.data
 }
 
 const convertUploadDataToMap = (uploadData) => {
@@ -116,7 +116,7 @@ const completeFileUpload = async (completedFileUploads) => {
   })
 
   const respJson = await resp.json()
-  return respJson.fileUploads
+  return respJson.data
 }
 
 const convertUpdatedFileUploadDataToMap = (uploadData) => {

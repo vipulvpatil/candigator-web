@@ -14,5 +14,12 @@ export const DELETE = async (_req, {params}) => {
 
   const id = params.id
   const response = await GrpcService.deleteFileUpload(session.user.email, id)
-  return NextResponse.json(response)
+  if (response.error) {
+    return NextResponse.json(
+      {error: response.error},
+      {status: 500}
+    )
+  }
+
+  return NextResponse.json({data: response.data})
 }

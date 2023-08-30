@@ -13,7 +13,14 @@ export const POST = async (req) => {
   }
 
   const candidate = await req.json()
-  await GrpcService.updateCandidate(session.user.email, candidate.id, candidate.manuallyCreatedPersona)
+  const response = await GrpcService.updateCandidate(session.user.email, candidate.id, candidate.manuallyCreatedPersona)
 
-  return NextResponse.json({})
+  if (response.error) {
+    return NextResponse.json(
+      {error: response.error},
+      {status: 500}
+    )
+  }
+
+  return NextResponse.json({data: response.data})
 }

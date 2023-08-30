@@ -20,9 +20,9 @@ const Candidates = async () => {
 }
 
 const getCandidateListFor = async (userEmail) => {
-  let candidates = await GrpcService.getCandidates(userEmail)
+  const response = await GrpcService.getCandidates(userEmail)
+  const candidates = processCandidates(response.data)
   console.log(candidates)
-  candidates = processCandidates(candidates)
   return candidates
 }
 
