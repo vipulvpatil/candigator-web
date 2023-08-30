@@ -111,6 +111,44 @@ const getFileUploads = async (userEmail) => {
   })
 }
 
+const getFileUpload = async (userEmail, id) => {
+  if (!userEmail) {
+    return
+  }
+  const md = metadataWithRequestingUserEmail(userEmail)
+  const GetFileUploadRequest = {
+    userEmail: userEmail,
+    id: id
+  }
+  return await grpcServiceClient().getFileUpload(
+    GetFileUploadRequest, md
+  ).then((GetFileUploadResponse) => {
+    return GetFileUploadResponse.fileUpload
+  }).catch((err) => {
+    handleGrpcError(err)
+    return err.details
+  })
+}
+
+const deleteFileUpload = async (userEmail, id) => {
+  if (!userEmail) {
+    return
+  }
+  const md = metadataWithRequestingUserEmail(userEmail)
+  const DeleteFileUploadRequest = {
+    userEmail: userEmail,
+    id: id
+  }
+  return await grpcServiceClient().deleteFileUpload(
+    DeleteFileUploadRequest, md
+  ).then((DeleteFileUploadResponse) => {
+    return DeleteFileUploadResponse
+  }).catch((err) => {
+    handleGrpcError(err)
+    return err.details
+  })
+}
+
 const getCandidates = async (userEmail) => {
   if (!userEmail) {
     return
@@ -174,6 +212,8 @@ const GrpcService = {
   completeFileUploads,
   getUnprocessedFileUploadsCount,
   getFileUploads,
+  getFileUpload,
+  deleteFileUpload,
   getCandidates,
   getCandidate,
   updateCandidate,
