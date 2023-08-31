@@ -1,12 +1,12 @@
 "use client"
 import * as yup from "yup"
 import {useFieldArray, useForm} from "react-hook-form"
+import {useRef, useState} from "react"
 import BackButton from "@/components/back_button"
 import GenericEditButton from "./generic_edit_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "@/components/save_button"
 import clone from "just-clone"
-import {useRef} from "react"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
 
@@ -62,13 +62,20 @@ const updateCandidate = async (id, personaData) => {
   })
 
   const respJson = await resp.json()
-  console.log(respJson)
-  return respJson.data
+  if (respJson.error) {
+    console.log(respJson.error)
+    return "saving failed"
+  }
+  console.log(respJson.data)
+  return "saving succeeded"
 }
 
 const PersonaForm = ({candidate}) => {
   const form = useRef()
   const router = useRouter()
+
+  const [statusText, setStatusText] = useState("")
+  const [isSaving, setSaving] = useState(false)
 
   const {
     register, handleSubmit, formState: {errors}, control, getValues, setValue} = useForm(
@@ -127,15 +134,17 @@ const PersonaForm = ({candidate}) => {
     fields: certifications,
     prepend: prependCertification,
     remove: removeCertification,
-  }  = useFieldArray({
-    name: "Certifications", control,
-  })
+  }  = useFieldArray({name: "Certifications", control})
 
-  const onSubmit = data => {
+  const onSubmit = async data => {
     const sanitizedData = sanitizePersonaData(data)
     console.log(data)
     console.log(sanitizedData)
-    updateCandidate(candidate?.id, sanitizedData)
+    setSaving(true)
+    setStatusText("saving ...")
+    const result = await updateCandidate(candidate?.id, sanitizedData)
+    setStatusText(result)
+    setSaving(false)
   }
 
   let mainComponent
@@ -415,14 +424,24 @@ const PersonaForm = ({candidate}) => {
 
   return <>
     <PageHeader title={`${(candidate && candidate.id)?"Edit Candidate":"Add Candidate"}`}>
+      <div className="
+        inline pr-6 text-[18px] text-secondaryColor
+        font-semibold align-middle
+        relative top-2
+      ">
+        {statusText}
+      </div>
       <BackButton handleClick={() => router.back()}/>
-      <SaveButton handleClick={
-        () => {
-          console.log(errors)
-          form.current.dispatchEvent(
-            new Event("submit", {cancelable: true, bubbles: true})
-        )}
-      }/>
+      <SaveButton
+        handleClick={
+          () => {
+            console.log(errors)
+            form.current.dispatchEvent(
+              new Event("submit", {cancelable: true, bubbles: true})
+          )}
+        }
+        disabled={isSaving}
+      />
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
