@@ -1,9 +1,13 @@
+import BackButton from "@/components/back_button"
 import DeleteButton from "@/components/delete_button"
+import {useRouter} from "next/navigation"
 import {useState} from "react"
 
 const FileUploadDeleteModal = ({show, fileUploadId, warningText, handleClose}) => {
   const [statusText, setStatusText] = useState("")
   const [isSaving, setSaving] = useState(false)
+  const router = useRouter()
+
   const closeModal = () => {
     handleClose()
   }
@@ -42,7 +46,7 @@ const FileUploadDeleteModal = ({show, fileUploadId, warningText, handleClose}) =
           <div>{"This action is irreversible. Are you sure?"}</div>
         </div>
         <div className="m-6">
-          <DeleteButton
+          {statusText !== "deleting succeeded" && <DeleteButton
             handleClick={async () => {
               setSaving(true)
               setStatusText("deleting ...")
@@ -51,7 +55,8 @@ const FileUploadDeleteModal = ({show, fileUploadId, warningText, handleClose}) =
               setSaving(false)
             }}
             disabled={isSaving}
-          />
+          />}
+          {statusText === "deleting succeeded" && <BackButton handleClick={() => router.back()}/>}
         </div>
         <div className="
           inline text-[18px] text-secondaryColor
