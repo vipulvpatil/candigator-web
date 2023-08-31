@@ -13,6 +13,7 @@ const FileUploadDetail = ({fileUpload}) => {
   return <>
     <PageHeader title={"Uploaded File Data"}>
       <BackButton handleClick={() => router.back()}/>
+      <div className="inline-block w-5"/>
       <DeleteButton handleClick={() => setShowFileUploadDeleteModal(true)}/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">

@@ -1,6 +1,9 @@
 import DeleteButton from "@/components/delete_button"
+import {useState} from "react"
 
 const FileUploadDeleteModal = ({show, fileUploadId, warningText, handleClose}) => {
+  const [statusText, setStatusText] = useState("")
+  const [isSaving, setSaving] = useState(false)
   const closeModal = () => {
     handleClose()
   }
@@ -39,7 +42,22 @@ const FileUploadDeleteModal = ({show, fileUploadId, warningText, handleClose}) =
           <div>{"This action is irreversible. Are you sure?"}</div>
         </div>
         <div className="m-6">
-          <DeleteButton handleClick={() => deleteFileUpload(fileUploadId)}/>
+          <DeleteButton
+            handleClick={async () => {
+              setSaving(true)
+              setStatusText("deleting ...")
+              const result = await deleteFileUpload(fileUploadId)
+              setStatusText(result)
+              setSaving(false)
+            }}
+            disabled={isSaving}
+          />
+        </div>
+        <div className="
+          inline text-[18px] text-secondaryColor
+          font-semibold align-middle
+        ">
+          {statusText}
         </div>
       </div>
     </>
@@ -55,8 +73,12 @@ const deleteFileUpload = async (id) => {
   })
 
   const respJson = await resp.json()
-
-  console.log(respJson)
+  if (respJson.error) {
+    console.log(respJson.error)
+    return "deleting failed"
+  }
+  console.log(respJson.data)
+  return "deleting succeeded"
 }
 
 export default FileUploadDeleteModal

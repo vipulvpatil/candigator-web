@@ -9,10 +9,10 @@ const SaveButton = ({handleClick, disabled}) => {
       onClick={handleClick}
       disabled={disabled}
     >
-      <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
+      <div className="inline-flex align-middle w-[28px] relative top-[-1px]">
         <SaveIcon/>
       </div>
-      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
+      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-1px] font-semibold">
         {"Save"}
       </div>
     </button>
