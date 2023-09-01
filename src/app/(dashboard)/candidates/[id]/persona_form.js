@@ -12,7 +12,7 @@ import {yupResolver} from "@hookform/resolvers/yup"
 
 const personaSchema = yup.object().shape({
   Name: yup.string().required("required"),
-  Email: yup.string().email("must be a valid email"),
+  Email: yup.string().required("required").email("must be a valid email"),
   Phone: yup.string(),
   State: yup.string(),
   City: yup.string(),
@@ -42,13 +42,13 @@ const personaSchema = yup.object().shape({
       CompletionYear: yup.string(),
     })
   ).max(5, "max limit (5) reached"),
-  "Tech Skills": yup.array().of(yup.string("required")).max(5, "max limit (5) reached"),
-  "Soft Skills": yup.array().of(yup.string("required")).max(5, "max limit (5) reached"),
-  "Recommended Roles": yup.array().of(yup.string("required")).max(3, "max limit (3) reached"),
-  Certifications: yup.array(yup.string().required("required")).max(5, "max limit (5) reached")
+  "Tech Skills": yup.array().of(yup.string()).max(5, "max limit (5) reached"),
+  "Soft Skills": yup.array().of(yup.string()).max(5, "max limit (5) reached"),
+  "Recommended Roles": yup.array().of(yup.string()).max(3, "max limit (3) reached"),
+  Certifications: yup.array(yup.string()).max(5, "max limit (5) reached")
 })
 
-const updateCandidate = async (id, personaData) => {
+const updateCandidate = async (id, personaData, router) => {
   const body = JSON.stringify({
     id: id,
     manuallyCreatedPersona: JSON.stringify(personaData),
@@ -67,6 +67,8 @@ const updateCandidate = async (id, personaData) => {
     return "saving failed"
   }
   console.log(respJson.data)
+  const newId = respJson.data["id"]
+  router.replace(`/candidates/${newId}`)
   return "saving succeeded"
 }
 
@@ -142,7 +144,7 @@ const PersonaForm = ({candidate}) => {
     console.log(sanitizedData)
     setSaving(true)
     setStatusText("saving ...")
-    const result = await updateCandidate(candidate?.id, sanitizedData)
+    const result = await updateCandidate(candidate?.id, sanitizedData, router)
     setStatusText(result)
     setSaving(false)
   }
