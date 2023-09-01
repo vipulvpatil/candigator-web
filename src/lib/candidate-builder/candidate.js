@@ -12,8 +12,8 @@ export const processCandidate = (candidate) => {
   const displayPersona = buildResultantPersona(aiGeneratedPerson, manuallyCreatedPersona)
   Object.assign(candidate, {
     name: displayPersona.Name,
-    designation: displayPersona["Recommended Roles"][0],
-    company: displayPersona["Education"][0]["Institute"],
+    designation: displayPersona["Recommended Roles"]?.[0],
+    company: displayPersona["Education"]?.[0]?.["Institute"],
     updated_at: "324 days ago",
     displayPersona: displayPersona,
   })

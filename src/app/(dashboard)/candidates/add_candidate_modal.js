@@ -93,7 +93,7 @@ const AddCandidateModal = ({show, handleClose}) => {
         "
       >
         <div className="text-[32px]">Add candidates</div>
-        <div>Select one or more PDF files to upload</div>
+        <div>Select one or more PDF files to upload OR add candidates manually</div>
         {actionButton}
         {currentUploadStatus === UploadStatus.Failure &&
           <div className="text-[20px] text-errorColor font-semibold mb-6">
@@ -103,6 +103,8 @@ const AddCandidateModal = ({show, handleClose}) => {
         <MultifilesWithUploadData
           filesWithUploadData={filesWithUploadData}
         />
+        <div>{"OR"}</div>
+        <div className="flex justify-center"><AddManuallyButton/></div>
       </div>
     </>
   )
@@ -142,6 +144,21 @@ const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
       }}
     />
   </button>)
+}
+
+const AddManuallyButton = () => {
+  return <Link href={"/candidates/new"}>
+    <div className="
+    bg-white hover:text-secondaryDarkColor
+    text-secondaryColor text-[18px] font-semibold
+    border-2 hover:border-secondaryDarkColor border-secondaryColor
+    drop-shadow-button rounded p-[10px] m-6 cursor-pointer w-[175px]"
+    >
+      <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
+        {"Add Manually"}
+      </div>
+    </div>
+  </Link>
 }
 
 const GoToFilesButton = () => {
