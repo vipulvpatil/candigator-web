@@ -9,7 +9,6 @@ import MenuFooter from "./menu_footer"
 import MenuTitle from "./menu_title"
 import ProfileIcon from "@/icons/profile"
 import SearchIcon from "@/icons/search"
-import SettingsIcon from "@/icons/settings"
 import {useSelectedLayoutSegment} from "next/navigation"
 
 const Menu = () => {
@@ -39,7 +38,10 @@ const Menu = () => {
       <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
       <MenuButton title={"files"} selected={segment === "files"} icon={<FilesIcon/>} badge={unprocessedFileCount}/>
       <MenuButton title={"billing"} selected={segment === "billing"} icon={<BillingIcon/>}/>
+      {/*
+      Removing Settings button for now as Settings page is currently empty
       <MenuButton title={"settings"} selected={segment === "settings"} icon={<SettingsIcon/>}/>
+      */}
       <MenuButton title={"profile"} selected={segment === "profile"} icon={<ProfileIcon/>}/>
       <div className="flex-grow"/>
       <MenuFooter/>

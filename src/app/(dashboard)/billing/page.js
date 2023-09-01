@@ -3,9 +3,7 @@ import PageHeader from "@/components/page_header"
 const Billing = () => {
   return (
     <div className="min-h-[620px] bg-gray-200">
-      <PageHeader title={"Billing"}>
-
-      </PageHeader>
+      <PageHeader title={"Billing"}/>
       <div className="m-[22px]">
         <div className="
           font-semibold text-black/70
