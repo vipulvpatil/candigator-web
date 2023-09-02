@@ -1,4 +1,4 @@
-const GenericEditButton = ({children, handleClick, additionalStyling}) => {
+const GenericButton = ({children, handleClick, additionalStyling}) => {
   return (
     <button className={`
       bg-subtleColor hover:bg-subtleColor/40
@@ -13,4 +13,4 @@ const GenericEditButton = ({children, handleClick, additionalStyling}) => {
     </button>
   )
 }
-export default GenericEditButton
+export default GenericButton

@@ -3,7 +3,7 @@ import * as yup from "yup"
 import {useFieldArray, useForm} from "react-hook-form"
 import {useRef, useState} from "react"
 import BackButton from "@/components/back_button"
-import GenericEditButton from "./generic_edit_button"
+import GenericButton from "@/components/generic_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "@/components/save_button"
 import clone from "just-clone"
@@ -271,15 +271,15 @@ const PersonaForm = ({candidate}) => {
                 error={errors.Experience?.[index]?.["Ongoing"]}
               />
               <div>
-                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"mt-2"}>
+                {handleRemove && <GenericButton handleClick={handleRemove} additionalStyling={"mt-2 px-3"}>
                   Delete
-                </GenericEditButton>}
-                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
+                </GenericButton>}
+                {handleMoveUp && <GenericButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&uarr;&nbsp;
-                </GenericEditButton>}
-                {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
+                </GenericButton>}
+                {handleMoveDown && <GenericButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&darr;&nbsp;
-                </GenericEditButton>}
+                </GenericButton>}
               </div>
             </div>
           })}
@@ -320,15 +320,15 @@ const PersonaForm = ({candidate}) => {
                 labelText="CompletionYear"
                 error={errors.Education?.[index]?.["CompletionYear"]}
               />
-                {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"mt-2"}>
+                {handleRemove && <GenericButton handleClick={handleRemove} additionalStyling={"mt-2 px-3"}>
                   Delete
-                </GenericEditButton>}
-                {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
+                </GenericButton>}
+                {handleMoveUp && <GenericButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&uarr;&nbsp;
-                </GenericEditButton>}
-                {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
+                </GenericButton>}
+                {handleMoveDown && <GenericButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&darr;&nbsp;
-                </GenericEditButton>}
+                </GenericButton>}
             </div>
           })}
         </EditArrayCollection>
@@ -598,13 +598,13 @@ const EditArrayCollection = ({
   return <>
     <div className="text-[24px] font-bold mb-2 text-black/60">
       {label} <div className="inline font-semibold text-[20px]">{`(Max ${maxElements})`}</div>
-      <GenericEditButton handleClick={()=> {
+      <GenericButton handleClick={()=> {
         if(array.length < maxElements){
           prependElement(defaultElement)
         }
-      }} additionalStyling={"ml-2"}>
+      }} additionalStyling={"ml-2 px-3"}>
         {addLabel}
-      </GenericEditButton>
+      </GenericButton>
     </div>
     {children}
   </>
@@ -630,15 +630,15 @@ const EditablePersonaInputElement = (
         "
       />
       {<div>
-        {handleMoveUp && <GenericEditButton handleClick={handleMoveUp} additionalStyling={"ml-2"}>
+        {handleMoveUp && <GenericButton handleClick={handleMoveUp} additionalStyling={"ml-2"}>
           &nbsp;&uarr;&nbsp;
-        </GenericEditButton>}
-        {handleMoveDown && <GenericEditButton handleClick={handleMoveDown} additionalStyling={"ml-2"}>
+        </GenericButton>}
+        {handleMoveDown && <GenericButton handleClick={handleMoveDown} additionalStyling={"ml-2"}>
           &nbsp;&darr;&nbsp;
-        </GenericEditButton>}
-        {handleRemove && <GenericEditButton handleClick={handleRemove} additionalStyling={"ml-2"}>
+        </GenericButton>}
+        {handleRemove && <GenericButton handleClick={handleRemove} additionalStyling={"ml-2 px-3"}>
           Delete
-        </GenericEditButton>}
+        </GenericButton>}
       </div>}
     </div>
     {error && <span className="text-errorColor font-semibold text-[16px]">{error.message}</span>}
