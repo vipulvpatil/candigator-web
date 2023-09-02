@@ -2,14 +2,18 @@
 
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
+import FilterModal from "./filter_modal"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import SearchButton from "./search_button"
 import {useState} from "react"
 
 const SearchResults = ({candidates}) => {
+  const [filteredCandidates,] = useState(candidates)
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
+  const [showFilterModal, setShowFilterModal] = useState(false)
+  const [searchFilter, setSearchFilter] = useState(null)
 
   const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
@@ -24,7 +28,7 @@ const SearchResults = ({candidates}) => {
 
   return <>
     <PageHeader title={"Search"}>
-      <SearchButton handleClick={()=>{}}/>
+      <SearchButton title={searchFilter?"Edit Search":"New Search"} handleClick={()=>setShowFilterModal(true)}/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
@@ -32,7 +36,7 @@ const SearchResults = ({candidates}) => {
         p-[22px] bg-white rounded-lg
       ">
         <PaginatedList
-          itemList={candidates}
+          itemList={filteredCandidates}
           itemRowFunc={candidateRowFunc}
           selectedItemId={selectedCandidateId}
           setSelectedItem={setSelectedCandidate}
@@ -41,6 +45,7 @@ const SearchResults = ({candidates}) => {
       </div>
       <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
     </div>
+    <FilterModal setFilter={setSearchFilter} show={showFilterModal} handleClose={() => setShowFilterModal(false)}/>
   </>
 }
 export default SearchResults

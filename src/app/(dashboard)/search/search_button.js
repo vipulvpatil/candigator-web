@@ -2,7 +2,7 @@
 
 import SearchIcon from "@/icons/search"
 
-const SearchIconButton = ({handleClick}) => {
+const SearchIconButton = ({title, handleClick}) => {
   return (
     <button className="
       bg-secondaryColor hover:bg-secondaryDarkColor text-white text-[18px]
@@ -13,7 +13,7 @@ const SearchIconButton = ({handleClick}) => {
         <SearchIcon/>
       </div>
       <div className="pl-2 pr-1 inline-flex align-middle relative top-[-1px] font-semibold">
-        {"Search"}
+        {title}
       </div>
     </button>
   )
