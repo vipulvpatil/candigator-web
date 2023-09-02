@@ -1,15 +1,13 @@
 "use client"
 
-import AddCandidateButton from "./add_candidate_button"
-import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
+import SearchButton from "./search_button"
 import {useState} from "react"
 
-const CandidateList = ({candidates}) => {
-  const [showAddCandidateModal, setShowAddCandidateModal] = useState(false)
+const SearchResults = ({candidates}) => {
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
 
@@ -25,8 +23,8 @@ const CandidateList = ({candidates}) => {
   }
 
   return <>
-    <PageHeader title={`${candidates.length} Candidates`}>
-      <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
+    <PageHeader title={"Search"}>
+      <SearchButton handleClick={()=>{}}/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
@@ -43,7 +41,6 @@ const CandidateList = ({candidates}) => {
       </div>
       <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
     </div>
-    <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
   </>
 }
-export default CandidateList
+export default SearchResults

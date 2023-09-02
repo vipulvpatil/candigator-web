@@ -10,20 +10,15 @@ const Candidates = async () => {
     return <></>
   }
 
-  const candidateList = await getCandidateListFor(session.user.email)
+  const response = await GrpcService.getCandidates(session.user.email)
+  const candidates = processCandidates(response.data)
+  console.log(candidates)
 
   return (
     <div className="min-h-[620px] bg-gray-200">
-      <CandidateList candidates={candidateList}/>
+      <CandidateList candidates={candidates}/>
     </div>
   )
-}
-
-const getCandidateListFor = async (userEmail) => {
-  const response = await GrpcService.getCandidates(userEmail)
-  const candidates = processCandidates(response.data)
-  console.log(candidates)
-  return candidates
 }
 
 export default Candidates
