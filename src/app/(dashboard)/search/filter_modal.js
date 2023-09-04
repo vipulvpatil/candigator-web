@@ -1,8 +1,8 @@
 import * as yup from "yup"
 import {Controller, useFieldArray, useForm} from "react-hook-form"
+import {useEffect, useRef} from "react"
 import GenericButton from "@/components/generic_button"
 import Select from "react-select"
-import {useRef} from "react"
 import {yupResolver} from "@hookform/resolvers/yup"
 
 const criteriaOptions = [
@@ -53,13 +53,20 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
     register, handleSubmit, formState: {errors}, control, reset} = useForm(
     {
       resolver: yupResolver(searchFilterSchema),
-      defaultValues: {filters:searchFilters},
+      values: {filters:[searchFilters]}
     }
   )
+
+  useEffect(() => {
+    if (show){
+      reset({filters: searchFilters})
+    }
+  }, [reset, show, searchFilters])
 
   const {
     fields: filters,
     append: appendFilter,
+    replace: replaceFilter,
     remove: removeFilter,
   }  = useFieldArray({name: "filters", control})
 
@@ -139,13 +146,11 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
         <div className="float-right flex flex-row">
           <div className="flex-grow"/>
           <OutlineButton label={"Clear"}
-            handleClick={() => reset()}
+            handleClick={() => replaceFilter([])}
           />
           <div className="flex-grow-0 w-3"/>
           <OutlineButton label={"Cancel"}
-            handleClick={() => {
-              closeModal()
-            }}
+            handleClick={() => closeModal()}
           />
           <div className="flex-grow-0 w-3"/>
           <ApplyButton handleClick={
