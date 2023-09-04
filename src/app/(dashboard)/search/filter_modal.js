@@ -1,13 +1,30 @@
 import * as yup from "yup"
-import {useFieldArray, useForm} from "react-hook-form"
+import {Controller, useFieldArray, useForm} from "react-hook-form"
 import GenericButton from "@/components/generic_button"
+import Select from "react-select"
 import {useRef} from "react"
 import {yupResolver} from "@hookform/resolvers/yup"
+
+const criteriaOptions = [
+  {label:"Name", value: "Name"},
+  {label:"Email", value: "Email"},
+  {label:"Phone", value: "Phone"},
+  {label:"State", value: "State"},
+  {label:"City", value: "City"},
+  {label:"Country", value: "Country"},
+  {label:"Years of Experience,", value: "YoE",},
+  {label:"Experience", value: "Experience"},
+  {label:"Education", value: "Education"},
+  {label:"Tech Skills", value: "Tech Skills"},
+  {label:"Soft Skills", value: "Soft Skills"},
+  {label:"Recommended Roles", value: "Recommended Roles"},
+  {label:"Certifications", value: "Certifications"},
+]
 
 const searchFilterSchema = yup.object().shape({
   searchFilters: yup.array().of(
     yup.object().shape({
-      criteria: yup.string(),
+      criteria: yup.string().oneOf(criteriaOptions.map(obj => obj.value)),
       comparator: yup.string(),
       value: yup.mixed(),
     })
@@ -59,8 +76,7 @@ const FilterModal = ({show, handleClose}) => {
           right-0
           mt-[100px] mb-auto
           ml-auto mr-auto w-[50%]
-          p-[22px] rounded-lg
-          min-h-[200px] max-h-[500px] min-w-[700px]
+          p-[22px] rounded-lg h-[500px] min-w-[700px]
         bg-white
           drop-shadow-modal
           text-left
@@ -80,10 +96,11 @@ const FilterModal = ({show, handleClose}) => {
           {searchFilters.map((field, index) => {
             return <div key={field.id}>
               <FilterInputElement
-                inputCriteriaProps={register(`searchFilters.${index}.criteria`)}
+                inputCriteriaName={`searchFilters.${index}.criteria`}
                 inputComparatorProps={register(`searchFilters.${index}.comparator`)}
                 inputValueProps={register(`searchFilters.${index}.value`)}
                 handleRemove={() => removeFilter(index)}
+                control={control}
               />
             </div>
           })}
@@ -153,16 +170,26 @@ const ApplyButton = ({handleClick}) => {
 }
 
 const FilterInputElement = (
-  {inputCriteriaProps, inputComparatorProps, inputValueProps, handleRemove}
+  {inputCriteriaName, inputComparatorProps, inputValueProps, handleRemove, control}
 ) => {
-  return <div className="flex flex-row">
-      <input
-        {...inputCriteriaProps}
-        className="text-[20px] font-semibold border-b-2 py-1 px-1
-          outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-          text-black/80 inline basis-[150px] max-w-[150px] mr-2
-        "
+  return <div className="flex flex-row border-2 border-subtleColor p-2 rounded-md mb-2">
+      <Controller
+        name={inputCriteriaName}
+        control={control}
+        render={({field}) => {
+          return <Select
+            maxMenuHeight={150}
+            {...field}
+            options={criteriaOptions}
+            placeholder="Criteria"
+            className="text-[20px] font-semibold
+              bg-subtleColor/50 focus:bg-subtleColor/70
+              text-black/80 inline basis-[150px] max-w-[150px]
+            "
+        />
+      }}
       />
+
       <input
         {...inputComparatorProps}
         className="text-[20px] font-semibold border-b-2 py-1 px-1
