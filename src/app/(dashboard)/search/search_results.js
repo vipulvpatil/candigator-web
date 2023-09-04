@@ -1,15 +1,16 @@
 "use client"
 
+import {useEffect, useState} from "react"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
 import FilterModal from "./filter_modal"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import SearchButton from "./search_button"
-import {useState} from "react"
+import {applyFilters} from "@/lib/search/filter"
 
 const SearchResults = ({candidates}) => {
-  const [filteredCandidates,] = useState(candidates)
+  const [filteredCandidates, setFilteredCandidates] = useState(candidates)
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
   const [showFilterModal, setShowFilterModal] = useState(false)
@@ -25,6 +26,11 @@ const SearchResults = ({candidates}) => {
       view={selectedCandidateId?"short":"long"}
     />
   }
+
+  useEffect(() => {
+    setSelectedCandidateId(null)
+    setFilteredCandidates(applyFilters(candidates, searchFilters))
+  }, [candidates, setSelectedCandidateId, searchFilters])
 
   return <>
     <PageHeader title={"Search"}>

@@ -1,36 +1,10 @@
 import * as yup from "yup"
 import {Controller, useFieldArray, useForm} from "react-hook-form"
+import {comparatorOptions, criteriaOptions, sanitizeFilters} from "@/lib/search/filter"
 import {useEffect, useRef} from "react"
 import GenericButton from "@/components/generic_button"
 import Select from "react-select"
 import {yupResolver} from "@hookform/resolvers/yup"
-
-const criteriaOptions = [
-  {label:"Name", value: "Name"},
-  {label:"Email", value: "Email"},
-  {label:"Phone", value: "Phone"},
-  {label:"State", value: "State"},
-  {label:"City", value: "City"},
-  {label:"Country", value: "Country"},
-  {label:"Years of Experience,", value: "YoE",},
-  {label:"Experience", value: "Experience"},
-  {label:"Education", value: "Education"},
-  {label:"Tech Skills", value: "Tech Skills"},
-  {label:"Soft Skills", value: "Soft Skills"},
-  {label:"Recommended Roles", value: "Recommended Roles"},
-  {label:"Certifications", value: "Certifications"},
-]
-
-const comparatorOptions = [
-  {label:"Is", value: "Is"},
-  {label:"Is Not", value: "Is Not"},
-  {label:"Contains", value: "Contains"},
-  {label:"Does not contain", value: "Does not contain"},
-  {label:"Greater than", value: "Greater than"},
-  {label:"Greater than or equal to", value: "Greater than or equal to"},
-  {label:"Less than", value: "Less than"},
-  {label:"Less than or equal to", value: "Less than or equal to"},
-]
 
 const searchFilterSchema = yup.object().shape({
   filters: yup.array().of(
@@ -41,11 +15,6 @@ const searchFilterSchema = yup.object().shape({
     })
   )
 })
-
-const sanitizeFilters = (data) => {
-  // TODO: remove filters that are incorrect
-  return data
-}
 
 const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
   const form = useRef()
