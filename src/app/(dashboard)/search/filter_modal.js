@@ -17,7 +17,7 @@ const searchFilterSchema = yup.object().shape({
 const FilterModal = ({show, handleClose}) => {
   const form = useRef()
   const {
-    register, handleSubmit, formState: {errors}, control} = useForm(
+    register, handleSubmit, formState: {errors}, control, reset} = useForm(
     {
       resolver: yupResolver(searchFilterSchema),
       defaultValues: {searchFilters:[]},
@@ -65,6 +65,7 @@ const FilterModal = ({show, handleClose}) => {
           drop-shadow-modal
           text-left
           flex flex-col flex-shrink-0
+          overflow-y-scroll
         "
       >
         <div className="text-[24px] mt-[-10px] font-semibold float-left">
@@ -103,7 +104,9 @@ const FilterModal = ({show, handleClose}) => {
         <div className="flex-grow clear-both"/>
         <div className="float-right flex flex-row">
           <div className="flex-grow"/>
-          <OutlineButton label={"Reset"}/>
+          <OutlineButton label={"Reset"}
+            handleClick={() => reset()}
+          />
           <div className="flex-grow-0 w-3"/>
           <OutlineButton label={"Cancel"}/>
           <div className="flex-grow-0 w-3"/>
@@ -120,8 +123,8 @@ const FilterModal = ({show, handleClose}) => {
   )
 }
 
-const OutlineButton = ({label}) => {
-  return <button>
+const OutlineButton = ({label, handleClick}) => {
+  return <button onClick={handleClick}>
     <div className="
     bg-white hover:text-secondaryDarkColor
     text-secondaryColor text-[18px] font-semibold
