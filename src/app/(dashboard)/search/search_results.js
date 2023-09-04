@@ -13,7 +13,7 @@ const SearchResults = ({candidates}) => {
   const [selectedCandidateId, setSelectedCandidateId] = useState(null)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
   const [showFilterModal, setShowFilterModal] = useState(false)
-  const [searchFilter, setSearchFilter] = useState(null)
+  const [searchFilters, setSearchFilters] = useState([])
 
   const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
@@ -28,7 +28,14 @@ const SearchResults = ({candidates}) => {
 
   return <>
     <PageHeader title={"Search"}>
-      <SearchButton title={searchFilter?"Edit Search":"New Search"} handleClick={()=>setShowFilterModal(true)}/>
+      <SearchButton
+        title={
+          (searchFilters && searchFilters.length > 0)?
+          `Edit Search (${searchFilters.length})`:
+          "New Search"
+        }
+        handleClick={()=>setShowFilterModal(true)}
+      />
     </PageHeader>
     <div className="flex flex-row m-[22px]">
       <div className="
@@ -45,7 +52,12 @@ const SearchResults = ({candidates}) => {
       </div>
       <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
     </div>
-    <FilterModal setFilter={setSearchFilter} show={showFilterModal} handleClose={() => setShowFilterModal(false)}/>
+    <FilterModal
+      setSearchFilters={setSearchFilters}
+      searchFilters={searchFilters}
+      show={showFilterModal}
+      handleClose={() => setShowFilterModal(false)}
+    />
   </>
 }
 export default SearchResults

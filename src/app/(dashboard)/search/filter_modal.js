@@ -33,7 +33,7 @@ const comparatorOptions = [
 ]
 
 const searchFilterSchema = yup.object().shape({
-  searchFilters: yup.array().of(
+  filters: yup.array().of(
     yup.object().shape({
       criteria: yup.string().oneOf(criteriaOptions.map(obj => obj.value)),
       comparator: yup.string().oneOf(comparatorOptions.map(obj => obj.value)),
@@ -42,21 +42,26 @@ const searchFilterSchema = yup.object().shape({
   )
 })
 
-const FilterModal = ({show, handleClose}) => {
+const sanitizeFilters = (data) => {
+  // TODO: remove filters that are incorrect
+  return data
+}
+
+const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
   const form = useRef()
   const {
     register, handleSubmit, formState: {errors}, control, reset} = useForm(
     {
       resolver: yupResolver(searchFilterSchema),
-      defaultValues: {searchFilters:[]},
+      defaultValues: {filters:searchFilters},
     }
   )
 
   const {
-    fields: searchFilters,
+    fields: filters,
     append: appendFilter,
     remove: removeFilter,
-  }  = useFieldArray({name: "searchFilters", control})
+  }  = useFieldArray({name: "filters", control})
 
   const closeModal = () => {
     handleClose()
@@ -64,7 +69,8 @@ const FilterModal = ({show, handleClose}) => {
 
   const applyFilter = (data) => {
     console.log("applying filter")
-    console.log(data)
+    setSearchFilters(sanitizeFilters(data.filters))
+    closeModal()
   }
 
   if (!show) {
@@ -104,12 +110,12 @@ const FilterModal = ({show, handleClose}) => {
           className="w-full"
           ref={form}
         >
-          {searchFilters.map((field, index) => {
+          {filters.map((field, index) => {
             return <div key={field.id}>
               <FilterInputElement
-                inputCriteriaName={`searchFilters.${index}.criteria`}
-                inputComparatorName={`searchFilters.${index}.comparator`}
-                inputValueProps={register(`searchFilters.${index}.value`)}
+                inputCriteriaName={`filters.${index}.criteria`}
+                inputComparatorName={`filters.${index}.comparator`}
+                inputValueProps={register(`filters.${index}.value`)}
                 handleRemove={() => removeFilter(index)}
                 control={control}
               />
@@ -132,11 +138,15 @@ const FilterModal = ({show, handleClose}) => {
         <div className="flex-grow clear-both"/>
         <div className="float-right flex flex-row">
           <div className="flex-grow"/>
-          <OutlineButton label={"Reset"}
+          <OutlineButton label={"Clear"}
             handleClick={() => reset()}
           />
           <div className="flex-grow-0 w-3"/>
-          <OutlineButton label={"Cancel"}/>
+          <OutlineButton label={"Cancel"}
+            handleClick={() => {
+              closeModal()
+            }}
+          />
           <div className="flex-grow-0 w-3"/>
           <ApplyButton handleClick={
             () => {
@@ -196,7 +206,7 @@ const FilterInputElement = (
           maxMenuHeight={150}
           onChange={val => onChange(val.value)}
           onBlur={onBlur}
-          value={comparatorOptions.find(c => c.value === value)}
+          value={criteriaOptions.find(c => c.value === value)}
           name={name}
           inputRef={ref}
           options={criteriaOptions}
