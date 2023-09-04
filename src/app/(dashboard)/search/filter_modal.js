@@ -97,7 +97,7 @@ const FilterModal = ({show, handleClose}) => {
             return <div key={field.id}>
               <FilterInputElement
                 inputCriteriaName={`searchFilters.${index}.criteria`}
-                inputComparatorProps={register(`searchFilters.${index}.comparator`)}
+                inputComparatorName={`searchFilters.${index}.comparator`}
                 inputValueProps={register(`searchFilters.${index}.value`)}
                 handleRemove={() => removeFilter(index)}
                 control={control}
@@ -170,40 +170,59 @@ const ApplyButton = ({handleClick}) => {
 }
 
 const FilterInputElement = (
-  {inputCriteriaName, inputComparatorProps, inputValueProps, handleRemove, control}
+  {inputCriteriaName, inputComparatorName, inputValueProps, handleRemove, control}
 ) => {
-  return <div className="flex flex-row border-2 border-subtleColor p-2 rounded-md mb-2">
+  return <div className="
+    flex flex-wrap gap-2 place-content-between
+    border-2 border-subtleColor p-2 rounded-md my-4
+  ">
+    <div className="w-[47%]">
       <Controller
         name={inputCriteriaName}
         control={control}
         render={({field}) => {
           return <Select
-            maxMenuHeight={150}
-            {...field}
-            options={criteriaOptions}
-            placeholder="Criteria"
-            className="text-[20px] font-semibold
-              bg-subtleColor/50 focus:bg-subtleColor/70
-              text-black/80 inline basis-[150px] max-w-[150px]
-            "
-        />
-      }}
+          maxMenuHeight={150}
+          {...field}
+          options={criteriaOptions}
+          placeholder="Select Criteria"
+          className="text-[20px] font-semibold
+          bg-subtleColor/50 focus:bg-subtleColor/70
+          text-black/80 inline
+          "
+          />
+        }}
       />
+    </div>
 
-      <input
-        {...inputComparatorProps}
-        className="text-[20px] font-semibold border-b-2 py-1 px-1
-          outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-          text-black/80 inline basis-[150px] max-w-[150px] mr-2
-        "
+    <div className="w-[47%]">
+      <Controller
+        name={inputComparatorName}
+        control={control}
+        render={({field}) => {
+          return <Select
+          maxMenuHeight={150}
+          {...field}
+          options={criteriaOptions}
+          placeholder="Select Comparator"
+          className="text-[20px] font-semibold
+          bg-subtleColor/50 focus:bg-subtleColor/70
+          text-black/80 inline
+          "
+          />
+        }}
       />
+    </div>
+    <div className="flex-grow">
       <input
         {...inputValueProps}
-        className="text-[20px] font-semibold border-b-2 py-1 px-1
-          outline-none bg-subtleColor/50 focus:bg-subtleColor/70
-          text-black/80 inline flex-grow
+        className="text-[20px] font-semibold py-1 px-1
+        outline-none bg-subtleColor/50 focus:bg-subtleColor/70
+        text-black/80 inline w-full
         "
+        placeholder="value"
       />
+    </div>
 
     <div>
       <GenericButton handleClick={handleRemove} additionalStyling={"ml-2 px-3 min-w-min"}>
