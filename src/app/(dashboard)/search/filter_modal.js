@@ -21,11 +21,22 @@ const criteriaOptions = [
   {label:"Certifications", value: "Certifications"},
 ]
 
+const comparatorOptions = [
+  {label:"Is", value: "Is"},
+  {label:"Is Not", value: "Is Not"},
+  {label:"Contains", value: "Contains"},
+  {label:"Does not contain", value: "Does not contain"},
+  {label:"Greater than", value: "Greater than"},
+  {label:"Greater than or equal to", value: "Greater than or equal to"},
+  {label:"Less than", value: "Less than"},
+  {label:"Less than or equal to", value: "Less than or equal to"},
+]
+
 const searchFilterSchema = yup.object().shape({
   searchFilters: yup.array().of(
     yup.object().shape({
       criteria: yup.string().oneOf(criteriaOptions.map(obj => obj.value)),
-      comparator: yup.string(),
+      comparator: yup.string().oneOf(comparatorOptions.map(obj => obj.value)),
       value: yup.mixed(),
     })
   )
@@ -180,10 +191,14 @@ const FilterInputElement = (
       <Controller
         name={inputCriteriaName}
         control={control}
-        render={({field}) => {
+        render={({field: {onChange, onBlur, value, name, ref}}) => {
           return <Select
           maxMenuHeight={150}
-          {...field}
+          onChange={val => onChange(val.value)}
+          onBlur={onBlur}
+          value={comparatorOptions.find(c => c.value === value)}
+          name={name}
+          inputRef={ref}
           options={criteriaOptions}
           placeholder="Select Criteria"
           className="text-[20px] font-semibold
@@ -199,11 +214,15 @@ const FilterInputElement = (
       <Controller
         name={inputComparatorName}
         control={control}
-        render={({field}) => {
+        render={({field: {onChange, onBlur, value, name, ref}}) => {
           return <Select
           maxMenuHeight={150}
-          {...field}
-          options={criteriaOptions}
+          onChange={val => onChange(val.value)}
+          onBlur={onBlur}
+          value={comparatorOptions.find(c => c.value === value)}
+          name={name}
+          inputRef={ref}
+          options={comparatorOptions}
           placeholder="Select Comparator"
           className="text-[20px] font-semibold
           bg-subtleColor/50 focus:bg-subtleColor/70
