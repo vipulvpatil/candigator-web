@@ -1,25 +1,35 @@
 import DemoButton from "./demo_button"
 import Image from "next/image"
 import LoginButton from "./login_button"
+import ProspectLogo from "@/icons/logo/prospect_logo"
 import TryNowButton from "./try_now_button"
 
 const Home = () => {
   return (
     <main className="font-quicksand w-full h-full text-black bg-white">
-      <div className="text-[46px] w-hero pb-16 font-bold mx-auto">
-        <div className="inline text-secondaryColor float-left">
-          {"P"}
+      <div className="
+        text-[46px] w-hero mb-10 font-bold mx-auto py-auto
+        flex flex-row border-b-2 border-subtleColor
+        leading-none py-2
+      ">
+        <div className="w-[30px] relative top-[-2px]">
+          <ProspectLogo/>
         </div>
-        <div className="inline text-primaryColor float-left">
-          {"rospect"}
+        <div className="flex flex-row relative top-[-3px] text-[52px]">
+          <div className="text-secondaryColor pl-5">
+            {"P"}
+          </div>
+          <div className="text-primaryColor">
+            {"rospect"}
+          </div>
         </div>
-        <div className="inline text-black float-right mt-[-5px]">
-          <DemoButton/>
-          <TryNowButton/>
-        </div>
-        <div className="clear-both border-b-2 border-subtleColor">
-        </div>
+
+        <div className="flex-grow"/>
+        <DemoButton/>
+        <TryNowButton/>
       </div>
+      <div className="">
+        </div>
       <div className="w-hero flex mx-auto">
         <Image
           src="/hero.jpg"

@@ -7,7 +7,7 @@ const TryNowButton = () => {
       className="
       bg-secondaryColor hover:bg-secondaryDarkColor
       text-white text-[18px] font-semibold
-      rounded px-4 py-2"
+      rounded px-4 py-[12px] my-auto"
       onClick={()=>{signIn("google", {callbackUrl: "/candidates"})}}
     >
       {"Try now"}
