@@ -5,7 +5,7 @@ export const criteriaOptions = [
   {label:"State", value: "State", optType: "string"},
   {label:"City", value: "City", optType: "string"},
   {label:"Country", value: "Country", optType: "string"},
-  {label:"Years of Experience,", value: "YoE", optType: "number"},
+  {label:"Years of Experience", value: "YoE", optType: "number"},
   {label:"Experience", value: "Experience", optType: "objectArray"},
   {label:"Education", value: "Education", optType: "objectArray"},
   {label:"Tech Skills", value: "Tech Skills", optType: "stringArray"},
@@ -77,9 +77,9 @@ const applyFilter = (candidates, searchFilter) => {
 const valueMatchesComparatorValue = (value, comparator, filterValue) => {
   switch (comparator) {
     case "Is":
-      return value === filterValue
+      return String(value) === filterValue
     case "Is Not":
-      return value !== filterValue
+      return String(value) !== filterValue
     case "Contains":
       if(Array.isArray(value)) {
         return arrayContains(value, filterValue)
@@ -95,13 +95,13 @@ const valueMatchesComparatorValue = (value, comparator, filterValue) => {
       }
       return true
     case "Greater than":
-      break
+      return value > filterValue
     case "Greater than or equal to":
-      break
+      return value >= filterValue
     case "Less than":
-      break
+      return value < filterValue
     case "Less than or equal to":
-      break
+      return value <= filterValue
   }
 }
 
