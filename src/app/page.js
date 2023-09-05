@@ -13,7 +13,7 @@ const Home = () => {
         leading-none py-2
       ">
         <div className="w-[30px] relative top-[-2px]">
-          <ProspectLogo/>
+          <ProspectLogo dotColor={"#A30000"} mainColor={"#006989"}/>
         </div>
         <div className="flex flex-row relative top-[-3px] text-[52px]">
           <div className="text-secondaryColor pl-5">
