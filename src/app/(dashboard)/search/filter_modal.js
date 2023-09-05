@@ -44,8 +44,8 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
   }
 
   const applyFilter = (data) => {
-    console.log("applying filter")
-    setSearchFilters(sanitizeFilters(data.filters))
+    const sanitizedFilters = sanitizeFilters(data.filters)
+    setSearchFilters(sanitizedFilters)
     closeModal()
   }
 
