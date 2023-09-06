@@ -7,6 +7,8 @@ export const processCandidates = (candidates) => {
 }
 
 export const processCandidate = (candidate) => {
+  let date = new Date(candidate.updatedAt.seconds * 1000)
+  console.log(date)
   const aiGeneratedPerson = buildPersona(candidate.aiGeneratedPersona) || {}
   const manuallyCreatedPersona = buildPersona(candidate.manuallyCreatedPersona)
   const displayPersona = buildResultantPersona(aiGeneratedPerson, manuallyCreatedPersona)
@@ -14,7 +16,7 @@ export const processCandidate = (candidate) => {
     name: displayPersona.Name,
     designation: displayPersona["Recommended Roles"]?.[0],
     company: displayPersona["Education"]?.[0]?.["Institute"],
-    updated_at: "324 days ago",
+    updatedAtString: String(date),
     displayPersona: displayPersona,
   })
   return candidate

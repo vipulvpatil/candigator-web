@@ -68,7 +68,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
         ${bgColor} ${topBorder}
       `}>
         <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
-          {candidate.updated_at}
+          {candidate.updatedAtString}
         </div>
       </div>
     </>
