@@ -18,7 +18,7 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
   }
 
   if (showTopBorder) {
-    topBorder = "border-t-[1px]"
+    topBorder = "border-t-2"
   }
 
   return (
@@ -30,7 +30,7 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
     >
       <div className={`
         col-span-5 pr-5 py-1 pl-1
-        border-b-[1px] border-subtleColor/30
+        border-b-2 border-subtleColor
         text-[28px] text-black/70
         ${topBorder}
       `}>
@@ -49,7 +49,7 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
       </div>
       <div className={`
         col-span-2 py-1 pr-1
-        border-b-[1px] border-subtleColor/30
+        border-b-2 border-subtleColor
         text-[24px] text-black/50 text-right
         ${topBorder}
       `}>
