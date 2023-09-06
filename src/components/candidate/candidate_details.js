@@ -78,7 +78,20 @@ const CandidateDetails = ({candidate, onClose}) => {
       <CandidateSimpleElement label={"BuilderVersion"} value={`${candidatePersona["BuiltBy"] === "AI"?candidatePersona["BuilderVersion"]:"N/A"}`}/>
       <CandidateSimpleElement label={"BuiltBy"} value={candidatePersona["BuiltBy"]}/>
       <div className="h-1"/>
-      <CandidateSimpleElement label={"FileUploadId"} value={candidatePersona["FileUploadId"] || "N/A"}/>
+      <CandidateSimpleElement label={"FileUploadId"} value={
+        candidatePersona["FileUploadId"]?
+        <Link href={`/files/${candidatePersona["FileUploadId"]}`}>
+          <div
+            className="
+              p-2 text-white bg-secondaryColor hover:bg-secondaryDarkColor
+              w-fit leading-none rounded-md
+            "
+          >
+            {candidatePersona["FileUploadId"]}
+          </div>
+        </Link>:
+        "N/A"
+      }/>
       <div className="h-1"/>
     </div>
   )
