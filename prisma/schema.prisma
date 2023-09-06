@@ -70,6 +70,7 @@ model FileUpload {
   status           String
   processingStatus String     @map("processing_status")
   createdAt        DateTime   @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt        DateTime   @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
   teamId           String     @map("team_id")
   team             Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
   candidate        Candidate?
@@ -80,6 +81,7 @@ model FileUpload {
 model Candidate {
   id                     String      @id @default(cuid())
   createdAt              DateTime    @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt              DateTime    @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(3)
   aiGeneratedPersona     Json?       @map("ai_generated_persona")
   manuallyCreatedPersona Json?       @map("manually_created_persona")
   fileUploadId           String?      @unique @map("file_upload_id")
