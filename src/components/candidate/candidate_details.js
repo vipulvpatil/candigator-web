@@ -74,7 +74,7 @@ const CandidateDetails = ({candidate, onClose}) => {
       <div className="h-4"/>
       <CandidateCertDetails candidatePersona={candidatePersona}/>
       <div className="h-4"/>
-      <CandidateSimpleElement label={"Updated At"} value={candidate.updatedAtString}/>
+      <CandidateSimpleElement label={"Updated"} value={candidate.updatedAtString}/>
       <CandidateSimpleElement label={"BuilderVersion"} value={`${candidatePersona["BuiltBy"] === "AI"?candidatePersona["BuilderVersion"]:"N/A"}`}/>
       <CandidateSimpleElement label={"BuiltBy"} value={candidatePersona["BuiltBy"]}/>
       <div className="h-1"/>
