@@ -14,6 +14,7 @@ const FileList = ({files}) => {
   const [unprocessedFileUploads, setUnprocessedFileUploads] = useState([])
   const [selectedFileUploadId, setSelectedFileUploadId] = useState(null)
   const [, setSelectedFileUpload] = useState(null)
+  const [selectedPage, setSelectedPage] = useState(1)
 
   useEffect(() => {
     const processed = []
@@ -74,6 +75,8 @@ const FileList = ({files}) => {
           itemRowFunc={fileRowFunc}
           selectedItemId={selectedFileUploadId}
           setSelectedItem={setSelectedFileUpload}
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
         />
       </div>
     </div>

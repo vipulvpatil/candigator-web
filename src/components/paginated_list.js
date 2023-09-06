@@ -6,9 +6,13 @@ import PageNumbers from "./page_numbers"
 const ITEMS_PER_PAGE = 10
 
 const PaginatedList = (
-  {itemList, itemRowFunc, selectedItemId, setSelectedItem, view}
+  {
+    itemList, itemRowFunc,
+    selectedItemId, setSelectedItem,
+    view,
+    selectedPage, setSelectedPage
+  }
 ) => {
-  const [selectedPage, setSelectedPage] = useState(1)
   const [visibleItems, setVisibleItems] = useState([])
 
   let pageCount

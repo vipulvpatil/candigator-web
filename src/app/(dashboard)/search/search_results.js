@@ -1,6 +1,7 @@
 "use client"
 
 import {useEffect, useState} from "react"
+import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
 import FilterModal from "./filter_modal"
@@ -10,11 +11,17 @@ import SearchButton from "./search_button"
 import {applyFilters} from "@/lib/search/filter"
 
 const SearchResults = ({candidates}) => {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const p = parseInt(searchParams.get("p")) || 1
+  const cid = searchParams.get("cid")
   const [filteredCandidates, setFilteredCandidates] = useState(candidates)
-  const [selectedCandidateId, setSelectedCandidateId] = useState(null)
+  const [selectedCandidateId, setSelectedCandidateId] = useState(cid)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [searchFilters, setSearchFilters] = useState([])
+  const [selectedPage, setSelectedPage] = useState(p)
+  const router = useRouter()
 
   const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
@@ -28,9 +35,17 @@ const SearchResults = ({candidates}) => {
   }
 
   useEffect(() => {
-    setSelectedCandidateId(null)
     setFilteredCandidates(applyFilters(candidates, searchFilters))
-  }, [candidates, setSelectedCandidateId, searchFilters])
+  }, [candidates, searchFilters])
+
+  useEffect(() => {
+    let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
+    url.searchParams.append("p", selectedPage)
+    if(selectedCandidate) {
+      url.searchParams.append("cid", selectedCandidate?.id)
+    }
+    router.push(url.toString(), undefined, {shallow: true})
+  },[pathname, router, selectedCandidate, selectedPage])
 
   return <>
     <PageHeader title={"Search"}>
@@ -54,6 +69,8 @@ const SearchResults = ({candidates}) => {
           selectedItemId={selectedCandidateId}
           setSelectedItem={setSelectedCandidate}
           view={selectedCandidateId?"short":"long"}
+          selectedPage={selectedPage}
+          setSelectedPage={setSelectedPage}
         />
       </div>
       <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>

@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-const MenuButton = ({title, selected, icon, badge}) => {
+const MenuButton = ({title, selected, icon, badge, queryParamsArray}) => {
   let displayClass = "text-white fill-white hover:bg-subtleColor/20 cursor-pointer"
 
   if (selected) {
@@ -18,8 +18,13 @@ const MenuButton = ({title, selected, icon, badge}) => {
     }
   }
 
+  let linkUrl = new URL(title, process.env.NEXT_PUBLIC_BASE_URL)
+  if (queryParamsArray) {
+    linkUrl.searchParams.append(...queryParamsArray)
+  }
+
   return (
-    <Link href={`/${title}`} className={`flex text-[24px] font-semibold text-left px-6 py-1 ${displayClass}`}>
+    <Link href={linkUrl} className={`flex text-[24px] font-semibold text-left px-6 py-1 ${displayClass}`}>
       <div className="align-middle w-[34px] relative top-[-2px]">
         {icon}
       </div>

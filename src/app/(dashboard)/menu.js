@@ -34,8 +34,8 @@ const Menu = () => {
       flex-shrink-0 flex-grow-0 basis-[220px] flex flex-col
     ">
       <MenuTitle/>
-      <MenuButton title={"candidates"} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
-      <MenuButton title={"search"} selected={segment === "search"} icon={<SearchIcon/>}/>
+      <MenuButton title={"candidates"} queryParamsArray={["p", 1]} selected={segment === "candidates"} icon={<CandidatesIcon/>}/>
+      <MenuButton title={"search"} queryParamsArray={["p", 1]} selected={segment === "search"} icon={<SearchIcon/>}/>
       <MenuButton title={"files"} selected={segment === "files"} icon={<FilesIcon/>} badge={unprocessedFileCount}/>
       <MenuButton title={"billing"} selected={segment === "billing"} icon={<BillingIcon/>}/>
       {/*
