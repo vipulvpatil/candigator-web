@@ -1,17 +1,18 @@
 "use client"
 
+import FilledButton from "@/components/buttons/generic/filled_button"
 import {signIn} from "next-auth/react"
 import {usePathname} from "next/navigation"
 
 const SignInButton = () => {
   const path = usePathname()
   return <>
-    <button
-      className="bg-secondaryColor hover:bg-secondaryDarkColor text-white text-[48px] font-semibold rounded pt-0 pb-2 px-10 drop-shadow-button"
-      onClick={()=>{signIn("google", {callbackUrl: path})}}
+    <FilledButton
+      handleClick={()=>{signIn("google", {callbackUrl: path})}}
+      additionalStyling="px-10 text-[24px]"
     >
-      {"Login with Google"}
-    </button>
+      {"Login"}
+    </FilledButton>
   </>
 }
 
