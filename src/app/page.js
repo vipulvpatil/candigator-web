@@ -20,6 +20,13 @@ const Home = () => {
           <ProductDescription/>
           <ProductScreenshot/>
         </div>
+        <div className="
+          display mx-auto my-12
+          text-center text-white text-[44px] font-semibold
+          max-w-[1000px] w-[80%]
+        ">
+          {"Spend less time identifying the right candidate and more time talking to them"}
+        </div>
       </div>
     </main>
   )
