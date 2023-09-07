@@ -1,8 +1,6 @@
-import DemoButton from "./demo_button"
+import {DemoButton, LoginButton} from "./buttons"
 import Image from "next/image"
-// import LoginButton from "./login_button"
 import ProspectLogo from "@/icons/logo/prospect_logo"
-import TryNowButton from "./try_now_button"
 
 const Home = () => {
   return (
@@ -26,7 +24,7 @@ const Home = () => {
 
         <div className="flex-grow"/>
         <DemoButton/>
-        <TryNowButton/>
+        <LoginButton/>
       </div>
       <div className="
         bg-gradient-to-b from-subtleColor from-0%

@@ -1,5 +1,5 @@
 import PageHeader from "@/components/page_header"
-import StatusBox from "@/app/status_box"
+import StatusBox from "@/components/status_box"
 
 const Settings = () => {
   return (

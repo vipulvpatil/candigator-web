@@ -1,6 +1,6 @@
 import "server-only"
 import GrpcService from "@/lib/grpc/service"
-import {authOptions} from "./api/auth/[...nextauth]/route"
+import {authOptions} from "../app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 
 // NOTE: This is a test Component to easily verify GRPC service connectivity.
