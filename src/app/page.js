@@ -1,4 +1,4 @@
-import {DemoButton, LoginButton} from "./buttons"
+import {DemoButton, LoginButton, TryNowForFreeButton} from "./buttons"
 import Image from "next/image"
 import ProspectLogo from "@/icons/logo/prospect_logo"
 
@@ -40,7 +40,7 @@ const Home = () => {
               {"No more looking through resumes. Quickly find the right candidate for the right job."}
             </div>
             <div className="
-              font font-semibold text-[18px] mx-auto mt-8
+              font font-semibold text-[18px] mx-auto my-8
               min-w-[420px] max-w-[420px]
             ">
               <div className="flex flex-col h-[145px] place-content-evenly">
@@ -65,6 +65,11 @@ const Home = () => {
                   "></div>{"Bulk convert pdfs to searchable data."}
                 </div>
               </div>
+            </div>
+            <div className="
+              flex justify-center
+            ">
+              <TryNowForFreeButton/>
             </div>
           </div>
           <div className="
