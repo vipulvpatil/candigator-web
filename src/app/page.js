@@ -1,4 +1,5 @@
 import ActionItems from "@/components/landing/action_items"
+import Footer from "@/components/landing/footer"
 import Header from "@/components/landing/header"
 import ProcessStages from "@/components/landing/process_stages"
 import ProductDetail from "@/components/landing/product_detail"
@@ -9,7 +10,7 @@ const Home = () => {
       <Header/>
       <div className="
         bg-gradient-to-b from-subtleColor from-0%
-        via-primaryColor via-30% to-primaryColor to-100%
+        via-primaryColor via-35% to-primaryColor to-100%
         h-min
       ">
         <ProductDetail/>
@@ -30,6 +31,7 @@ const Home = () => {
         </div>
         <ActionItems/>
       </div>
+      <Footer/>
     </main>
   )
 }

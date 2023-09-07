@@ -1,5 +1,5 @@
-const {default: ProspectLogo} = require("@/icons/logo/prospect_logo")
-const {DemoButton, LoginButton} = require("./buttons")
+import {DemoButton, LoginButton} from "./buttons"
+import ProspectLogo from "@/icons/logo/prospect_logo"
 
 const Header = () => {
   return (
