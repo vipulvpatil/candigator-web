@@ -41,3 +41,18 @@ export const TryNowForFreeButton = () => {
     </FilledButton>
   )
 }
+
+export const BigActionButton = ({label, link}) => {
+  return (
+    <Link href={link}>
+      <FilledButton
+        additionalStyling="text-[24px]"
+        customPadding="px-7 py-4"
+        customMargin="my-auto"
+        handleClick={()=>{signIn("google", {callbackUrl: ""})}}
+      >
+        {label}
+      </FilledButton>
+    </Link>
+  )
+}

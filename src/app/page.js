@@ -1,3 +1,4 @@
+import ActionItems from "@/components/landing/action_items"
 import Header from "@/components/landing/header"
 import ProcessStages from "@/components/landing/process_stages"
 import ProductDetail from "@/components/landing/product_detail"
@@ -21,13 +22,13 @@ const Home = () => {
         </div>
         <ProcessStages/>
         <div className="
-          display mx-auto my-12
+          display mx-auto mt-16 mb-0
           text-center text-white text-[44px] font-semibold
           max-w-[1000px] w-[80%]
         ">
           {"AI has helped countless people become more efficient in their day to day lives. Join us in this revolution."}
         </div>
-
+        <ActionItems/>
       </div>
     </main>
   )
