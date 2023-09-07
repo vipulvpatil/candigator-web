@@ -1,6 +1,6 @@
 import DemoButton from "./demo_button"
 import Image from "next/image"
-import LoginButton from "./login_button"
+// import LoginButton from "./login_button"
 import ProspectLogo from "@/icons/logo/prospect_logo"
 import TryNowButton from "./try_now_button"
 
@@ -8,9 +8,9 @@ const Home = () => {
   return (
     <main className="font-quicksand w-full h-full text-black bg-white">
       <div className="
-        text-[46px] w-hero mb-10 font-bold mx-auto py-auto
-        flex flex-row border-b-2 border-subtleColor
-        leading-none py-2
+        text-[46px] w-full font-bold mx-auto
+        flex flex-row
+        leading-none py-2 px-4
       ">
         <div className="w-[30px] relative top-[-2px]">
           <ProspectLogo dotColor={"#A30000"} mainColor={"#006989"}/>
@@ -28,34 +28,52 @@ const Home = () => {
         <DemoButton/>
         <TryNowButton/>
       </div>
-      <div className="">
-        </div>
-      <div className="w-hero flex mx-auto">
-        <Image
-          src="/hero.jpg"
-          alt="https://www.pexels.com/photo/photo-of-man-using-laptop-4047812/"
-          width={457} height={538}
-          style={{
-            objectFit: "cover",
-            overflow: "clip",
-            height: "538px",
-          }}
-          className="max-w-none"
-        ></Image>
-        <div className="text-right text-[24px] w-[583px] h-[538px] font-semibold">
-          <div className="mt-[-9px] pb-10">{"Convert resume into searchable candidate data"}</div>
-          <div className="pb-10">{"Manage upto 100 candidates with a basic plan"}</div>
-          <div className="pb-10">{"Easily search through your candidate data"}</div>
-          <div>{"Try it for free. Limited time only"}</div>
-          <LoginButton/>
-        </div>
-      </div>
-      <div className="w-hero flex mx-auto">
-        <div className="text-right text-[56px] w-[457px] mt-relax text-white pr-2 font-semibold">
-          {"Relax"}
-        </div>
-        <div className="text-right text-[31px] w-[583px] mt-relaxSmall font-semibold">
-          {"as we help you find the right candidate"}
+      <div className="
+        bg-gradient-to-b from-subtleColor from-0%
+        via-primaryColor via-30% to-primaryColor to-100%
+        h-[1890px]
+      ">
+        <div className="w-full flex place-content-evenly py-12">
+          <div className="w-[43%] bg-white rounded-lg">
+            <div className="
+              flex justify-center font-semibold text-[24px] text-center
+              min-w-[380px] max-w-[380px] mx-auto mt-[30px]
+            ">
+              {"No more looking through resumes. Quickly find the right candidate for the right job."}
+            </div>
+          </div>
+          <div className="
+            w-[43%]
+          ">
+            <div className="flex">
+              <div className="flex-grow"/>
+              <div className="
+                w-[50px] h-[50px]
+                border-t-2
+                border-r-2
+                rounded-tr-lg
+                border-secondaryColor
+              "/>
+            </div>
+            <div className="flex justify-center">
+              <Image
+                src="/product.png"
+                alt="Product image"
+                width={496} height={305}
+                className="small-border-top"
+              ></Image>
+            </div>
+            <div className="flex justify-center">
+              <div className="
+                w-[50px] h-[50px]
+                border-b-2
+                border-l-2
+                rounded-bl-lg
+                border-secondaryColor
+              "/>
+              <div className="flex-grow"/>
+            </div>
+          </div>
         </div>
       </div>
     </main>

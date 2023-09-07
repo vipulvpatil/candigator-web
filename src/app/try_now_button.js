@@ -10,7 +10,7 @@ const TryNowButton = () => {
       rounded px-4 py-[12px] my-auto"
       onClick={()=>{signIn("google", {callbackUrl: "/candidates?p=1"})}}
     >
-      {"Try now"}
+      {"Login"}
     </button>
   )
 }

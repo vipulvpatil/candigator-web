@@ -17,7 +17,7 @@ module.exports = {
         primaryDarkColor: "#123540",
         secondaryColor: "#A30000",
         secondaryDarkColor: "#660000",
-        subtleColor: "#e2efde",
+        subtleColor: "#E2EFDE",
         disabled: "#575E60",
         errorColor: "#DC2626"
       },
@@ -25,9 +25,6 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-      },
-      width: {
-        hero: "1040px",
       },
       margin: {
         relax: "-63px",
