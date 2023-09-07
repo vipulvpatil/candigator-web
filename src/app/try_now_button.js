@@ -1,17 +1,15 @@
 "use client"
+import FilledButton from "@/components/buttons/generic/filled_button"
 import {signIn} from "next-auth/react"
 
 const TryNowButton = () => {
   return (
-    <button
-      className="
-      bg-secondaryColor hover:bg-secondaryDarkColor
-      text-white text-[18px] font-semibold
-      rounded px-4 py-[12px] my-auto"
-      onClick={()=>{signIn("google", {callbackUrl: "/candidates?p=1"})}}
+    <FilledButton
+      additionalStyling="px-4 py-[12px] my-auto"
+      handleClick={()=>{signIn("google", {callbackUrl: "/candidates?p=1"})}}
     >
       {"Login"}
-    </button>
+    </FilledButton>
   )
 }
 

@@ -1,4 +1,4 @@
-const GenericButton = ({children, handleClick, additionalStyling}) => {
+const SubtleButton = ({children, handleClick, additionalStyling}) => {
   return (
     <button className={`
       bg-subtleColor hover:bg-subtleColor/40
@@ -13,4 +13,4 @@ const GenericButton = ({children, handleClick, additionalStyling}) => {
     </button>
   )
 }
-export default GenericButton
+export default SubtleButton

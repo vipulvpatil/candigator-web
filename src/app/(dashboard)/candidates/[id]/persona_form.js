@@ -3,7 +3,7 @@ import * as yup from "yup"
 import {useFieldArray, useForm} from "react-hook-form"
 import {useRef, useState} from "react"
 import BackButton from "@/components/buttons/back_button"
-import GenericButton from "@/components/generic_button"
+import SubtleButton from "@/components/buttons/generic/subtle_button"
 import PageHeader from "@/components/page_header"
 import SaveButton from "@/components/buttons/save_button"
 import clone from "just-clone"
@@ -271,15 +271,15 @@ const PersonaForm = ({candidate}) => {
                 error={errors.Experience?.[index]?.["Ongoing"]}
               />
               <div>
-                {handleRemove && <GenericButton handleClick={handleRemove} additionalStyling={"mt-2 px-3"}>
+                {handleRemove && <SubtleButton handleClick={handleRemove} additionalStyling={"mt-2 px-3"}>
                   Delete
-                </GenericButton>}
-                {handleMoveUp && <GenericButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
+                </SubtleButton>}
+                {handleMoveUp && <SubtleButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&uarr;&nbsp;
-                </GenericButton>}
-                {handleMoveDown && <GenericButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
+                </SubtleButton>}
+                {handleMoveDown && <SubtleButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&darr;&nbsp;
-                </GenericButton>}
+                </SubtleButton>}
               </div>
             </div>
           })}
@@ -320,15 +320,15 @@ const PersonaForm = ({candidate}) => {
                 labelText="CompletionYear"
                 error={errors.Education?.[index]?.["CompletionYear"]}
               />
-                {handleRemove && <GenericButton handleClick={handleRemove} additionalStyling={"mt-2 px-3"}>
+                {handleRemove && <SubtleButton handleClick={handleRemove} additionalStyling={"mt-2 px-3"}>
                   Delete
-                </GenericButton>}
-                {handleMoveUp && <GenericButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
+                </SubtleButton>}
+                {handleMoveUp && <SubtleButton handleClick={handleMoveUp} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&uarr;&nbsp;
-                </GenericButton>}
-                {handleMoveDown && <GenericButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
+                </SubtleButton>}
+                {handleMoveDown && <SubtleButton handleClick={handleMoveDown} additionalStyling={"ml-2 mt-2"}>
                   &nbsp;&darr;&nbsp;
-                </GenericButton>}
+                </SubtleButton>}
             </div>
           })}
         </EditArrayCollection>
@@ -598,13 +598,13 @@ const EditArrayCollection = ({
   return <>
     <div className="text-[24px] font-bold mb-2 text-black/60">
       {label} <div className="inline font-semibold text-[20px]">{`(Max ${maxElements})`}</div>
-      <GenericButton handleClick={()=> {
+      <SubtleButton handleClick={()=> {
         if(array.length < maxElements){
           prependElement(defaultElement)
         }
       }} additionalStyling={"ml-2 px-3"}>
         {addLabel}
-      </GenericButton>
+      </SubtleButton>
     </div>
     {children}
   </>
@@ -630,15 +630,15 @@ const EditablePersonaInputElement = (
         "
       />
       {<div>
-        {handleMoveUp && <GenericButton handleClick={handleMoveUp} additionalStyling={"ml-2"}>
+        {handleMoveUp && <SubtleButton handleClick={handleMoveUp} additionalStyling={"ml-2"}>
           &nbsp;&uarr;&nbsp;
-        </GenericButton>}
-        {handleMoveDown && <GenericButton handleClick={handleMoveDown} additionalStyling={"ml-2"}>
+        </SubtleButton>}
+        {handleMoveDown && <SubtleButton handleClick={handleMoveDown} additionalStyling={"ml-2"}>
           &nbsp;&darr;&nbsp;
-        </GenericButton>}
-        {handleRemove && <GenericButton handleClick={handleRemove} additionalStyling={"ml-2 px-3"}>
+        </SubtleButton>}
+        {handleRemove && <SubtleButton handleClick={handleRemove} additionalStyling={"ml-2 px-3"}>
           Delete
-        </GenericButton>}
+        </SubtleButton>}
       </div>}
     </div>
     {error && <span className="text-errorColor font-semibold text-[16px]">{error.message}</span>}

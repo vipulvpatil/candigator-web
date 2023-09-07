@@ -4,7 +4,7 @@ const OutlineButton = ({children, handleClick, disabled, additionalStyling}) => 
       bg-white
       text-secondaryColor hover:text-secondaryDarkColor
       fill-secondaryColor hover:fill-secondaryDarkColor
-      text-[18px] rounded
+      text-[18px] rounded font-semibold
       border-2 hover:border-secondaryDarkColor border-secondaryColor
       p-[4px] align-text-top
       ${additionalStyling}`}

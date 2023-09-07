@@ -2,7 +2,9 @@ import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "
 import {useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
 import FilesIcon from "@/icons/files"
+import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
+import OutlineButton from "@/components/buttons/generic/outline_button"
 
 const UploadStatus = Object.freeze({
 	NotStarted: Symbol("NotStarted"),
@@ -111,14 +113,11 @@ const AddCandidateModal = ({show, handleClose}) => {
 }
 
 const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
-  return (<button className="
-    bg-secondaryColor enabled:hover:bg-secondaryDarkColor text-white text-[18px]
-    disabled:bg-disabled
-    cursor-pointer disabled:cursor-not-allowed
-    fill-white rounded p-[10px] m-6
-    drop-shadow-button"
-    onClick={()=>{inputRef.current.click()}}
+  return (
+  <FilledButton
+    handleClick={()=>{inputRef.current.click()}}
     disabled={!statusIsAllowUpload(uploadStatus)}
+    additionalStyling="cursor-pointer disabled:cursor-not-allowed p-[10px] m-6"
   >
     <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
       <AddCandidateIcon/>
@@ -143,32 +142,27 @@ const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
         uploadMultipleFiles(files)
       }}
     />
-  </button>)
+  </FilledButton>
+  )
 }
 
 const AddManuallyButton = () => {
   return <Link href={"/candidates/new"}>
-    <div className="
-    bg-white hover:text-secondaryDarkColor
-    text-secondaryColor text-[18px] font-semibold
-    border-2 hover:border-secondaryDarkColor border-secondaryColor
-    drop-shadow-button rounded p-[10px] m-6 cursor-pointer w-[175px]"
+    <OutlineButton
+      additionalStyling="p-[10px] cursor-pointer w-[169px]"
     >
       <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
         {"Add Manually"}
       </div>
-    </div>
+    </OutlineButton>
   </Link>
 }
 
 const GoToFilesButton = () => {
   return (
     <Link href={"/files"} >
-      <button className="
-        bg-secondaryColor enabled:hover:bg-secondaryDarkColor text-white text-[18px]
-        cursor-pointer
-        fill-white rounded p-[10px] m-6
-        drop-shadow-button"
+      <FilledButton
+        additionalStyling="cursor-pointer p-[10px] m-6"
       >
         <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
           <FilesIcon/>
@@ -176,7 +170,7 @@ const GoToFilesButton = () => {
         <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
           {"Go To Files"}
         </div>
-      </button>
+      </FilledButton>
     </Link>
   )
 }

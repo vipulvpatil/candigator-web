@@ -2,8 +2,10 @@ import * as yup from "yup"
 import {Controller, useFieldArray, useForm} from "react-hook-form"
 import {comparatorOptions, criteriaOptions, sanitizeFilters} from "@/lib/search/filter"
 import {useEffect, useRef} from "react"
-import GenericButton from "@/components/generic_button"
+import FilledButton from "@/components/buttons/generic/filled_button"
+import OutlineButton from "@/components/buttons/generic/outline_button"
 import Select from "react-select"
+import SubtleButton from "@/components/buttons/generic/subtle_button"
 import {yupResolver} from "@hookform/resolvers/yup"
 
 const searchFilterSchema = yup.object().shape({
@@ -99,7 +101,7 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
           })}
         </form>
         <div className="float-left pt-2">
-          <GenericButton
+          <SubtleButton
             handleClick={() => {
               appendFilter({
                 criteria: "default",
@@ -109,59 +111,44 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
             }}
             additionalStyling={"px-3"}>
             {"Add Filter"}
-          </GenericButton>
+          </SubtleButton>
         </div>
         <div className="flex-grow clear-both"/>
         <div className="float-right flex flex-row">
           <div className="flex-grow"/>
-          <OutlineButton label={"Clear"}
+          <OutlineButton
             handleClick={() => replaceFilter([])}
-          />
+          >
+            <div className="pl-1 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
+              {"Clear"}
+            </div>
+          </OutlineButton>
           <div className="flex-grow-0 w-3"/>
-          <OutlineButton label={"Cancel"}
+          <OutlineButton
             handleClick={() => closeModal()}
-          />
+          >
+            <div className="pl-1 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
+              {"Cancel"}
+            </div>
+          </OutlineButton>
           <div className="flex-grow-0 w-3"/>
-          <ApplyButton handleClick={
-            () => {
-              console.log(errors)
-              form.current.dispatchEvent(
-                new Event("submit", {cancelable: true, bubbles: true})
-            )}
-          }/>
+          <FilledButton
+            handleClick={
+              () => {
+                console.log(errors)
+                form.current.dispatchEvent(
+                  new Event("submit", {cancelable: true, bubbles: true})
+              )}
+            }
+          >
+            <div className="pl-1 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
+              {"Apply"}
+            </div>
+          </FilledButton>
         </div>
       </div>
     </>
   )
-}
-
-const OutlineButton = ({label, handleClick}) => {
-  return <button onClick={handleClick}>
-    <div className="
-    bg-white hover:text-secondaryDarkColor
-    text-secondaryColor text-[18px] font-semibold
-    border-2 hover:border-secondaryDarkColor border-secondaryColor
-    rounded p-1"
-    >
-      <div className="pl-1 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
-        {label}
-      </div>
-    </div>
-  </button>
-}
-
-const ApplyButton = ({handleClick}) => {
-  return <button onClick={handleClick}>
-    <div className="
-    bg-secondaryColor hover:bg-secondaryDarkColor text-white text-[18px]
-    cursor-pointer disabled:cursor-not-allowed
-    fill-white rounded p-[6px]"
-    >
-      <div className="pl-1 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
-        {"Apply"}
-      </div>
-    </div>
-  </button>
 }
 
 const FilterInputElement = (
@@ -228,9 +215,9 @@ const FilterInputElement = (
     </div>
 
     <div>
-      <GenericButton handleClick={handleRemove} additionalStyling={"ml-2 px-3 min-w-min"}>
+      <SubtleButton handleClick={handleRemove} additionalStyling={"ml-2 px-3 min-w-min"}>
         {"Delete"}
-      </GenericButton>
+      </SubtleButton>
     </div>
   </div>
 }

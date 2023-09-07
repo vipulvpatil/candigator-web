@@ -10,6 +10,7 @@ import {
 import {useEffect, useState} from "react"
 import CloseIcon from "@/icons/close"
 import EditIcon from "@/icons/edit"
+import IconButton from "@/components/buttons/generic/icon_button"
 import Link from "next/link"
 
 const CandidateDetails = ({candidate, onClose}) => {
@@ -36,21 +37,18 @@ const CandidateDetails = ({candidate, onClose}) => {
         overflow-y-scroll
         flex-grow-0 flex-shrink-0 basis-[600px]"
     >
-      <button
-        className="
-          float-right align-middle w-[34px]
-          fill-secondaryColor hover:fill-secondaryDarkColor
-          ml-2"
-        onClick={() => onClose()}
+      <IconButton
+        handleClick={() => onClose()}
+        additionalStyling="float-right ml-2"
       >
         <CloseIcon/>
-      </button>
+      </IconButton>
       <Link href={`/candidates/${candidate.id}`}>
-        <button
-          className="float-right align-middle w-[34px] fill-secondaryColor hover:fill-secondaryDarkColor"
+        <IconButton
+          additionalStyling="float-right"
         >
           <EditIcon/>
-        </button>
+        </IconButton>
       </Link>
 
       <div className="">

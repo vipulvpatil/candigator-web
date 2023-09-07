@@ -1,4 +1,5 @@
 import EditIcon from "@/icons/edit"
+import IconButton from "@/components/buttons/generic/icon_button"
 import Link from "next/link"
 
 const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder}) => {
@@ -39,11 +40,9 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
         </div>
         {selected && <div className="px-2 inline align-top relative top-[-4px]">
           <Link href={`/files/${fileUpload.id}`}>
-            <button
-              className="w-[34px] fill-secondaryColor hover:fill-secondaryDarkColor"
-            >
+            <IconButton>
               <EditIcon/>
-            </button>
+            </IconButton>
           </Link>
         </div>}
       </div>
