@@ -1,9 +1,10 @@
-const SubtleButton = ({children, handleClick, additionalStyling}) => {
+const SubtleButton = ({children, handleClick, additionalStyling, customPadding, customMargin}) => {
   return (
     <button className={`
       bg-subtleColor hover:bg-subtleColor/40
       text-primaryColor text-[18px]
-      rounded p-[6px] align-middle ${additionalStyling}`}
+      rounded align-middle ${additionalStyling}
+      ${customPadding || "p-1.5"} ${customMargin}`}
       onClick={handleClick}
       type="button"
     >

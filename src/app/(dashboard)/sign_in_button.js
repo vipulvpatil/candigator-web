@@ -9,7 +9,8 @@ const SignInButton = () => {
   return <>
     <FilledButton
       handleClick={()=>{signIn("google", {callbackUrl: path})}}
-      additionalStyling="px-10 text-[24px]"
+      additionalStyling="text-[24px]"
+      customPadding="px-10"
     >
       {"Login"}
     </FilledButton>

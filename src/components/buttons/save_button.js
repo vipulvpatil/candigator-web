@@ -4,7 +4,7 @@ import SaveIcon from "@/icons/save"
 const SaveButton = ({handleClick, disabled}) => {
   return (
     <FilledButton
-      additionalStyling = "ml-5"
+      customMargin = "ml-5"
       handleClick={handleClick}
       disabled={disabled}
     >

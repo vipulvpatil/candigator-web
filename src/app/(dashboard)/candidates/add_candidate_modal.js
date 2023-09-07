@@ -117,7 +117,9 @@ const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
   <FilledButton
     handleClick={()=>{inputRef.current.click()}}
     disabled={!statusIsAllowUpload(uploadStatus)}
-    additionalStyling="cursor-pointer disabled:cursor-not-allowed p-[10px] m-6"
+    additionalStyling="cursor-pointer disabled:cursor-not-allowed"
+    customPadding="p-2.5"
+    customMargin="m-6"
   >
     <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
       <AddCandidateIcon/>
@@ -149,7 +151,9 @@ const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
 const AddManuallyButton = () => {
   return <Link href={"/candidates/new"}>
     <OutlineButton
-      additionalStyling="p-[10px] cursor-pointer w-[169px]"
+      additionalStyling="cursor-pointer w-[169px]"
+      customPadding="p-2.5"
+      customMargin="mt-6 mb-4"
     >
       <div className="pl-2 pr-1 inline-flex align-middle relative top-[-2px] font-semibold">
         {"Add Manually"}
@@ -162,7 +166,9 @@ const GoToFilesButton = () => {
   return (
     <Link href={"/files"} >
       <FilledButton
-        additionalStyling="cursor-pointer p-[10px] m-6"
+        additionalStyling="cursor-pointer"
+        customPadding="p-2.5"
+        customMargin="m-6"
       >
         <div className="inline-flex align-middle w-[28px] relative top-[-2px]">
           <FilesIcon/>

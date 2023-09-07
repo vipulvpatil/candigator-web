@@ -9,7 +9,8 @@ const DemoButton = () => {
   return (
     <OutlineButton
       handleClick={() => router.push("/demo")}
-      additionalStyling="px-4 mr-4 py-[10px] my-auto"
+      customPadding="px-4 py-2.5"
+      customMargin="mr-4 my-auto"
     >
       {"Demo"}
     </OutlineButton>

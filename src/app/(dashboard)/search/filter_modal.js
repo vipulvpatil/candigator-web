@@ -109,7 +109,7 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
                 value: "",
               })
             }}
-            additionalStyling={"px-3"}>
+            customPadding="px-3 py-1.5">
             {"Add Filter"}
           </SubtleButton>
         </div>
@@ -215,7 +215,11 @@ const FilterInputElement = (
     </div>
 
     <div>
-      <SubtleButton handleClick={handleRemove} additionalStyling={"ml-2 px-3 min-w-min"}>
+      <SubtleButton
+        handleClick={handleRemove}
+        additionalStyling="min-w-min"
+        customMargin="ml-2"
+        customPadding="px-3">
         {"Delete"}
       </SubtleButton>
     </div>
