@@ -6,7 +6,6 @@ const quicksand = Quicksand({
   weight: ["400", "600", "700"],
   style: ["normal"],
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-quicksand",
 })
 
