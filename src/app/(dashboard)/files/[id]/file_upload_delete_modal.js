@@ -1,5 +1,5 @@
-import BackButton from "@/components/back_button"
-import DeleteButton from "@/components/delete_button"
+import BackButton from "@/components/buttons/back_button"
+import DeleteButton from "@/components/buttons/delete_button"
 import {useRouter} from "next/navigation"
 import {useState} from "react"
 

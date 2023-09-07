@@ -1,6 +1,6 @@
 "use client"
-import BackButton from "@/components/back_button"
-import DeleteButton from "@/components/delete_button"
+import BackButton from "@/components/buttons/back_button"
+import DeleteButton from "@/components/buttons/delete_button"
 import FileUploadDeleteModal from "./file_upload_delete_modal"
 import PageHeader from "@/components/page_header"
 import {useRouter} from "next/navigation"

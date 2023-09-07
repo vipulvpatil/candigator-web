@@ -1,5 +1,5 @@
 import PageHeader from "@/components/page_header"
-import SignOutButton from "@/components/sign_out_button"
+import SignOutButton from "./sign_out_button"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 
