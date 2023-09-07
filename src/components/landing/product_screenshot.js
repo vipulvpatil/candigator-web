@@ -3,7 +3,7 @@ import Image from "next/image"
 const ProductScreenshot = () => {
   return (
     <div className="
-      w-[43%]
+      w-[43%] min-w-[500px] max-w-[600px] h-[427px]
     ">
       <div className="flex">
         <div className="flex-grow"/>

@@ -11,7 +11,12 @@ const Home = () => {
         via-primaryColor via-30% to-primaryColor to-100%
         h-[1890px]
       ">
-        <div className="w-full flex place-content-evenly py-12">
+        <div className="
+          w-full flex
+          flex-col items-center
+          xl:flex-row xl:justify-around
+          gap-y-12 py-12
+        ">
           <ProductDescription/>
           <ProductScreenshot/>
         </div>

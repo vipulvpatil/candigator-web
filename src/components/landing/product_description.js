@@ -2,7 +2,10 @@ import {TryNowForFreeButton} from "./buttons"
 
 const ProductDescription = () => {
   return (
-    <div className="w-[43%] bg-white rounded-lg leading-2">
+    <div className="
+      w-[43%] min-w-[500px] max-w-[600px] h-[427px]
+      bg-white rounded-lg leading-2
+    ">
       <div className="
         flex justify-center font-semibold text-[24px] text-center
         min-w-[380px] max-w-[380px] mx-auto mt-[30px]
