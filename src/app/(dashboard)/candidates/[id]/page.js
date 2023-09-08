@@ -26,7 +26,7 @@ const Candidate = async ({params}) => {
     return <NoCandidateFound/>
   }
 
-  return <PersonaForm candidate={candidate} addNewCandidate={false}/>
+  return <PersonaForm candidate={candidate}/>
 }
 
 const NoCandidateFound = () => {
