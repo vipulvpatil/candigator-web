@@ -15,7 +15,7 @@ const ProductDescription = () => {
       </div>
       <div className="
         font font-semibold text-[18px] mx-auto
-        min-w-[420px] max-w-[420px]
+        min-w-[360px] max-w-[420px]
       ">
         <div className="flex flex-col h-[145px] justify-between">
           <div className="flex items-center">
@@ -26,12 +26,12 @@ const ProductDescription = () => {
           <div className="flex items-center">
             <div className="
               bg-secondaryColor w-5 h-5 rounded-xl mr-4
-            "></div>{"Easily edit processed candidate information."}
+            "></div>{"Easily edit processed candidate data."}
           </div>
           <div className="flex items-center">
             <div className="
               bg-secondaryColor w-5 h-5 rounded-xl mr-4
-            "></div>{"Advanced search on candidate date."}
+            "></div>{"Advanced search on candidate data."}
           </div>
           <div className="flex items-center">
             <div className="

@@ -9,7 +9,7 @@ const ActionItems = () => {
       gap-y-12 py-12
     ">
       <ActionItem
-        label={"Try all features for free. No credit card required."}
+        label={"Try app features for free. No credit card required."}
         buttonLink="/candidate?p=1"
         buttonLabel="Try for free now"
       />
