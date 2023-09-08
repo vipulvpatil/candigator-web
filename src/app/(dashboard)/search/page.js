@@ -14,11 +14,7 @@ const Search = async () => {
   const candidates = processCandidates(response.data)
   console.log(candidates)
 
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      <SearchResults candidates={candidates}/>
-    </div>
-  )
+  return <SearchResults candidates={candidates}/>
 }
 
 export default Search

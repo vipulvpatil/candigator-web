@@ -1,5 +1,6 @@
 import CandidateList from "./candidate_list"
 import GrpcService from "@/lib/grpc/service"
+import LoggedOut from "../logged_out"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
@@ -7,18 +8,14 @@ import {processCandidates} from "@/lib/candidate-builder/candidate"
 const Candidates = async () => {
   const session = await getServerSession(authOptions)
   if(!session) {
-    return <></>
+    return <LoggedOut/>
   }
 
   const response = await GrpcService.getCandidates(session.user.email)
   const candidates = processCandidates(response.data)
   console.log(candidates)
 
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      <CandidateList candidates={candidates}/>
-    </div>
-  )
+  return <CandidateList candidates={candidates}/>
 }
 
 export default Candidates

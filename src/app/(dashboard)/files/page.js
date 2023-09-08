@@ -13,11 +13,7 @@ const Files = async () => {
   const response  = await GrpcService.getFileUploads(session.user.email)
   const fileUploads = response.data
 
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      <FileList files={fileUploads}/>
-    </div>
-  )
+  return <FileList files={fileUploads}/>
 }
 
 export default Files

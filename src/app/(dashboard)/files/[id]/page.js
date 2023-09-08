@@ -18,19 +18,11 @@ const File = async ({params}) => {
   if(!file || !file.id) {
     return <NoFileFound/>
   }
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      <FileUploadDetail fileUpload={file}/>
-    </div>
-  )
+  return <FileUploadDetail fileUpload={file}/>
 }
 
 const NoFileFound = () => {
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      {"No file found"}
-    </div>
-  )
+  return <>{"No file found"}</>
 }
 
 export default File

@@ -15,11 +15,7 @@ const Candidate = async ({params}) => {
   }
 
   if (params.id == "new") {
-    return (
-      <div className="min-h-[620px] bg-gray-200">
-        <PersonaForm candidate={emptyCandidate}/>
-      </div>
-    )
+    return <PersonaForm candidate={emptyCandidate}/>
   }
 
   const response = await GrpcService.getCandidate(session.user.email, params.id)
@@ -29,19 +25,11 @@ const Candidate = async ({params}) => {
     return <NoCandidateFound/>
   }
 
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      <PersonaForm candidate={candidate} addNewCandidate={false}/>
-    </div>
-  )
+  return <PersonaForm candidate={candidate} addNewCandidate={false}/>
 }
 
 const NoCandidateFound = () => {
-  return (
-    <div className="min-h-[620px] bg-gray-200">
-      {"No candidate found"}
-    </div>
-  )
+  return <>{"No candidate found"}</>
 }
 
 export default Candidate
