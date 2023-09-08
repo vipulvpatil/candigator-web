@@ -1,4 +1,5 @@
 import GrpcService from "@/lib/grpc/service"
+import LoggedOut from "@/app/(dashboard)/logged_out"
 import SearchResults from "./search_results"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
@@ -7,7 +8,7 @@ import {processCandidates} from "@/lib/candidate-builder/candidate"
 const Search = async () => {
   const session = await getServerSession(authOptions)
   if(!session) {
-    return <></>
+    return <LoggedOut/>
   }
 
   const response = await GrpcService.getCandidates(session.user.email)

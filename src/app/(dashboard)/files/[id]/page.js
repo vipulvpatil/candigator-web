@@ -1,12 +1,13 @@
 import FileUploadDetail from "./file_upload_detail"
 import GrpcService from "@/lib/grpc/service"
+import LoggedOut from "@/app/(dashboard)/logged_out"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 
 const File = async ({params}) => {
   const session = await getServerSession(authOptions)
   if(!session) {
-    return <></>
+    return <LoggedOut/>
   }
 
   if (!params.id){

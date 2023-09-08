@@ -1,5 +1,6 @@
 import {emptyCandidate, processCandidate} from "@/lib/candidate-builder/candidate"
 import GrpcService from "@/lib/grpc/service"
+import LoggedOut from "@/app/(dashboard)/logged_out"
 import PersonaForm from "./persona_form"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
@@ -7,7 +8,7 @@ import {getServerSession} from "next-auth"
 const Candidate = async ({params}) => {
   const session = await getServerSession(authOptions)
   if(!session) {
-    return <></>
+    return <LoggedOut/>
   }
 
   if (!params.id){
