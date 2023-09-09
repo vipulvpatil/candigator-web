@@ -1,15 +1,17 @@
 "use client"
 
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import AddCandidateButton from "./add_candidate_button"
 import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
+import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
 
-const CandidateList = ({candidates}) => {
+const CandidateList = ({candidates, loggedIn}) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const p = parseInt(searchParams.get("p")) || 1
@@ -19,6 +21,16 @@ const CandidateList = ({candidates}) => {
   const [selectedCandidate, setSelectedCandidate] = useState(null)
   const [selectedPage, setSelectedPage] = useState(p)
   const router = useRouter()
+  const testMode = useContext(TestModeContext)
+
+  useEffect(() => {
+    let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
+    url.searchParams.append("p", selectedPage)
+    if(selectedCandidate) {
+      url.searchParams.append("cid", selectedCandidate?.id)
+    }
+    router.push(url.toString(), undefined, {shallow: true})
+  },[pathname, router, selectedCandidate, selectedPage])
 
   const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
@@ -31,14 +43,13 @@ const CandidateList = ({candidates}) => {
     />
   }
 
-  useEffect(() => {
-    let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
-    url.searchParams.append("p", selectedPage)
-    if(selectedCandidate) {
-      url.searchParams.append("cid", selectedCandidate?.id)
-    }
-    router.push(url.toString(), undefined, {shallow: true})
-  },[pathname, router, selectedCandidate, selectedPage])
+  if(!testMode.status && !loggedIn) {
+    return <LoggedOut showTestButton={true}/>
+  }
+
+  if(testMode.status) {
+    candidates = []
+  }
 
   return <>
     <PageHeader title={`${candidates.length} Candidates`}>

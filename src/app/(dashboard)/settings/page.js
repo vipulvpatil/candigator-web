@@ -1,7 +1,7 @@
 import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import SignOutButton from "./sign_out_button"
-import TestModeButton from "./test_mode_button"
+import TestModeButton from "@/components/buttons/test_mode_button"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 

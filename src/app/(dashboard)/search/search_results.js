@@ -1,16 +1,18 @@
 "use client"
 
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
 import FilterModal from "./filter_modal"
+import LoggedOut from "../logged_out"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import SearchButton from "./search_button"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
 import {applyFilters} from "@/lib/search/filter"
 
-const SearchResults = ({candidates}) => {
+const SearchResults = ({candidates, loggedIn}) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const p = parseInt(searchParams.get("p")) || 1
@@ -22,17 +24,7 @@ const SearchResults = ({candidates}) => {
   const [searchFilters, setSearchFilters] = useState([])
   const [selectedPage, setSelectedPage] = useState(p)
   const router = useRouter()
-
-  const candidateRowFunc = (candidate, showTopBorder) => {
-    return <CandidateRow
-      key={candidate.id}
-      candidate={candidate}
-      selected={selectedCandidateId === candidate.id}
-      setSelectedCandidateId={setSelectedCandidateId}
-      showTopBorder={showTopBorder}
-      view={selectedCandidateId?"short":"long"}
-    />
-  }
+  const testMode = useContext(TestModeContext)
 
   useEffect(() => {
     setFilteredCandidates(applyFilters(candidates, searchFilters))
@@ -46,6 +38,25 @@ const SearchResults = ({candidates}) => {
     }
     router.push(url.toString(), undefined, {shallow: true})
   },[pathname, router, selectedCandidate, selectedPage])
+
+  const candidateRowFunc = (candidate, showTopBorder) => {
+    return <CandidateRow
+      key={candidate.id}
+      candidate={candidate}
+      selected={selectedCandidateId === candidate.id}
+      setSelectedCandidateId={setSelectedCandidateId}
+      showTopBorder={showTopBorder}
+      view={selectedCandidateId?"short":"long"}
+    />
+  }
+
+  if(!testMode.status && !loggedIn) {
+    return <LoggedOut showTestButton={true}/>
+  }
+
+  if(testMode.status) {
+    candidates = []
+  }
 
   return <>
     <PageHeader title={"Search"}>

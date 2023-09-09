@@ -1,7 +1,7 @@
 "use client"
 
 import OutlineButton from "@/components/buttons/generic/outline_button"
-import {TestModeDispatchContext} from "../test_mode_context"
+import {TestModeDispatchContext} from "@/app/(dashboard)/test_mode_context"
 import {useContext} from "react"
 
 const TestModeButton = () => {
