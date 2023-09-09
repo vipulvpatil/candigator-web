@@ -10,6 +10,7 @@ import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
+import {processCandidates} from "@/lib/candidate-builder/candidate"
 
 const CandidateList = ({candidates, loggedIn}) => {
   const pathname = usePathname()
@@ -48,7 +49,7 @@ const CandidateList = ({candidates, loggedIn}) => {
   }
 
   if(testMode.status) {
-    candidates = []
+    candidates = processCandidates(testMode.candidates)
   }
 
   return <>
