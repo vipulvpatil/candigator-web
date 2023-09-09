@@ -1,6 +1,7 @@
 "use client"
 
-import {useEffect, useState} from "react"
+import {TestModeContext, TestModeDispatchContext} from "./test_mode_context"
+import {useContext, useEffect, useState} from "react"
 import BillingIcon from "@/icons/billing"
 import CandidatesIcon from "@/icons/candidates"
 import FilesIcon from "@/icons/files"
@@ -14,6 +15,8 @@ import {useSelectedLayoutSegment} from "next/navigation"
 const Menu = () => {
   const segment = useSelectedLayoutSegment()
   const [unprocessedFileCount, setUnprocessedFileCount] = useState(0)
+  const testMode = useContext(TestModeContext)
+  const testModeDispatch = useContext(TestModeDispatchContext)
 
   useEffect(() => {
     const loadUnprocessedFileCount = async () => {
@@ -44,6 +47,14 @@ const Menu = () => {
       */}
       <MenuButton title={"profile"} selected={segment === "profile"} icon={<ProfileIcon/>}/>
       <div className="flex-grow"/>
+      <button
+        onClick={() => {
+          testModeDispatch({type:"toggle"})
+        }}
+        className={testMode.status?"bg-red-500":"bg-white"}
+      >
+        {"Test Mode"}
+      </button>
       <MenuFooter/>
     </div>
   )
