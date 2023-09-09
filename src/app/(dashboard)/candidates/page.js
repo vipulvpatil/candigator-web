@@ -6,16 +6,16 @@ import {getServerSession} from "next-auth"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 
 const Candidates = async () => {
+  let candidates
   const session = await getServerSession(authOptions)
-  if(!session) {
-    return <LoggedOut/>
+  if(session) {
+    const response = await GrpcService.getCandidates(session.user.email)
+    candidates = processCandidates(response.data)
+    console.log(candidates)
+    return <CandidateList candidates={candidates}/>
   }
 
-  const response = await GrpcService.getCandidates(session.user.email)
-  const candidates = processCandidates(response.data)
-  console.log(candidates)
-
-  return <CandidateList candidates={candidates}/>
+  return <LoggedOut/>
 }
 
 export default Candidates
