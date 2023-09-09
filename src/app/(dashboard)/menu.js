@@ -10,6 +10,7 @@ import MenuFooter from "./menu_footer"
 import MenuTitle from "./menu_title"
 import ProfileIcon from "@/icons/profile"
 import SearchIcon from "@/icons/search"
+import SubtleButton from "@/components/buttons/generic/subtle_button"
 import {useSelectedLayoutSegment} from "next/navigation"
 
 const Menu = () => {
@@ -47,14 +48,23 @@ const Menu = () => {
       */}
       <MenuButton title={"profile"} selected={segment === "profile"} icon={<ProfileIcon/>}/>
       <div className="flex-grow"/>
-      <button
-        onClick={() => {
-          testModeDispatch({type:"toggle"})
-        }}
-        className={testMode.status?"bg-red-500":"bg-white"}
-      >
-        {"Test Mode"}
-      </button>
+      {testMode.status && <div className={`
+        font-semibold text-[24px]
+        bg-red-500 text-white
+        text-center
+      `}>
+        <div className="pb-1 pt-1">
+          {`Test Mode is ${testMode.status?"on":"off"}`}
+        </div>
+        <SubtleButton
+          handleClick={() => {
+            testModeDispatch({type:"toggle"})
+          }}
+          customMargin="mt-1 mb-3"
+        >
+          {"Turn off"}
+        </SubtleButton>
+      </div>}
       <MenuFooter/>
     </div>
   )
