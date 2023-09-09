@@ -1,23 +1,28 @@
 "use client"
+
 import {TestModeContext, TestModeDispatchContext} from "./test_mode_context"
 import {useReducer} from "react"
 import {useSearchParams} from "next/navigation"
 
-function testDataReducer(testData, action) {
+function testModeReducer(testMode, action) {
   switch(action.type) {
-    case "toggle":
-      return {...testData, status: !testData.status}
+    case "turnOn":
+      return {...testMode, status: true}
+    case "turnOff":
+      return {...testMode, status: false}
+    default:
+      return {...testMode}
   }
 }
 
 const TestModeProvider = ({children}) => {
   const searchParams = useSearchParams()
-  const testDataState = Boolean(searchParams.get("test_data"))
-  const [testData, testDataDispatch] = useReducer(testDataReducer, {status: !!testDataState})
+  const testModeParam = searchParams.get("testMode")
+  const [testMode, testModeDispatch] = useReducer(testModeReducer, {status: !!testModeParam})
 
   return <>
-    <TestModeContext.Provider value={testData}>
-      <TestModeDispatchContext.Provider value={testDataDispatch}>
+    <TestModeContext.Provider value={testMode}>
+      <TestModeDispatchContext.Provider value={testModeDispatch}>
         {children}
       </TestModeDispatchContext.Provider>
     </TestModeContext.Provider>
