@@ -51,11 +51,11 @@ const SearchResults = ({candidates, loggedIn}) => {
     />
   }
 
-  if(!testMode.status && !loggedIn) {
+  if(!testMode.isEnabled && !loggedIn) {
     return <LoggedOut showTestButton={true}/>
   }
 
-  if(testMode.status) {
+  if(testMode.isEnabled) {
     candidates = processCandidates(testMode.candidates)
   }
 

@@ -44,13 +44,13 @@ const Menu = () => {
       <MenuButton title={"billing"} selected={segment === "billing"} icon={<BillingIcon/>}/>
       <MenuButton title={"settings"} selected={segment === "settings"} icon={<SettingsIcon/>}/>
       <div className="flex-grow"/>
-      {testMode.status && <div className={`
+      {testMode.isEnabled && <div className={`
         font-semibold text-[24px]
         bg-red-500 text-white
         text-center
       `}>
         <div className="pb-1 pt-1">
-          {`Test Mode is ${testMode.status?"on":"off"}`}
+          {`Test Mode is ${testMode.isEnabled?"on":"off"}`}
         </div>
         <SubtleButton
           handleClick={() => {

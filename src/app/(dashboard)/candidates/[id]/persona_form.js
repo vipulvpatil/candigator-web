@@ -83,7 +83,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
   const [isSaving, setSaving] = useState(false)
   const testMode = useContext(TestModeContext)
 
-  if(testMode.status) {
+  if(testMode.isEnabled) {
     if(candidateId !== "new") {
       let testCandidates = processCandidates(testMode.candidates)
       testCandidates.forEach(c => {
@@ -153,7 +153,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
     remove: removeCertification,
   }  = useFieldArray({name: "Certifications", control})
 
-  if(!testMode.status && !loggedIn) {
+  if(!testMode.isEnabled && !loggedIn) {
     return <LoggedOut showTestButton={false}/>
   }
 

@@ -8,9 +8,9 @@ import {useSearchParams} from "next/navigation"
 function testModeReducer(testMode, action) {
   switch(action.type) {
     case "turnOn":
-      return {...testMode, status: true}
+      return {...testMode, isEnabled: true}
     case "turnOff":
-      return {...testMode, status: false}
+      return {...testMode, isEnabled: false}
     default:
       return {...testMode}
   }
