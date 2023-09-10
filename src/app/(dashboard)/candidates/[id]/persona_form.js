@@ -1,12 +1,15 @@
 "use client"
 import * as yup from "yup"
+import {useContext, useRef, useState} from "react"
 import {useFieldArray, useForm} from "react-hook-form"
-import {useRef, useState} from "react"
 import BackButton from "@/components/buttons/back_button"
+import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import SaveButton from "@/components/buttons/save_button"
 import SubtleButton from "@/components/buttons/generic/subtle_button"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
 import clone from "just-clone"
+import {processCandidates} from "@/lib/candidate-builder/candidate"
 import {useRouter} from "next/navigation"
 import {yupResolver} from "@hookform/resolvers/yup"
 
@@ -72,12 +75,24 @@ const updateCandidate = async (id, personaData, router) => {
   return "saving succeeded"
 }
 
-const PersonaForm = ({candidate}) => {
+const PersonaForm = ({candidate, loggedIn, candidateId}) => {
   const form = useRef()
   const router = useRouter()
 
   const [statusText, setStatusText] = useState("")
   const [isSaving, setSaving] = useState(false)
+  const testMode = useContext(TestModeContext)
+
+  if(testMode.status) {
+    if(candidateId !== "new") {
+      let testCandidates = processCandidates(testMode.candidates)
+      testCandidates.forEach(c => {
+        if (c.id === candidateId) {
+          candidate = c
+        }
+      })
+    }
+  }
 
   const {
     register, handleSubmit, formState: {errors}, control, getValues, setValue} = useForm(
@@ -137,6 +152,10 @@ const PersonaForm = ({candidate}) => {
     prepend: prependCertification,
     remove: removeCertification,
   }  = useFieldArray({name: "Certifications", control})
+
+  if(!testMode.status && !loggedIn) {
+    return <LoggedOut showTestButton={false}/>
+  }
 
   const onSubmit = async data => {
     const sanitizedData = sanitizePersonaData(data)
