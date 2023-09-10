@@ -7,6 +7,7 @@ import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
 import LoggedOut from "@/app/(dashboard)/logged_out"
+import LoginCTAModal from "./login_cta_modal"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
@@ -18,6 +19,7 @@ const CandidateList = ({candidates, loggedIn}) => {
   const p = parseInt(searchParams.get("p")) || 1
   const cid = searchParams.get("cid")
   const [showAddCandidateModal, setShowAddCandidateModal] = useState(false)
+  const [showLoginCTAModal, setShowLoginCTAModal] = useState(false)
   const [selectedCandidateId, setSelectedCandidateId] = useState(cid)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
   const [selectedPage, setSelectedPage] = useState(p)
@@ -73,7 +75,12 @@ const CandidateList = ({candidates, loggedIn}) => {
       </div>
       <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
     </div>
-    <AddCandidateModal show={showAddCandidateModal} handleClose={() => setShowAddCandidateModal(false)}/>
+    <AddCandidateModal
+      show={showAddCandidateModal}
+      handleClose={() => setShowAddCandidateModal(false)}
+      showTestModeModal={setShowLoginCTAModal}
+    />
+    <LoginCTAModal show={showLoginCTAModal} handleClose={() => setShowLoginCTAModal(false)}/>
   </>
 }
 export default CandidateList

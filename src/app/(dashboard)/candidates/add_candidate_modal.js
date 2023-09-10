@@ -1,10 +1,11 @@
 import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "./upload"
-import {useRef, useState} from "react"
+import {useContext, useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
 import FilesIcon from "@/icons/files"
 import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
 
 const UploadStatus = Object.freeze({
 	NotStarted: Symbol("NotStarted"),
@@ -21,10 +22,11 @@ const statusIsAllowFileSelectionReset = (uploadStatus) => {
   return uploadStatus === UploadStatus.Success || uploadStatus === UploadStatus.Failure
 }
 
-const AddCandidateModal = ({show, handleClose}) => {
+const AddCandidateModal = ({show, handleClose, showTestModeModal}) => {
   const inputRef = useRef()
   const [filesWithUploadData, setFilesWithUploadData] = useState(null)
   const [currentUploadStatus, setCurrentUploadStatus] = useState(UploadStatus.NotStarted)
+  const testMode = useContext(TestModeContext)
 
   const closeModal = () => {
     if(statusIsAllowFileSelectionReset(currentUploadStatus)) {
@@ -66,6 +68,8 @@ const AddCandidateModal = ({show, handleClose}) => {
     inputRef={inputRef}
     uploadStatus={currentUploadStatus}
     uploadMultipleFiles={uploadMultipleFiles}
+    testMode={testMode}
+    showTestModeModal={showTestModeModal}
   />
   if (currentUploadStatus === UploadStatus.Success) {
     actionButton = <GoToFilesButton/>
@@ -112,10 +116,16 @@ const AddCandidateModal = ({show, handleClose}) => {
   )
 }
 
-const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles}) => {
+const FileSelectionButton = ({inputRef, uploadStatus, uploadMultipleFiles, testMode, showTestModeModal}) => {
   return (
   <FilledButton
-    handleClick={()=>{inputRef.current.click()}}
+    handleClick={()=>{
+      if(testMode.isEnabled){
+        showTestModeModal(true)
+      } else {
+        inputRef.current.click()
+      }
+    }}
     disabled={!statusIsAllowUpload(uploadStatus)}
     additionalStyling="cursor-pointer disabled:cursor-not-allowed"
     customPadding="p-2.5"
