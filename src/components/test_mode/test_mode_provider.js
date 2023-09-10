@@ -11,19 +11,20 @@ function testModeReducer(testMode, action) {
       return {...testMode, isEnabled: true}
     case "turnOff":
       return {...testMode, isEnabled: false}
-    case "save":
+    case "save":{
+      const seconds = new Date().getTime() / 1000
       if(action.id) {
         let newCandidates = []
         testMode.candidates.forEach(c => {
           if(c.id === action.id) {
             c.manuallyCreatedPersona = JSON.stringify(action.data)
+            c.updatedAt.seconds = seconds
           }
           newCandidates.push(c)
         })
         return {...testMode, candidates: newCandidates}
       } else {
         const newId = "hogwarts_" + Math.random().toString(16).slice(2)
-        const seconds = new Date().getTime() / 1000
         let newCandidates = testMode.candidates
         newCandidates.push({
           id: newId,
@@ -34,6 +35,7 @@ function testModeReducer(testMode, action) {
         })
         return {...testMode, candidates: newCandidates}
       }
+    }
     default:
       return {...testMode}
   }
