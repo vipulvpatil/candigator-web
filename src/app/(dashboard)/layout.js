@@ -1,5 +1,5 @@
 import Menu from "./menu"
-import TestModeProvider from "./test_mode_provider"
+import TestModeProvider from "@/components/test_mode/test_mode_provider"
 
 const DashboardLayout = async ({children}) => {
   return (

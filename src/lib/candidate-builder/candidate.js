@@ -7,6 +7,9 @@ export const processCandidates = (candidates) => {
 }
 
 export const processCandidate = (candidate) => {
+  if(!candidate) {
+    return null
+  }
   let date = new Date(candidate.updatedAt.seconds * 1000)
   const aiGeneratedPerson = buildPersona(candidate.aiGeneratedPersona) || {}
   const manuallyCreatedPersona = buildPersona(candidate.manuallyCreatedPersona)

@@ -5,7 +5,7 @@ import FilesIcon from "@/icons/files"
 import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
-import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
+import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
 
 const UploadStatus = Object.freeze({
 	NotStarted: Symbol("NotStarted"),

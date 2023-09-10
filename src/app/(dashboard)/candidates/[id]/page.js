@@ -1,5 +1,6 @@
 import {emptyCandidate, processCandidate} from "@/lib/candidate-builder/candidate"
 import GrpcService from "@/lib/grpc/service"
+import NoCandidateFound from "./no_candidate"
 import PersonaForm from "./persona_form"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
@@ -18,16 +19,8 @@ const Candidate = async ({params}) => {
 
     const response = await GrpcService.getCandidate(session.user.email, params.id)
     candidate = processCandidate(response.data)
-
-    if(!candidate || !candidate.id) {
-      return <NoCandidateFound/>
-    }
   }
   return <PersonaForm candidate={candidate} loggedIn={!!session} candidateId={params.id}/>
-}
-
-const NoCandidateFound = () => {
-  return <>{"No candidate found"}</>
 }
 
 export default Candidate

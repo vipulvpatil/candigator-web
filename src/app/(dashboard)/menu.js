@@ -1,6 +1,6 @@
 "use client"
 
-import {TestModeContext, TestModeDispatchContext} from "./test_mode_contexts"
+import {TestModeContext, TestModeDispatchContext} from "@/components/test_mode/test_mode_contexts"
 import {useContext, useEffect, useState} from "react"
 import BillingIcon from "@/icons/billing"
 import CandidatesIcon from "@/icons/candidates"

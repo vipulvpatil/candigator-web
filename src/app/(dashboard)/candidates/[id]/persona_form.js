@@ -4,11 +4,12 @@ import {useContext, useRef, useState} from "react"
 import {useFieldArray, useForm} from "react-hook-form"
 import BackButton from "@/components/buttons/back_button"
 import LoggedOut from "@/app/(dashboard)/logged_out"
+import NoCandidateFound from "./no_candidate"
 import PageHeader from "@/components/page_header"
 import SaveButton from "@/components/buttons/save_button"
 import SubtleButton from "@/components/buttons/generic/subtle_button"
-import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
-import {TestModeDispatchContext} from "@/app/(dashboard)/test_mode_contexts"
+import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
+import {TestModeDispatchContext} from "@/components/test_mode/test_mode_contexts"
 import clone from "just-clone"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 import {useRouter} from "next/navigation"
@@ -157,6 +158,10 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
 
   if(!testMode.isEnabled && !loggedIn) {
     return <LoggedOut showTestButton={false}/>
+  }
+
+  if(!candidate || !candidate.id) {
+    return <NoCandidateFound/>
   }
 
   const onSubmit = async data => {

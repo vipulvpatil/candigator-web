@@ -10,7 +10,7 @@ import LoggedOut from "@/app/(dashboard)/logged_out"
 import LoginCTAModal from "./login_cta_modal"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
-import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
+import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 
 const CandidateList = ({candidates, loggedIn}) => {
