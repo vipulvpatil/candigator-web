@@ -8,7 +8,6 @@ export const processCandidates = (candidates) => {
 
 export const processCandidate = (candidate) => {
   let date = new Date(candidate.updatedAt.seconds * 1000)
-  console.log(date)
   const aiGeneratedPerson = buildPersona(candidate.aiGeneratedPersona) || {}
   const manuallyCreatedPersona = buildPersona(candidate.manuallyCreatedPersona)
   const displayPersona = buildResultantPersona(aiGeneratedPerson, manuallyCreatedPersona)
