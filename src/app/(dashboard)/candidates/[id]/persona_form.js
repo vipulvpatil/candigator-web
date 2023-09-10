@@ -7,7 +7,8 @@ import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import SaveButton from "@/components/buttons/save_button"
 import SubtleButton from "@/components/buttons/generic/subtle_button"
-import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
+import {TestModeDispatchContext} from "@/app/(dashboard)/test_mode_contexts"
 import clone from "just-clone"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 import {useRouter} from "next/navigation"
@@ -82,6 +83,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
   const [statusText, setStatusText] = useState("")
   const [isSaving, setSaving] = useState(false)
   const testMode = useContext(TestModeContext)
+  const testModeDispatch = useContext(TestModeDispatchContext)
 
   if(testMode.isEnabled) {
     if(candidateId !== "new") {
@@ -159,12 +161,19 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
 
   const onSubmit = async data => {
     const sanitizedData = sanitizePersonaData(data)
-    console.log(data)
-    console.log(sanitizedData)
     setSaving(true)
     setStatusText("saving ...")
-    const result = await updateCandidate(candidate?.id, sanitizedData, router)
-    setStatusText(result)
+    if (testMode.isEnabled) {
+      testModeDispatch({
+        type: "save",
+        id: candidate?.id,
+        data: sanitizedData
+      })
+      setStatusText("test mode saving succeeded")
+    } else {
+      const result = await updateCandidate(candidate?.id, sanitizedData, router)
+      setStatusText(result)
+    }
     setSaving(false)
   }
 

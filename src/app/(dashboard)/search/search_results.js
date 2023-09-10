@@ -9,7 +9,7 @@ import LoggedOut from "../logged_out"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
 import SearchButton from "./search_button"
-import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
 import {applyFilters} from "@/lib/search/filter"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 

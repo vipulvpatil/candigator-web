@@ -9,7 +9,7 @@ import CandidateRow from "@/components/candidate/candidate_row"
 import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
-import {TestModeContext} from "@/app/(dashboard)/test_mode_context"
+import {TestModeContext} from "@/app/(dashboard)/test_mode_contexts"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 
 const CandidateList = ({candidates, loggedIn}) => {
