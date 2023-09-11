@@ -1,7 +1,7 @@
 "use client"
 
 import {useCallback, useContext, useState} from "react"
-import {usePathname, useSearchParams} from "next/navigation"
+import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import AddCandidateButton from "./add_candidate_button"
 import AddCandidateModal from "./add_candidate_modal"
 import CandidateDetails from "@/components/candidate/candidate_details"
@@ -23,7 +23,7 @@ const CandidateList = ({candidates, loggedIn}) => {
   const [selectedCandidateId, setSelectedCandidateId] = useState(cid)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
   const [selectedPage, setSelectedPage] = useState(p)
-  // const router = useRouter()
+  const router = useRouter()
   const testMode = useContext(TestModeContext)
 
   const updatePageNumber = useCallback((url, pageNumber) => {
@@ -44,8 +44,7 @@ const CandidateList = ({candidates, loggedIn}) => {
     let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
     url = updatePageNumber(url, pageNumber)
     url = updateSelectedCandidateId(url, candidateId)
-    // router.push(url.toString(), undefined, {shallow: true})
-    window.history.pushState({}, "", url.toString())
+    router.push(url.toString(), undefined, {shallow: true})
   }
 
   const candidateRowFunc = (candidate, showTopBorder) => {
