@@ -30,8 +30,12 @@ const Menu = () => {
       const respJson = await resp.json()
       setUnprocessedFileCount(respJson.data)
     }
-    loadUnprocessedFileCount()
-  }, [segment])
+    if(testMode.isEnabled){
+      setUnprocessedFileCount(0)
+    } else {
+      loadUnprocessedFileCount()
+    }
+  }, [testMode, segment])
 
   return (
     <div className="h-full min-h-[725px] bg-primaryColor
