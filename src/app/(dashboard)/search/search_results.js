@@ -24,8 +24,8 @@ const SearchResults = ({candidates, loggedIn}) => {
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [searchFilters, setSearchFilters] = useState([])
   const [selectedPage, setSelectedPage] = useState(p)
+  const [testCandidates, setTestCandidates] = useState(null)
   const testMode = useContext(TestModeContext)
-  let testCandidates
 
   useEffect(() => {
     setFilteredCandidates(applyFilters(candidates || testCandidates, searchFilters))
@@ -65,12 +65,16 @@ const SearchResults = ({candidates, loggedIn}) => {
     />
   }
 
+  useEffect(() => {
+    if(testMode.isEnabled) {
+      setTestCandidates(processCandidates(testMode.candidates))
+    } else {
+      setTestCandidates(null)
+    }
+  }, [testMode])
+
   if(!testMode.isEnabled && !loggedIn) {
     return <LoggedOut showTestButton={true}/>
-  }
-
-  if(testMode.isEnabled) {
-    testCandidates = processCandidates(testMode.candidates)
   }
 
   return <>
