@@ -1,13 +1,16 @@
 "use client"
 
-import {useEffect, useState} from "react"
+import {useContext, useEffect, useState} from "react"
 import FileRow from "./file_row"
 import FileUploadsToggleButton from "./file_uploads_toggle_button"
+import LoggedOut from "@/app/(dashboard)/logged_out"
 import PageHeader from "@/components/page_header"
 import PaginatedList from "@/components/paginated_list"
+import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
+import TestModeUnavailable from "@/app/(dashboard)/test_mode_unavailable"
 import Title from "./title"
 
-const FileList = ({files}) => {
+const FileList = ({files, loggedIn}) => {
   const [fileUploadsToggleSelected, setFileUploadsToggleSelected] = useState(false)
   const [visibleFileUploads, setVisibleFileUploads] = useState(null)
   const [processedFileUploads, setProcessedFileUploads] = useState([])
@@ -15,6 +18,7 @@ const FileList = ({files}) => {
   const [selectedFileUploadId, setSelectedFileUploadId] = useState(null)
   const [, setSelectedFileUpload] = useState(null)
   const [selectedPage, setSelectedPage] = useState(1)
+  const testMode = useContext(TestModeContext)
 
   useEffect(() => {
     const processed = []
@@ -49,6 +53,14 @@ const FileList = ({files}) => {
       setSelectedFileUploadId={setSelectedFileUploadId}
       showTopBorder={showTopBorder}
     />
+  }
+
+  if(!testMode.isEnabled && !loggedIn) {
+    return <LoggedOut showTestButton={false}/>
+  }
+
+  if(testMode.isEnabled) {
+    return <TestModeUnavailable/>
   }
 
   return <>

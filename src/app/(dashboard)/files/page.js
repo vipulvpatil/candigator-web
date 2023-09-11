@@ -1,20 +1,17 @@
 import FileList from "./file_list"
 import GrpcService from "@/lib/grpc/service"
-import LoggedOut from "@/app/(dashboard)/logged_out"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 
 const Files = async () => {
   const session = await getServerSession(authOptions)
-
-  if(!session) {
-    return <LoggedOut/>
+  let fileUploads
+  if(session) {
+    const response  = await GrpcService.getFileUploads(session.user.email)
+    fileUploads = response.data
   }
 
-  const response  = await GrpcService.getFileUploads(session.user.email)
-  const fileUploads = response.data
-
-  return <FileList files={fileUploads}/>
+  return <FileList files={fileUploads} loggedIn={!!session}/>
 }
 
 export default Files
