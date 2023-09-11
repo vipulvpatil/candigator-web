@@ -10,7 +10,7 @@ const ActionItems = () => {
     ">
       <ActionItem
         label={"Try app features for free. No credit card required."}
-        buttonLink="/candidate?p=1"
+        buttonLink="/candidates?testMode=true"
         buttonLabel="Try for free now"
       />
       <ActionItem

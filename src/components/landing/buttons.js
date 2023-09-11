@@ -32,13 +32,14 @@ export const LoginButton = () => {
 
 export const TryNowForFreeButton = () => {
   return (
-    <FilledButton
-      customPadding="px-4 py-3"
-      customMargin="my-auto"
-      handleClick={()=>{signIn("google", {callbackUrl: "/candidates?p=1"})}}
-    >
-      {"Try now for free"}
-    </FilledButton>
+    <Link href="/candidates?testMode=true">
+      <FilledButton
+        customPadding="px-4 py-3"
+        customMargin="my-auto"
+      >
+        {"Try now for free"}
+      </FilledButton>
+    </Link>
   )
 }
 

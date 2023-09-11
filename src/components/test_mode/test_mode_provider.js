@@ -46,7 +46,7 @@ function testModeReducer(testMode, action) {
 const TestModeProvider = ({children}) => {
   const searchParams = useSearchParams()
   const testModeParam = searchParams.get("testMode")
-  const [testMode, testModeDispatch] = useReducer(testModeReducer, {status: !!testModeParam, candidates: defaultCandidates})
+  const [testMode, testModeDispatch] = useReducer(testModeReducer, {isEnabled: !!testModeParam, candidates: defaultCandidates})
 
   return <>
     <TestModeContext.Provider value={testMode}>
