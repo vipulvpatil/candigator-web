@@ -1,6 +1,6 @@
 "use client"
 
-import {useContext, useEffect, useState} from "react"
+import {useCallback, useContext, useEffect, useState} from "react"
 import {usePathname, useRouter, useSearchParams} from "next/navigation"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
@@ -31,21 +31,34 @@ const SearchResults = ({candidates, loggedIn}) => {
     setFilteredCandidates(applyFilters(candidates, searchFilters))
   }, [candidates, searchFilters])
 
-  useEffect(() => {
-    let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
-    url.searchParams.append("p", selectedPage)
-    if(selectedCandidate) {
-      url.searchParams.append("cid", selectedCandidate?.id)
-    }
-    router.push(url.toString(), undefined, {shallow: true})
-  },[pathname, router, selectedCandidate, selectedPage])
+  const updatePageNumber = useCallback((url, pageNumber) => {
+    url.searchParams.set("p", pageNumber)
+    setSelectedPage(pageNumber)
+    return url
+  }, [])
 
+  const updateSelectedCandidateId = useCallback((url, candidateId) => {
+    if(candidateId) {
+      url.searchParams.set("cid", candidateId)
+    }
+    setSelectedCandidateId(candidateId)
+    return url
+  }, [])
+
+  const setPageNumberAndSelectedCandidate = (pageNumber, candidateId) => {
+    let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
+    url = updatePageNumber(url, pageNumber)
+    url = updateSelectedCandidateId(url, candidateId)
+    router.push(url.toString(), undefined, {shallow: true})
+  }
   const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
       key={candidate.id}
       candidate={candidate}
       selected={selectedCandidateId === candidate.id}
-      setSelectedCandidateId={setSelectedCandidateId}
+      setSelectedCandidateId={(candidateId) => {
+        setPageNumberAndSelectedCandidate(selectedPage, candidateId)
+      }}
       showTopBorder={showTopBorder}
       view={selectedCandidateId?"short":"long"}
     />
@@ -82,10 +95,14 @@ const SearchResults = ({candidates, loggedIn}) => {
           setSelectedItem={setSelectedCandidate}
           view={selectedCandidateId?"short":"long"}
           selectedPage={selectedPage}
-          setSelectedPage={setSelectedPage}
+          setSelectedPage={(pageNumber) => {
+            setPageNumberAndSelectedCandidate(pageNumber, selectedCandidateId)
+          }}
         />
       </div>
-      <CandidateDetails candidate={selectedCandidate} onClose={() => setSelectedCandidateId(null)}/>
+      <CandidateDetails candidate={selectedCandidate} onClose={() => {
+        setPageNumberAndSelectedCandidate(selectedPage, null)
+      }}/>
     </div>
     <FilterModal
       setSearchFilters={setSearchFilters}
