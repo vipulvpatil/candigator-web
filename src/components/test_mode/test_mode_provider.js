@@ -2,15 +2,20 @@
 
 import {TestModeContext, TestModeDispatchContext} from "./test_mode_contexts"
 import {defaultCandidates} from "./test_mode_data"
+import {signOut} from "next-auth/react"
 import {useReducer} from "react"
 import {useSearchParams} from "next/navigation"
 
 function testModeReducer(testMode, action) {
+  let newTestMode
   switch(action.type) {
     case "turnOn":
-      return {...testMode, isEnabled: true}
+      signOut({redirect: false})
+      newTestMode = {...testMode, isEnabled: true}
+      break
     case "turnOff":
-      return {...testMode, isEnabled: false}
+      newTestMode = {...testMode, isEnabled: false}
+      break
     case "save":{
       const seconds = new Date().getTime() / 1000
       if(action.id) {
@@ -22,7 +27,8 @@ function testModeReducer(testMode, action) {
           }
           newCandidates.push(c)
         })
-        return {...testMode, candidates: newCandidates}
+        newTestMode = {...testMode, candidates: newCandidates}
+        break
       } else {
         const newId = "hogwarts_" + Math.random().toString(16).slice(2)
         let newCandidates = testMode.candidates
@@ -33,20 +39,53 @@ function testModeReducer(testMode, action) {
           fileUploadId: "",
           updatedAt: {seconds: seconds, nanos: 999000000},
         })
-        return {...testMode, candidates: newCandidates}
+        newTestMode = {...testMode, candidates: newCandidates}
+        break
       }
     }
     default:
-      return {...testMode}
+      newTestMode = {...testMode}
+      break
+  }
+  setItemInLocalStorage("testMode", JSON.stringify(newTestMode))
+  return newTestMode
+}
+
+const initLocalStorageIfNotPresent = () => {
+  let testModeInLocalStorage
+  const storedTestMode = getItemFromLocalStorage("testMode")
+  if(storedTestMode) {
+    testModeInLocalStorage = JSON.parse(storedTestMode)
+  } else {
+    testModeInLocalStorage = {isEnabled: false, candidates: defaultCandidates}
+    setItemInLocalStorage("testMode", JSON.stringify(testModeInLocalStorage))
+  }
+  return testModeInLocalStorage
+}
+
+const setItemInLocalStorage = (key, item) => {
+  if (typeof window !== "undefined") {
+    localStorage.setItem(key, item)
   }
 }
 
-
+const getItemFromLocalStorage = (key) => {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem(key)
+  }
+  return null
+}
 
 const TestModeProvider = ({children}) => {
   const searchParams = useSearchParams()
-  const testModeParam = searchParams.get("testMode")
-  const [testMode, testModeDispatch] = useReducer(testModeReducer, {isEnabled: !!testModeParam, candidates: defaultCandidates})
+  let testModeInLocalStorage = initLocalStorageIfNotPresent()
+  const testModeParam = Boolean(searchParams.get("testMode"))
+  if(testModeParam) {
+    signOut({redirect: false})
+    testModeInLocalStorage.isEnabled = testModeParam
+  }
+
+  const [testMode, testModeDispatch] = useReducer(testModeReducer, testModeInLocalStorage)
 
   return <>
     <TestModeContext.Provider value={testMode}>
