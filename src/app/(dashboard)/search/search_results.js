@@ -1,7 +1,7 @@
 "use client"
 
 import {useCallback, useContext, useEffect, useState} from "react"
-import {usePathname, useRouter, useSearchParams} from "next/navigation"
+import {usePathname, useSearchParams} from "next/navigation"
 import CandidateDetails from "@/components/candidate/candidate_details"
 import CandidateRow from "@/components/candidate/candidate_row"
 import FilterModal from "./filter_modal"
@@ -24,7 +24,6 @@ const SearchResults = ({candidates, loggedIn}) => {
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [searchFilters, setSearchFilters] = useState([])
   const [selectedPage, setSelectedPage] = useState(p)
-  const router = useRouter()
   const testMode = useContext(TestModeContext)
   let testCandidates
 
@@ -49,8 +48,9 @@ const SearchResults = ({candidates, loggedIn}) => {
   const setPageNumberAndSelectedCandidate = (pageNumber, candidateId) => {
     let url = new URL(pathname, process.env.NEXT_PUBLIC_BASE_URL)
     url = updatePageNumber(url, pageNumber)
-    url = updateSelectedCandidateId(url, candidateId)
-    router.push(url.toString(), undefined, {shallow: true})
+    updateSelectedCandidateId(url, candidateId)
+    // TODO: Disabling this until shallow navigation is enabled in NextJS 13
+    // router.push(url.toString(), undefined, {shallow: true})
   }
   const candidateRowFunc = (candidate, showTopBorder) => {
     return <CandidateRow
