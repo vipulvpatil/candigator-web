@@ -8,7 +8,7 @@ import {getServerSession} from "next-auth"
 const Candidate = async ({params}) => {
   let candidate
   const session = await getServerSession(authOptions)
-  if (params.id == "new") {
+  if (params.id === "new") {
     return <PersonaForm candidate={emptyCandidate} loggedIn={!!session} candidateId={params.id}/>
   }
 

@@ -69,7 +69,7 @@ const CandidateList = ({candidates, loggedIn}) => {
   }
 
   return <>
-    <PageHeader title={`${candidates.length} Candidates`}>
+    <PageHeader title={`${(candidates?.length)?candidates.length:"0"} Candidates`}>
       <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
     </PageHeader>
     <div className="flex flex-row m-[22px]">

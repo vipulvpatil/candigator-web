@@ -160,7 +160,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
     return <LoggedOut showTestButton={false}/>
   }
 
-  if(!candidate || !candidate.id) {
+  if(!candidate) {
     return <NoCandidateFound/>
   }
 
