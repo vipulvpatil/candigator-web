@@ -26,10 +26,11 @@ const SearchResults = ({candidates, loggedIn}) => {
   const [selectedPage, setSelectedPage] = useState(p)
   const router = useRouter()
   const testMode = useContext(TestModeContext)
+  let testCandidates
 
   useEffect(() => {
-    setFilteredCandidates(applyFilters(candidates, searchFilters))
-  }, [candidates, searchFilters])
+    setFilteredCandidates(applyFilters(candidates || testCandidates, searchFilters))
+  }, [candidates, testCandidates, searchFilters])
 
   const updatePageNumber = useCallback((url, pageNumber) => {
     url.searchParams.set("p", pageNumber)
@@ -69,7 +70,7 @@ const SearchResults = ({candidates, loggedIn}) => {
   }
 
   if(testMode.isEnabled) {
-    candidates = processCandidates(testMode.candidates)
+    testCandidates = processCandidates(testMode.candidates)
   }
 
   return <>
