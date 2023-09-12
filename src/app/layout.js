@@ -11,7 +11,7 @@ const quicksand = Quicksand({
 })
 
 export const metadata = {
-  title: "Prospect",
+  title: "Prospect Home",
   description: "Track all your candidate resumes easily",
 }
 

@@ -5,6 +5,10 @@ import PersonaForm from "./persona_form"
 import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 
+export const metadata = {
+  title: "Prospect Candidate",
+}
+
 const Candidate = async ({params}) => {
   let candidate
   const session = await getServerSession(authOptions)

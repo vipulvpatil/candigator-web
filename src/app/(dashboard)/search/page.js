@@ -4,6 +4,10 @@ import {authOptions} from "@/app/api/auth/[...nextauth]/route"
 import {getServerSession} from "next-auth"
 import {processCandidates} from "@/lib/candidate-builder/candidate"
 
+export const metadata = {
+  title: "Prospect Search",
+}
+
 const Search = async () => {
   let candidates
   const session = await getServerSession(authOptions)
