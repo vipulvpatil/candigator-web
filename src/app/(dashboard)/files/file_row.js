@@ -33,12 +33,13 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
         col-span-5 pr-5 py-1 pl-1
         border-b-2 border-subtleColor
         text-[28px] text-black/70
+        flex items-center
         ${topBorder}
       `}>
         <div className={`line-clamp-1 ${textFontStyle} inline`}>
           {fileUpload.name}
         </div>
-        {selected && <div className="px-2 inline align-top relative top-[-4px]">
+        {selected && <div className="px-2 inline align-top">
           <Link href={`/files/${fileUpload.id}`}>
             <IconButton>
               <EditIcon/>
@@ -49,10 +50,11 @@ const FileRow = ({fileUpload, selected, setSelectedFileUploadId, showTopBorder})
       <div className={`
         col-span-2 py-1 pr-1
         border-b-2 border-subtleColor
-        text-[24px] text-black/50 text-right
+        text-[24px] text-black/50 justify-end
+        flex items-center
         ${topBorder}
       `}>
-        <div className={`inline line-clamp-1 relative top-[4px] ${statusTextColor} ${textFontStyle}`}>
+        <div className={`inline line-clamp-1 ${statusTextColor} ${textFontStyle}`}>
           {fileUpload.processingStatus}
         </div>
       </div>

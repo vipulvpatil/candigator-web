@@ -22,6 +22,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
     rowDetails = <div className={`
       col-span-7 pr-5 py-1 pl-1
       border-b-2 border-subtleColor
+      flex items-center
       text-[28px] ${textColor1}
       ${bgColor} ${topBorder}
     `}>
@@ -34,6 +35,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       <div className={`
         col-span-2 pr-5 py-1 pl-1
         border-b-2 border-subtleColor
+        flex items-center
         text-[28px] ${textColor1}
         ${bgColor} ${topBorder}
       `}>
@@ -44,30 +46,33 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
       <div className={`
         col-span-2 pr-5 py-1
         border-b-2 border-subtleColor
+        flex items-center
         text-[24px] ${textColor2}
         ${bgColor} ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
+        <div className={`line-clamp-1 ${textFontStyle}`}>
           {candidate.designation}
         </div>
       </div>
       <div className={`
         col-span-2 pr-5 py-1
         border-b-2 border-subtleColor
+        flex items-center
         text-[24px] ${textColor2}
         ${bgColor} ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
+        <div className={`line-clamp-1 ${textFontStyle}`}>
           {candidate.company}
         </div>
       </div>
       <div className={`
         col-span-1 py-1 pr-1
         border-b-2 border-subtleColor
+        flex items-center
         text-[24px] ${textColor2} text-right
         ${bgColor} ${topBorder}
       `}>
-        <div className={`line-clamp-1 relative top-[4px] ${textFontStyle}`}>
+        <div className={`line-clamp-1 ${textFontStyle}`}>
           {candidate.updatedAtString}
         </div>
       </div>
