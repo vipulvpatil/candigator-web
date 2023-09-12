@@ -1,4 +1,5 @@
 import "./globals.css"
+import GoogleAnalytics from "@/components/analytics/google_analytics"
 import GoogleTagManager from "@/components/analytics/google_tag_manager"
 import {NextAuthProvider} from "./AuthProvider"
 import {Quicksand} from "next/font/google"
@@ -18,8 +19,9 @@ export const metadata = {
 const RootLayout = ({children}) => {
   return (
     <html lang="en">
+      <GoogleAnalytics/>
+      <GoogleTagManager/>
       <body className={quicksand.variable}>
-        <GoogleTagManager/>
         <NextAuthProvider>
           {children}
         </NextAuthProvider>
