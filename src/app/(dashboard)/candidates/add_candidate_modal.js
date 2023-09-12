@@ -6,6 +6,7 @@ import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
 import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
+import {logAnalyticsEvent} from "@/lib/analytics/events"
 
 const UploadStatus = Object.freeze({
 	NotStarted: Symbol("NotStarted"),
@@ -37,6 +38,7 @@ const AddCandidateModal = ({show, handleClose, showTestModeModal}) => {
   }
 
   const uploadMultipleFiles = async (files) => {
+    logAnalyticsEvent(window, "FileUploadedEvent")
     setCurrentUploadStatus(UploadStatus.Started)
     setFilesWithUploadData(files)
     try{
