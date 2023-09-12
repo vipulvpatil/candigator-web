@@ -7,7 +7,10 @@ const DashboardLayout = async ({children}) => {
       <TestModeProvider>
         <Menu/>
         <div className="w-full bg-gray-200 min-h-[725px]">
-          <div className="min-h-[620px] bg-gray-200">
+          <div className="
+            min-h-[620px] h-full
+            bg-gray-200 flex flex-col
+          ">
             {children}
           </div>
         </div>

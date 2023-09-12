@@ -72,7 +72,10 @@ const CandidateList = ({candidates, loggedIn}) => {
     <PageHeader title={`${(candidates?.length)?candidates.length:"0"} Candidates`}>
       <AddCandidateButton handleClick={()=>{setShowAddCandidateModal(true)}}/>
     </PageHeader>
-    <div className="flex flex-row m-[22px]">
+    <div className="
+      flex flex-row flex-grow
+      overflow-hidden m-[22px]
+    ">
       <div className="
         flex-grow grid grid-cols-7
         p-[22px] bg-white rounded-lg
