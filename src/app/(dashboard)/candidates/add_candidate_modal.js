@@ -38,7 +38,7 @@ const AddCandidateModal = ({show, handleClose, showTestModeModal}) => {
   }
 
   const uploadMultipleFiles = async (files) => {
-    logAnalyticsEvent(window, "FileUploadedEvent")
+    logAnalyticsEvent(window, "FileUploadAttemptEvent")
     setCurrentUploadStatus(UploadStatus.Started)
     setFilesWithUploadData(files)
     try{
