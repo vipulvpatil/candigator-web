@@ -58,7 +58,7 @@ const Menu = () => {
         </div>
         <SubtleButton
           handleClick={() => {
-            testModeDispatch({type:"turnOff"})
+            testModeDispatch({type: "turnOff"})
           }}
           customMargin="mt-1 mb-3"
         >

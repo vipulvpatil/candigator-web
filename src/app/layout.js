@@ -3,6 +3,8 @@ import GoogleAnalytics from "@/components/analytics/google_analytics"
 import GoogleTagManager from "@/components/analytics/google_tag_manager"
 import {NextAuthProvider} from "./AuthProvider"
 import {Quicksand} from "next/font/google"
+import TestModeProvider from "@/components/test_mode/test_mode_provider"
+
 
 const quicksand = Quicksand({
   weight: ["400", "600", "700"],
@@ -22,9 +24,11 @@ const RootLayout = ({children}) => {
       <GoogleAnalytics/>
       <GoogleTagManager/>
       <body className={quicksand.variable}>
-        <NextAuthProvider>
-          {children}
-        </NextAuthProvider>
+        <TestModeProvider>
+          <NextAuthProvider>
+            {children}
+          </NextAuthProvider>
+        </TestModeProvider>
       </body>
     </html>
   )

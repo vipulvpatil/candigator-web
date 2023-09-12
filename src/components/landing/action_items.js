@@ -11,7 +11,7 @@ const ActionItems = () => {
       <ActionItem
         label={"Try app features for free. No credit card required."}
         buttonLink="/candidates?testMode=true"
-        buttonLabel="Try for free now"
+        buttonLabel="Try now for free"
       />
       <ActionItem
         label={"Check out this detailed walkthrough of all the features."}

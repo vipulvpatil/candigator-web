@@ -3,7 +3,9 @@
 import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
+import {TestModeDispatchContext} from "@/components/test_mode/test_mode_contexts"
 import {signIn} from "next-auth/react"
+import {useContext} from "react"
 
 export const DemoButton = () => {
   return (
@@ -19,11 +21,15 @@ export const DemoButton = () => {
 }
 
 export const LoginButton = () => {
+  const testModeDispatch = useContext(TestModeDispatchContext)
   return (
     <FilledButton
       customPadding="px-4 py-3"
       customMargin="my-auto"
-      handleClick={()=>{signIn("google", {callbackUrl: "/candidates?p=1"})}}
+      handleClick={()=>{
+        testModeDispatch({type: "turnOff"})
+        signIn("google", {callbackUrl: "/candidates?p=1"})
+      }}
     >
       {"Login"}
     </FilledButton>
@@ -50,7 +56,6 @@ export const BigActionButton = ({label, link}) => {
         additionalStyling="text-[24px]"
         customPadding="px-7 py-4"
         customMargin="my-auto"
-        handleClick={()=>{signIn("google", {callbackUrl: ""})}}
       >
         {label}
       </FilledButton>
