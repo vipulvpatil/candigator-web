@@ -1,7 +1,7 @@
 import "./globals.css"
+import GoogleTagManager from "@/components/analytics/google_tag_manager"
 import {NextAuthProvider} from "./AuthProvider"
 import {Quicksand} from "next/font/google"
-import Script from "next/script"
 
 const quicksand = Quicksand({
   weight: ["400", "600", "700"],
@@ -18,17 +18,8 @@ export const metadata = {
 const RootLayout = ({children}) => {
   return (
     <html lang="en">
-      <Script src="https://www.googletagmanager.com/gtag/js?id=G-43N2P9YPN0" />
-      <Script id="google-analytics">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-43N2P9YPN0');
-        `}
-      </Script>
       <body className={quicksand.variable}>
+        <GoogleTagManager/>
         <NextAuthProvider>
           {children}
         </NextAuthProvider>
