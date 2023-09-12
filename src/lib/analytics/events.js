@@ -1,6 +1,7 @@
 
 const eventMap = {
   FileUploadAttemptEvent: "PRS_FileUploadAttemptEvent",
+  SignInAttemptEvent: "PRS_SignInAttemptEvent",
 }
 
 export const logAnalyticsEvent = async (window, eventName, data = null) => {

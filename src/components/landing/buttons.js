@@ -4,6 +4,7 @@ import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
 import {TestModeDispatchContext} from "@/components/test_mode/test_mode_contexts"
+import {logAnalyticsEvent} from "@/lib/analytics/events"
 import {signIn} from "next-auth/react"
 import {useContext} from "react"
 
@@ -28,6 +29,7 @@ export const LoginButton = () => {
       customMargin="my-auto"
       handleClick={()=>{
         testModeDispatch({type: "turnOff"})
+        logAnalyticsEvent(window, "SignInAttemptEvent")
         signIn("google", {callbackUrl: "/candidates?p=1"})
       }}
     >
