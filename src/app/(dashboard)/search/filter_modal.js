@@ -206,7 +206,7 @@ const FilterInputElement = (
     <div className="flex-grow">
       <input
         {...inputValueProps}
-        className="text-[20px] font-semibold py-1 px-1
+        className="text-[20px] font-semibold border-b-2 py-1 px-1
         outline-none bg-subtleColor/50 focus:bg-subtleColor/70
         text-black/80 inline w-full
         "
@@ -219,7 +219,7 @@ const FilterInputElement = (
         handleClick={handleRemove}
         additionalStyling="min-w-min"
         customMargin="ml-2"
-        customPadding="px-3">
+        customPadding="px-3 py-1.5">
         {"Delete"}
       </SubtleButton>
     </div>
