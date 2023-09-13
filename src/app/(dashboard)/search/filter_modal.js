@@ -13,7 +13,7 @@ const searchFilterSchema = yup.object().shape({
     yup.object().shape({
       criteria: yup.string().oneOf(criteriaOptions.map(obj => obj.value)),
       comparator: yup.string().oneOf(comparatorOptions.map(obj => obj.value)),
-      value: yup.mixed(),
+      value: yup.string().required(),
     })
   )
 })
@@ -24,7 +24,7 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
     register, handleSubmit, formState: {errors}, control, reset} = useForm(
     {
       resolver: yupResolver(searchFilterSchema),
-      values: {filters:[searchFilters]}
+      values: {filters:[...searchFilters]}
     }
   )
 
@@ -96,6 +96,7 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
                 inputValueProps={register(`filters.${index}.value`)}
                 handleRemove={() => removeFilter(index)}
                 control={control}
+                error={errors?.filters?.[index]}
               />
             </div>
           })}
@@ -152,7 +153,7 @@ const FilterModal = ({setSearchFilters, searchFilters, show, handleClose}) => {
 }
 
 const FilterInputElement = (
-  {inputCriteriaName, inputComparatorName, inputValueProps, handleRemove, control}
+  {inputCriteriaName, inputComparatorName, inputValueProps, handleRemove, control, error}
 ) => {
   return <div className="
     flex flex-wrap gap-2 place-content-between
@@ -163,20 +164,22 @@ const FilterInputElement = (
         name={inputCriteriaName}
         control={control}
         render={({field: {onChange, onBlur, value, name, ref}}) => {
-          return <Select
-          maxMenuHeight={150}
-          onChange={val => onChange(val.value)}
-          onBlur={onBlur}
-          value={criteriaOptions.find(c => c.value === value)}
-          name={name}
-          inputRef={ref}
-          options={criteriaOptions}
-          placeholder="Select Criteria"
-          className="text-[20px] font-semibold
-          bg-subtleColor/50 focus:bg-subtleColor/70
-          text-black/80 inline
-          "
-          />
+          return <div className={`${error?.criteria && "border-errorColor rounded-md border-2"}`}>
+            <Select
+              maxMenuHeight={150}
+              onChange={val => onChange(val.value)}
+              onBlur={onBlur}
+              value={criteriaOptions.find(c => c.value === value)}
+              name={name}
+              inputRef={ref}
+              options={criteriaOptions}
+              placeholder="Select Criteria"
+              className={`text-[20px] font-semibold
+              bg-subtleColor/50 focus:bg-subtleColor/70
+              text-black/80 inline
+              `}
+            />
+          </div>
         }}
       />
     </div>
@@ -186,30 +189,32 @@ const FilterInputElement = (
         name={inputComparatorName}
         control={control}
         render={({field: {onChange, onBlur, value, name, ref}}) => {
-          return <Select
-          maxMenuHeight={150}
-          onChange={val => onChange(val.value)}
-          onBlur={onBlur}
-          value={comparatorOptions.find(c => c.value === value)}
-          name={name}
-          inputRef={ref}
-          options={comparatorOptions}
-          placeholder="Select Comparator"
-          className="text-[20px] font-semibold
-          bg-subtleColor/50 focus:bg-subtleColor/70
-          text-black/80 inline
-          "
-          />
+          return <div className={`${error?.comparator && "border-errorColor rounded-md border-2"}`}>
+            <Select
+              maxMenuHeight={150}
+              onChange={val => onChange(val.value)}
+              onBlur={onBlur}
+              value={comparatorOptions.find(c => c.value === value)}
+              name={name}
+              inputRef={ref}
+              options={comparatorOptions}
+              placeholder="Select Comparator"
+              className="text-[20px] font-semibold
+              bg-subtleColor/50 focus:bg-subtleColor/70
+              text-black/80 inline
+              "
+            />
+          </div>
         }}
       />
     </div>
     <div className="flex-grow">
       <input
         {...inputValueProps}
-        className="text-[20px] font-semibold border-b-2 py-1 px-1
+        className={`text-[20px] font-semibold border-b-2 py-1 px-1
         outline-none bg-subtleColor/50 focus:bg-subtleColor/70
         text-black/80 inline w-full
-        "
+        ${error?.value && "border-errorColor rounded-md border-2"}`}
         placeholder="value"
       />
     </div>
