@@ -15,6 +15,10 @@ const UploadStatus = Object.freeze({
 	Failure: Symbol("Failure")
 })
 
+const statusIsNotStarted = (uploadStatus) => {
+  return uploadStatus === UploadStatus.NotStarted
+}
+
 const statusIsAllowUpload = (uploadStatus) => {
   return uploadStatus === UploadStatus.NotStarted || uploadStatus === UploadStatus.Failure
 }
@@ -111,8 +115,10 @@ const AddCandidateModal = ({show, handleClose, showTestModeModal}) => {
         <MultifilesWithUploadData
           filesWithUploadData={filesWithUploadData}
         />
-        <div>{"OR"}</div>
-        <div className="flex justify-center"><AddManuallyButton/></div>
+        {statusIsNotStarted(currentUploadStatus) && <>
+          <div className="font-semibold">{"OR"}</div>
+          <div className="flex justify-center"><AddManuallyButton/></div>
+        </>}
       </div>
     </>
   )

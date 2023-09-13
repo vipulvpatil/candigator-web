@@ -61,6 +61,15 @@ export const uploadFiles = async (filesWithUData) => {
 
 const uploadFile = async (fileWithUData) => {
   try {
+    if (fileWithUData.uploadData.error) {
+      return Object.assign(
+        fileWithUData,
+        {
+          status: "uploadFailure",
+          displayMessage: "Upload failed",
+        },
+      )
+    }
     var data = new FormData()
     data.append("file", fileWithUData.file)
     const resp = await fetch(fileWithUData.uploadData.presignedUrl, {
