@@ -1,6 +1,5 @@
 "use client"
 import BackButton from "@/components/buttons/back_button"
-import DeleteButton from "@/components/buttons/delete_button"
 import FileUploadDeleteModal from "./file_upload_delete_modal"
 import PageHeader from "@/components/page_header"
 import {useRouter} from "next/navigation"
@@ -13,13 +12,13 @@ const FileUploadDetail = ({fileUpload}) => {
   return <>
     <PageHeader title={"Uploaded File Data"}>
       <BackButton handleClick={() => router.back()}/>
-      <div className="inline-block w-5"/>
-      <DeleteButton handleClick={() => setShowFileUploadDeleteModal(true)}/>
+      {/* <div className="inline-block w-5"/>
+      <DeleteButton handleClick={() => setShowFileUploadDeleteModal(true)}/> */}
     </PageHeader>
-    <div className="flex flex-row m-[22px]">
+    <div className="flex flex-row m-[22px] overflow-hidden">
       <div className="
         flex-grow
-        p-[22px] bg-white rounded-lg h-[637px] overflow-y-scroll
+        p-[22px] bg-white rounded-lg h-full
       ">
         <div>
           <div className="text-[16px] font-bold mb-0 text-black/60">
@@ -61,9 +60,9 @@ const FileUploadDetail = ({fileUpload}) => {
             <div className="text-errorColor font-semibold text-[16px]">
               {"This file was used to populate a candidate's data. "}
             </div>
-            <div className="text-errorColor font-bold text-[16px]">
+            {/* <div className="text-errorColor font-bold text-[16px]">
               {"Deleting this file is not recommended"}
-            </div>
+            </div> */}
           </>
         }
       </div>
