@@ -191,7 +191,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
         className="w-full"
         ref={form}
       >
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("Name")}
             labelKey="Name"
@@ -200,7 +200,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           />
         </div>
         <div className="h-4"/>
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("Email")}
             labelKey="Email"
@@ -209,7 +209,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           />
         </div>
         <div className="h-4"/>
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("Phone")}
             labelKey="Phone"
@@ -218,7 +218,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           />
         </div>
         <div className="h-4"/>
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("City")}
             labelKey="City"
@@ -227,7 +227,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           />
         </div>
         <div className="h-4"/>
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("State")}
             labelKey="State"
@@ -236,7 +236,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           />
         </div>
         <div className="h-4"/>
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("Country")}
             labelKey="Country"
@@ -245,7 +245,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           />
         </div>
         <div className="h-4"/>
-        <div className="w-[60%]">
+        <div className="w-full">
           <EditablePersonaInputElement
             inputProps={register("YoE")}
             labelKey="YoE"
@@ -272,7 +272,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
             const handleRemove=()=> removeExperience(index)
             const handleMoveUp=index > 0 && (() => swap("Experience", index, index-1))
             const handleMoveDown=(index < experience.length-1) && (() => swap("Experience", index, index+1))
-            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-full">
               <EditablePersonaInputElement
                 inputProps={register(`Experience.${index}.${"Title"}`)}
                 labelKey={`Experience.${index}.${"Title"}`}
@@ -334,7 +334,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
             const handleRemove=()=> removeEducation(index)
             const handleMoveUp=index > 0 && (() => swap("Education", index, index-1))
             const handleMoveDown=(index < education.length-1) && (() => swap("Education", index, index+1))
-            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-full">
               <EditablePersonaInputElement
                 inputProps={register(`Education.${index}.${"Institute"}`)}
                 labelKey={`Education.${index}.${"Institute"}`}
@@ -374,7 +374,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           prependElement={prependTechSkill}
         >
           {techSkills.map((field, index) => {
-            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-full">
               <EditablePersonaInputElement
                 inputProps={register(`Tech Skills.${index}`)}
                 labelKey={`Tech Skills.${index}`}
@@ -396,7 +396,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           prependElement={prependSoftSkill}
         >
           {softSkills.map((field, index) => {
-            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-full">
               <EditablePersonaInputElement
                 inputProps={register(`Soft Skills.${index}`)}
                 labelKey={`Soft Skills.${index}`}
@@ -418,7 +418,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           prependElement={prependRecommendedRole}
         >
           {recommendedRoles.map((field, index) => {
-            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-full">
               <EditablePersonaInputElement
                 inputProps={register(`Recommended Roles.${index}`)}
                 labelKey={`Recommended Roles.${index}`}
@@ -440,7 +440,7 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
           prependElement={prependCertification}
         >
           {certifications.map((field, index) => {
-            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-[60%]">
+            return <div key={field.id} className="p-2 border-2 rounded-sm border-subtleColor mb-4 w-full">
               <EditablePersonaInputElement
                 inputProps={register(`Certifications.${index}`)}
                 labelKey={`Certifications.${index}`}
@@ -478,10 +478,10 @@ const PersonaForm = ({candidate, loggedIn, candidateId}) => {
         disabled={isSaving}
       />
     </PageHeader>
-    <div className="flex flex-row m-[22px]">
+    <div className="flex flex-row m-[22px] h-full overflow-hidden">
       <div className="
         flex-grow
-        p-[22px] bg-white rounded-lg h-[637px] overflow-y-scroll
+        p-[22px] bg-white rounded-lg h-full overflow-y-scroll
       ">
         {mainComponent}
       </div>
