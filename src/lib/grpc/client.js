@@ -51,6 +51,7 @@ const grpcServiceClient = () => {
       checkConnection: promisify(client.CheckConnection).bind(client),
       uploadFiles: promisify(client.UploadFiles).bind(client),
       completeFileUploads: promisify(client.CompleteFileUploads).bind(client),
+      getUserData: promisify(client.GetUserData).bind(client),
       getUnprocessedFileUploadsCount: promisify(client.GetUnprocessedFileUploadsCount).bind(client),
       getFileUploads: promisify(client.GetFileUploads).bind(client),
       getFileUpload: promisify(client.GetFileUpload).bind(client),
