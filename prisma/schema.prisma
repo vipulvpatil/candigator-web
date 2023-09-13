@@ -53,12 +53,13 @@ model User {
 }
 
 model Team {
-  id          String       @id @default(cuid())
-  name        String
-  users       User[]
-  fileUploads FileUpload[]
-  candidates  Candidate[]
-  createdAt   DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  id             String       @id @default(cuid())
+  name           String
+  users          User[]
+  fileUploads    FileUpload[]
+  candidates     Candidate[]
+  fileCountLimit Int          @default(100) @map("file_count_limit")
+  createdAt      DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
 
   @@map("teams")
 }
