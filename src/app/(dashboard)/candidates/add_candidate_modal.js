@@ -225,15 +225,15 @@ const MultifilesWithUploadData = ({
 }
 
 const FileStatus = ({fileWithUploadData}) => {
-  let icon = <div className="w-8 h-8 animate-spin text-primaryColor">
+  let icon = <div className="w-8 h-8 animate-spin text-primaryColor flex-shrink-0">
     <SpinnerIcon spinnerColor="#A30000"/>
   </div>
   if(fileWithUploadData.displayMessage === "Upload failed") {
-    icon = <div className="w-8 h-8 fill-errorColor">
+    icon = <div className="w-8 h-8 fill-errorColor flex-shrink-0">
       <ErrorIcon/>
     </div>
   } else if(fileWithUploadData.displayMessage === "Upload success") {
-    icon = <div className="w-8 h-8 fill-primaryColor">
+    icon = <div className="w-8 h-8 fill-primaryColor flex-shrink-0">
       <SuccessIcon/>
     </div>
   }
@@ -243,9 +243,9 @@ const FileStatus = ({fileWithUploadData}) => {
       h-[40px] w-full text-right
       flex items-center
     ">
-      <div className="overflow-hidden max-w-[275px] text-left">{fileWithUploadData.name}</div>
-      <div className="flex-grow"></div>
-      <div className="overflow-hidden max-w-[200px] pr-2 pl-4">{fileWithUploadData.displayMessage}</div>
+      <div className="overflow-hidden flex-grow text-left">{fileWithUploadData.name}</div>
+      <div className="w-10"></div>
+      <div className="overflow-hidden max-w-[200px] pr-2 pl-4 flex-shrink-0">{fileWithUploadData.displayMessage}</div>
         {icon}
     </div>
   </div>
