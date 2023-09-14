@@ -5,6 +5,7 @@ import FilesIcon from "@/icons/files"
 import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
+import SpinnerIcon from "@/icons/spinner"
 import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
 import {logAnalyticsEvent} from "@/lib/analytics/events"
 
@@ -98,7 +99,7 @@ const AddCandidateModal = ({show, handleClose, showTestModeModal}) => {
           mt-[100px] mb-auto
           ml-auto mr-auto w-[50%]
           p-[22px] rounded-lg
-          min-h-[200px] max-h-[500px] min-w-[400px]
+          min-h-[200px] max-h-[500px] min-w-[550px]
         bg-white
           drop-shadow-modal
           text-center
@@ -223,11 +224,17 @@ const MultifilesWithUploadData = ({
 
 const FileStatus = ({fileWithUploadData}) => {
   return <div className="border-b-[1px] border-subtleColor/30 w-full flex justify-between">
-    <div className="text-left">
-      {fileWithUploadData.name}
-    </div>
-    <div className="text-right">
-      {fileWithUploadData.displayMessage}
+    <div className="
+      whitespace-nowrap
+      h-[40px] w-full text-right
+      flex items-center
+    ">
+      <div className="overflow-hidden max-w-[300px] text-left">{fileWithUploadData.name}</div>
+      <div className="flex-grow"></div>
+      <div className="overflow-hidden max-w-[150px] pr-2 pl-4">{fileWithUploadData.displayMessage}</div>
+      <div className="w-8 h-8 animate-spin text-primaryColor">
+        <SpinnerIcon spinnerColor="#A30000"/>
+      </div>
     </div>
   </div>
 }

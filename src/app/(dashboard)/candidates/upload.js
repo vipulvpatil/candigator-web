@@ -81,7 +81,7 @@ const uploadFile = async (fileWithUData) => {
         fileWithUData,
         {
           status: "uploadSuccess",
-          displayMessage: "Upload almost done",
+          displayMessage: "Uploaded almost",
         },
       )
     } else {
@@ -151,7 +151,7 @@ const addUpdatedFileUploadDataToFiles = (uploadDataMap, completedFileUploads) =>
         fileUpload,
         {
           status: "completedSuccess",
-          displayMessage: "Upload successful",
+          displayMessage: "Upload success",
           uploadData: uploadDataMap[fileUpload.id],
         },
       )
