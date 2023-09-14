@@ -1,10 +1,16 @@
+"use client"
+
 import Image from "next/image"
+import ProductAnimationFullscreen from "@/components/landing/product_animation_fullscreen"
+import {useState} from "react"
 
 const ProductAnimation = () => {
-  return (
-    <div className="
-      w-[43%] min-w-[583px] max-w-[600px]
-    ">
+  const [showFullscreenAnimation, setShowFullscreenAnimation] = useState(false)
+  return <>
+    <div
+      className="w-[43%] min-w-[583px] max-w-[600px]"
+      onClick={() => setShowFullscreenAnimation(true)}
+    >
       <div className="flex">
         <div className="flex-grow"/>
         <div className="
@@ -39,7 +45,11 @@ const ProductAnimation = () => {
         <div className="flex-grow"/>
       </div>
     </div>
-  )
+    <ProductAnimationFullscreen
+      show={showFullscreenAnimation}
+      handleClick={() => setShowFullscreenAnimation(false)}
+    />
+  </>
 }
 
 export default ProductAnimation
