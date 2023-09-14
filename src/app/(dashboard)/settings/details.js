@@ -19,8 +19,6 @@ const Details = ({session, userData}) => {
     return <TestModeUnavailable/>
   }
 
-  console.log(userData)
-
   return <>
     <PageHeader title={"Settings"}/>
     <div className="m-[22px]">
@@ -38,7 +36,7 @@ const Details = ({session, userData}) => {
                 {"Currently used file count"}
               </div>
               <div className="border-subtleColor border-t-2 border-r-2 border-b-2 p-1">
-                {"Total file count"}
+                {"Total available file count"}
               </div>
               <div className="border-subtleColor border-l-2 border-r-2 border-b-2 font-bold text-black/90 p-1">
                 {userData.currentFileCount}
