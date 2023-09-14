@@ -18,7 +18,7 @@ const CandidateList = ({candidates, loggedIn}) => {
   const searchParams = useSearchParams()
   const p = parseInt(searchParams.get("p")) || 1
   const cid = searchParams.get("cid")
-  const [showAddCandidateModal, setShowAddCandidateModal] = useState(false)
+  const [showAddCandidateModal, setShowAddCandidateModal] = useState(candidates.length === 0)
   const [showLoginCTAModal, setShowLoginCTAModal] = useState(false)
   const [selectedCandidateId, setSelectedCandidateId] = useState(cid)
   const [selectedCandidate, setSelectedCandidate] = useState(null)
