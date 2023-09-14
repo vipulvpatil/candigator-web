@@ -1,11 +1,13 @@
 import {createCompletedFileUploadData, createFileUploadData, uploadFiles} from "./upload"
 import {useContext, useRef, useState} from "react"
 import AddCandidateIcon from "@/icons/add_candidate"
+import ErrorIcon from "@/icons/error"
 import FilesIcon from "@/icons/files"
 import FilledButton from "@/components/buttons/generic/filled_button"
 import Link from "next/link"
 import OutlineButton from "@/components/buttons/generic/outline_button"
 import SpinnerIcon from "@/icons/spinner"
+import SuccessIcon from "@/icons/success"
 import {TestModeContext} from "@/components/test_mode/test_mode_contexts"
 import {logAnalyticsEvent} from "@/lib/analytics/events"
 
@@ -106,7 +108,7 @@ const AddCandidateModal = ({show, handleClose, showTestModeModal}) => {
         "
       >
         <div className="text-[32px]">Add candidates</div>
-        <div>Select one or more PDF files to upload OR add candidates manually</div>
+        <div>Select one or more PDF files to upload</div>
         {actionButton}
         {currentUploadStatus === UploadStatus.Failure &&
           <div className="text-[20px] text-errorColor font-semibold mb-6">
@@ -223,6 +225,18 @@ const MultifilesWithUploadData = ({
 }
 
 const FileStatus = ({fileWithUploadData}) => {
+  let icon = <div className="w-8 h-8 animate-spin text-primaryColor">
+    <SpinnerIcon spinnerColor="#A30000"/>
+  </div>
+  if(fileWithUploadData.displayMessage === "Upload failed") {
+    icon = <div className="w-8 h-8 fill-errorColor">
+      <ErrorIcon/>
+    </div>
+  } else if(fileWithUploadData.displayMessage === "Upload success") {
+    icon = <div className="w-8 h-8 fill-primaryColor">
+      <SuccessIcon/>
+    </div>
+  }
   return <div className="border-b-[1px] border-subtleColor/30 w-full flex justify-between">
     <div className="
       whitespace-nowrap
@@ -232,9 +246,7 @@ const FileStatus = ({fileWithUploadData}) => {
       <div className="overflow-hidden max-w-[300px] text-left">{fileWithUploadData.name}</div>
       <div className="flex-grow"></div>
       <div className="overflow-hidden max-w-[150px] pr-2 pl-4">{fileWithUploadData.displayMessage}</div>
-      <div className="w-8 h-8 animate-spin text-primaryColor">
-        <SpinnerIcon spinnerColor="#A30000"/>
-      </div>
+        {icon}
     </div>
   </div>
 }
