@@ -114,7 +114,7 @@ const TestModeProvider = ({children}) => {
       testModeInLocalStorage.isEnabled = testModeParam
     }
     testModeDispatch({type: "init", data: testModeInLocalStorage})
-  }, [])
+  }, [searchParams])
 
   return <>
     <TestModeContext.Provider value={testMode}>

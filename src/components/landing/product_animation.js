@@ -8,7 +8,7 @@ const ProductAnimation = () => {
   const [showFullscreenAnimation, setShowFullscreenAnimation] = useState(false)
   return <>
     <div
-      className="w-[43%] min-w-[583px] max-w-[600px]"
+      className="w-[43%] min-w-[583px] max-w-[600px] cursor-pointer"
       onClick={() => setShowFullscreenAnimation(true)}
     >
       <div className="flex">
