@@ -33,7 +33,7 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
   } else {
     rowDetails = <>
       <div className={`
-        col-span-2 pr-5 py-1 pl-1
+        col-span-3 pr-5 py-1 pl-1
         border-b-2 border-subtleColor
         flex items-center
         text-[28px] ${textColor1}
@@ -55,20 +55,9 @@ const CandidateRow = ({candidate, selected, setSelectedCandidateId, showTopBorde
         </div>
       </div>
       <div className={`
-        col-span-2 pr-5 py-1
+        col-span-2 py-1 pr-1
         border-b-2 border-subtleColor
-        flex items-center
-        text-[24px] ${textColor2}
-        ${bgColor} ${topBorder}
-      `}>
-        <div className={`line-clamp-1 ${textFontStyle}`}>
-          {candidate.company}
-        </div>
-      </div>
-      <div className={`
-        col-span-1 py-1 pr-1
-        border-b-2 border-subtleColor
-        flex items-center
+        flex items-center justify-end
         text-[24px] ${textColor2} text-right
         ${bgColor} ${topBorder}
       `}>
