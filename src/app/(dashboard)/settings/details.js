@@ -31,7 +31,7 @@ const Details = ({session, userData}) => {
         </div>
         {userData &&
           <>
-            <div className="grid grid-cols-2 min-w-[500px] w-[50%]">
+            <div className="grid grid-cols-2 min-w-[580px] w-[50%]">
               <div className="border-subtleColor border-2 p-1">
                 {"Currently used file count"}
               </div>

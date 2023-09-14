@@ -3,7 +3,7 @@ import {BigActionButton} from "./buttons"
 const ActionItem = ({label, buttonLink, buttonLabel}) => {
   return (
     <div className="
-      w-[43%] min-w-[500px] max-w-[600px] h-[330px]
+      w-[43%] min-w-[583px] max-w-[600px] h-[330px]
       bg-white rounded-lg leading-snug
       flex flex-col justify-around gap-y-6 py-6
     ">

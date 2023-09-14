@@ -3,9 +3,9 @@ import {TryNowForFreeButton} from "./buttons"
 const ProductDescription = () => {
   return (
     <div className="
-      w-[43%] min-w-[500px] max-w-[600px] h-[427px]
+      w-[43%] min-w-[583px] max-w-[600px] h-[350px]
       bg-white rounded-lg leading-snug
-      flex flex-col justify-evenly
+      flex flex-col justify-evenly pt-2
     ">
       <div className="
         flex justify-center font-semibold text-[24px] text-center
@@ -17,16 +17,11 @@ const ProductDescription = () => {
         font font-semibold text-[18px] mx-auto
         min-w-[360px] max-w-[420px]
       ">
-        <div className="flex flex-col h-[145px] justify-between">
+        <div className="flex flex-col h-[145px] justify-between py-4">
           <div className="flex items-center">
             <div className="
               bg-secondaryColor w-5 h-5 rounded-xl mr-4
             "></div>{"Process 100s of Resumes using Chat GPT"}
-          </div>
-          <div className="flex items-center">
-            <div className="
-              bg-secondaryColor w-5 h-5 rounded-xl mr-4
-            "></div>{"Easily edit processed candidate data"}
           </div>
           <div className="flex items-center">
             <div className="
@@ -41,7 +36,7 @@ const ProductDescription = () => {
         </div>
       </div>
       <div className="
-        flex justify-center
+        flex justify-center pb-5
       ">
         <TryNowForFreeButton/>
       </div>
