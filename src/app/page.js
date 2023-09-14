@@ -19,7 +19,7 @@ const Home = () => {
           text-center text-white text-[44px] font-semibold
           max-w-[1000px] w-[80%]
         ">
-          {"Spend less time identifying the right candidate and more time talking to them."}
+          {"Leveraging Chat GPT and Open AI to improve your candidate searches"}
         </div>
         <ProcessStages/>
         <div className="
@@ -27,7 +27,7 @@ const Home = () => {
           text-center text-white text-[44px] font-semibold
           max-w-[1000px] w-[80%]
         ">
-          {"AI has helped countless people become more efficient in their day to day lives. Join us in this revolution."}
+          {"Spend less time identifying the right candidate and more time talking to them."}
         </div>
         <ActionItems/>
       </div>

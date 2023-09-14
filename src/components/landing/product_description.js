@@ -21,7 +21,7 @@ const ProductDescription = () => {
           <div className="flex items-center">
             <div className="
               bg-secondaryColor w-5 h-5 rounded-xl mr-4
-            "></div>{"Process 100s of Resumes using Open AI / Chat GPT"}
+            "></div>{"Process 100s of Resumes using Chat GPT"}
           </div>
           <div className="flex items-center">
             <div className="
