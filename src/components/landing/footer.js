@@ -16,9 +16,9 @@ const Footer = () => {
         {"© 2023 Vipul V Patil. All Rights Reserved."}
       </div>
       <div className="flex-grow"/>
-      <Link href="/tos">Terms of Service</Link>
+      <Link href="/terms_of_service">Terms of Service</Link>
       <div className="w-7"/>
-      <Link href="/tos">Privacy Policy</Link>
+      <Link href="/privacy_policy">Privacy Policy</Link>
     </div>
   </>)
 }
