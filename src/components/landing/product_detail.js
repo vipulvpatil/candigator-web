@@ -1,6 +1,5 @@
 import ProductAnimation from "./product_animation"
 import ProductDescription from "./product_description"
-import ProductScreenshot from "./product_screenshot"
 
 const ProductDetail = () => {
   return (
@@ -11,7 +10,6 @@ const ProductDetail = () => {
       gap-y-12 py-12
     ">
       <ProductDescription/>
-      {/* <ProductScreenshot/> */}
       <ProductAnimation/>
     </div>
   )

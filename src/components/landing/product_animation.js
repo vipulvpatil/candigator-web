@@ -22,6 +22,8 @@ const ProductAnimation = () => {
             src="/product_demo.gif"
             alt="Product image"
             fill
+            placeholder="blur"
+            blurDataURL="/screenshot_blur.jpg"
           ></Image>
         </div>
         <div className="w-[25px]"/>

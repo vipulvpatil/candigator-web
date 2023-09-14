@@ -1,3 +1,5 @@
+// 15th Sept 2023: This file is not currently used.
+// TODO: Remove it at a future time.
 import Image from "next/image"
 
 const ProductScreenshot = () => {
