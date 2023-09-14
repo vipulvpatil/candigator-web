@@ -166,7 +166,7 @@ const FilterInputElement = (
         render={({field: {onChange, onBlur, value, name, ref}}) => {
           return <div className={`${error?.criteria && "border-errorColor rounded-md border-2"}`}>
             <Select
-              maxMenuHeight={150}
+              maxMenuHeight={175}
               onChange={val => onChange(val.value)}
               onBlur={onBlur}
               value={criteriaOptions.find(c => c.value === value)}
@@ -191,7 +191,7 @@ const FilterInputElement = (
         render={({field: {onChange, onBlur, value, name, ref}}) => {
           return <div className={`${error?.comparator && "border-errorColor rounded-md border-2"}`}>
             <Select
-              maxMenuHeight={150}
+              maxMenuHeight={175}
               onChange={val => onChange(val.value)}
               onBlur={onBlur}
               value={comparatorOptions.find(c => c.value === value)}

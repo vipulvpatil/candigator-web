@@ -10,7 +10,8 @@ const PaginatedList = (
     itemList, itemRowFunc,
     selectedItemId, setSelectedItem,
     view,
-    selectedPage, setSelectedPage
+    selectedPage, setSelectedPage,
+    emptyState
   }
 ) => {
   const [visibleItems, setVisibleItems] = useState([])
@@ -59,7 +60,7 @@ const PaginatedList = (
   }, [selectedItemId, itemList, setSelectedItem])
 
   useEffect(() => {
-    if(itemList) {
+    if(itemList?.length > 0) {
       const initialIndex = (selectedPage-1) * ITEMS_PER_PAGE
       let availableItems = itemList.slice(initialIndex, initialIndex+ITEMS_PER_PAGE)
 
@@ -70,14 +71,18 @@ const PaginatedList = (
       }
       setVisibleItems(availableItems)
     }
+    else {
+      setVisibleItems([])
+    }
   }, [selectedPage, itemList])
 
   if(!visibleItems || visibleItems.length === 0) {
-    return <></>
+    return <>{emptyState}</>
   }
 
   return <>
-    {visibleItems.map((item, index) => {
+    {
+    visibleItems.map((item, index) => {
       if (item && item.id) {
         const showTopBorder=(index == 0)
         return itemRowFunc(item, showTopBorder)

@@ -106,6 +106,13 @@ const SearchResults = ({candidates, loggedIn}) => {
           setSelectedPage={(pageNumber) => {
             setPageNumberAndSelectedCandidate(pageNumber, selectedCandidateId)
           }}
+          emptyState={
+            <div className="
+              text-errorColor font-semibold text-[22px] col-span-7
+            ">
+              {"No results found. Please update the search filters."}
+            </div>
+          }
         />
       </div>
       <CandidateDetails candidate={selectedCandidate} onClose={() => {

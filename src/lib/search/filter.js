@@ -1,17 +1,17 @@
 export const criteriaOptions = [
-  {label:"Name", value: "Name", optType: "string"},
-  {label:"Email", value: "Email", optType: "string"},
-  {label:"Phone", value: "Phone", optType: "string"},
+  {label:"Tech Skills", value: "Tech Skills", optType: "stringArray"},
+  {label:"Soft Skills", value: "Soft Skills", optType: "stringArray"},
+  {label:"Years of Experience", value: "YoE", optType: "number"},
+  {label:"Recommended Roles", value: "Recommended Roles", optType: "stringArray"},
+  {label:"Education", value: "Education", optType: "objectArray"},
+  {label:"Experience", value: "Experience", optType: "objectArray"},
   {label:"State", value: "State", optType: "string"},
   {label:"City", value: "City", optType: "string"},
   {label:"Country", value: "Country", optType: "string"},
-  {label:"Years of Experience", value: "YoE", optType: "number"},
-  {label:"Experience", value: "Experience", optType: "objectArray"},
-  {label:"Education", value: "Education", optType: "objectArray"},
-  {label:"Tech Skills", value: "Tech Skills", optType: "stringArray"},
-  {label:"Soft Skills", value: "Soft Skills", optType: "stringArray"},
-  {label:"Recommended Roles", value: "Recommended Roles", optType: "stringArray"},
   {label:"Certifications", value: "Certifications", optType: "stringArray"},
+  {label:"Name", value: "Name", optType: "string"},
+  {label:"Email", value: "Email", optType: "string"},
+  {label:"Phone", value: "Phone", optType: "string"},
 ]
 
 const criteriaTypeMapping = Object.fromEntries(
