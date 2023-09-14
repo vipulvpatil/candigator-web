@@ -243,9 +243,9 @@ const FileStatus = ({fileWithUploadData}) => {
       h-[40px] w-full text-right
       flex items-center
     ">
-      <div className="overflow-hidden max-w-[300px] text-left">{fileWithUploadData.name}</div>
+      <div className="overflow-hidden max-w-[275px] text-left">{fileWithUploadData.name}</div>
       <div className="flex-grow"></div>
-      <div className="overflow-hidden max-w-[150px] pr-2 pl-4">{fileWithUploadData.displayMessage}</div>
+      <div className="overflow-hidden max-w-[200px] pr-2 pl-4">{fileWithUploadData.displayMessage}</div>
         {icon}
     </div>
   </div>

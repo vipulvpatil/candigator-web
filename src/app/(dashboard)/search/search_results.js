@@ -110,7 +110,10 @@ const SearchResults = ({candidates, loggedIn}) => {
             <div className="
               text-errorColor font-semibold text-[22px] col-span-7
             ">
-              {"No results found. Please add more candidates or update the search filters."}
+              {candidates?.length > 0?
+              "No results found. Please add more candidates or update the search filters.":
+              "No results found. Please add some candidates."
+              }
             </div>
           }
         />
