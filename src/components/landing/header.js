@@ -1,4 +1,5 @@
 import {DemoButton, LoginButton} from "./buttons"
+import Link from "next/link"
 import ProspectLogo from "@/icons/logo/prospect_logo"
 
 const Header = () => {
@@ -9,15 +10,21 @@ const Header = () => {
         leading-none py-2 px-4
       ">
         <div className="w-[30px] relative top-[-2px]">
-          <ProspectLogo dotColor={"#A30000"} mainColor={"#006989"}/>
+          <Link href="/">
+            <ProspectLogo dotColor={"#A30000"} mainColor={"#006989"}/>
+          </Link>
         </div>
-        <div className="flex flex-row relative top-[-3px] text-[52px]">
-          <div className="text-secondaryColor pl-5">
-            {"P"}
-          </div>
-          <div className="text-primaryColor">
-            {"rospect"}
-          </div>
+        <div className="flex flex-row relative top-[-2px] text-[52px]">
+          <Link href="/">
+            <div className="text-secondaryColor pl-3">
+              {"P"}
+            </div>
+          </Link>
+          <Link href="/">
+            <div className="text-primaryColor">
+              {"rospect"}
+            </div>
+          </Link>
         </div>
 
         <div className="flex-grow"/>
