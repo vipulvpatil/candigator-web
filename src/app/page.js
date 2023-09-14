@@ -15,7 +15,7 @@ const Home = () => {
       ">
         <ProductDetail/>
         <div className="
-          display mx-auto my-12
+          display mx-auto mt-6 mb-12
           text-center text-white text-[44px] font-semibold
           max-w-[1000px] w-[80%]
         ">

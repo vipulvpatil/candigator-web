@@ -12,6 +12,13 @@ const ProductAnimation = () => {
       onClick={() => setShowFullscreenAnimation(true)}
     >
       <div className="flex">
+        <div className="
+          w-[25px] h-[25px]
+          border-t-2
+          border-l-2
+          rounded-tl-lg
+          border-secondaryColor
+        "/>
         <div className="flex-grow"/>
         <div className="
           w-[25px] h-[25px]
@@ -43,6 +50,13 @@ const ProductAnimation = () => {
           border-secondaryColor
         "/>
         <div className="flex-grow"/>
+        <div className="
+          w-[25px] h-[25px]
+          border-b-2
+          border-r-2
+          rounded-br-lg
+          border-secondaryColor
+        "/>
       </div>
     </div>
     <ProductAnimationFullscreen
